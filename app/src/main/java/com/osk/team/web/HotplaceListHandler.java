@@ -33,7 +33,7 @@ public class HotplaceListHandler extends HttpServlet {
     out.println("<body>");
     out.println("<h1>핫플레이스 목록</h1>");
 
-    out.println("<p><a href='hotplace.html'>새 글</a></p>");
+    out.println("<p><a href='club.html'>새 글</a></p>");
 
     try {
 
@@ -50,7 +50,7 @@ public class HotplaceListHandler extends HttpServlet {
       for (Hotplace h : hotplaces) {
         out.printf("<tr>"
                         + " <td>%d</td>"
-                        + " <td><a href='detail?title=%1$d'>%s</a></td>"
+                        + " <td><a href='hotplace.html'>%s</a></td>"
                         + " <td>%s</td>"
                         + " <td>%s</td>"
                         + " <td>%d</td>"

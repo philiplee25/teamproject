@@ -81,13 +81,3 @@ values ('4', '대청댐', 'damn', '2020-1-1', '1', '대전광역시 대덕구', 
 insert into hotplace(hno, htitle, hcontent, hdate, hcount, haddr, hphoto)
 values ('5', '경주월드', '테마파크', '2020-1-1', '1', '경상북도 경주시', '경주월드.jpg');
 
-
-
-
-
-
-
-
-
-
-
