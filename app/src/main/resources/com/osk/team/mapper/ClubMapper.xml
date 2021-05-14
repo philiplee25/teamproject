@@ -14,6 +14,7 @@
     <result column="csdt" property="startDate"/>
     <result column="cedt" property="endDate"/>
     <result column="ctotal" property="total"/>
+<!--    <result column="c_photo.cno" property="no"/>-->
 
     <association property="writer" javaType="member">
       <id column="writer_no" property="no"/>
@@ -25,13 +26,48 @@
       <result column="member_name" property="name"/>
     </association>
 
+<!--    &lt;!&ndash;사진&ndash;&gt;-->
+    <association property="photo1" javaType="string">
+      <id column="cno" property="no1"/>
+      <result column="c_pho" property="name1"/>
+    </association>
+
+<!--    <association property="photo2" javaType="string">-->
+<!--      <id column="cno" property="no2"/>-->
+<!--      <result column="c_pho" property="name2"/>-->
+<!--    </association>-->
+
+<!--    <association property="photo3" javaType="string">-->
+<!--      <id column="cno" property="no3"/>-->
+<!--      <result column="c_pho" property="name3"/>-->
+<!--    </association>-->
+
   </resultMap>
+
+<!--  &lt;!&ndash; >클럽 게시판에 클럽 삽입<&ndash;&gt;-->
+<!--  <insert id="insert" parameterType="club" useGeneratedKeys="true" keyColumn="cno" keyProperty="cno">-->
+<!--    insert into club(cno, mno, carrive, ctheme, ctitle, ccontent, csdt, cedt, ctotal, photo1)-->
+<!--    values (#{no}, #{writer.no}, #{arrive}, #{theme},-->
+<!--            #{title}, #{content}, #{startDate}, #{endDate},-->
+<!--            #{total}, #{c_pho.name1});-->
+<!--  </insert>-->
+
 
   <!-- >클럽 게시판에 클럽 삽입<-->
   <insert id="insert" parameterType="club">
     insert into club(cno, mno, carrive, ctheme, ctitle, ccontent, csdt, cedt, ctotal)
-    values (#{no}, #{writer.no}, #{arrive}, #{theme}, #{title}, #{content}, #{startDate}, #{endDate}, #{total})
+    values (#{no}, #{writer.no}, #{arrive}, #{theme},
+            #{title}, #{content}, #{startDate}, #{endDate},
+            #{total});
+    insert into c_photo(c_pno,cno,c_pho)
+    values (#{no},#{club.no},#{photo1.name1});
   </insert>
+
+<!--  <insert id="insert" parameterType="project"-->
+<!--          useGeneratedKeys="true" keyColumn="no" keyProperty="no">-->
+<!--    insert into pms_project(title,content,sdt,edt,owner)-->
+<!--    values(#{title}, #{content}, #{startDate}, #{endDate}, #{owner.no})-->
+<!--  </insert>-->
 
   <select id="findByKeyword" resultMap="clubMap" parameterType="string">
     select
@@ -75,8 +111,6 @@
     where c.cno = #{value}
   </select>
 
-
-
 <!--멤버추가-->
   <insert id="insertMember" parameterType="map">
     insert into c_member(mno,cno)
@@ -107,42 +141,6 @@
     where
       mp.cno=#{value}
   </select>
-
-
-
-
-<!--  &lt;!&ndash;사진추가&ndash;&gt;-->
-<!--  <insert id="insertPhoto" parameterType="map">-->
-<!--    insert into c_photo(c_pno, cno)-->
-<!--    values (#{photoNo}, #{clubNo})-->
-<!--  </insert>-->
-
-<!--  <insert id="insertPhotos" parameterType="map">-->
-<!--    insert into c_photo(c_pno,cno)-->
-<!--    values-->
-<!--    <foreach collection="photos" item="p" separator=",">-->
-<!--      (#{p.c_pno}, #{clubNo})-->
-<!--    </foreach>-->
-<!--  </insert>-->
-
-<!--  &lt;!&ndash;사진삭제&ndash;&gt;-->
-<!--  <delete id="deletePhoto" parameterType="int">-->
-<!--    delete from c_photo-->
-<!--    where clubNo=#{value}-->
-<!--  </delete>-->
-
-<!--  &lt;!&ndash;사진불러오기&ndash;&gt;-->
-<!--  <select id="findAllPhotos" resultType="String" parameterType="int">-->
-<!--    select-->
-<!--      m.no,-->
-<!--      m.name-->
-<!--    from c_photo cp-->
-<!--           inner join club c on cp.c_pno=c.cno-->
-<!--    where-->
-<!--      mp.cno=#{value}-->
-<!--  </select>-->
-
-
 
   <update id="update" parameterType="club">
     update club set

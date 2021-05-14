@@ -14,28 +14,32 @@
     <result column="haddr" property="address"/>
     <result column="hphoto" property="photo"/>
 
-<!--    <association property="mname" javaType="member">-->
-<!--      <id column="writer_no" property="mno"/>-->
-<!--      <result column="writer_name" property="mname"/>-->
-<!--    </association>-->
+    <!--    <association property="mname" javaType="member">-->
+    <!--      <id column="writer_no" property="mno"/>-->
+    <!--      <result column="writer_name" property="mname"/>-->
+    <!--    </association>-->
 
   </resultMap>
+  
+    <insert id="insert" parameterType="hotplace">
+    insert into hotplace(htitle, hcontent, hdate, hcount, haddress, hphoto) 
+    values(#{title}, #{content}, #{date}, #{count}, #{addr}, #{photo})
+  </insert>
 
   <select id="findByKeyword" resultMap="hotplaceMap" parameterType="String">
     select
-    h.hno,
-    h.htitle,
-    h.hcontent,
-    h.hdate,
-    h.hcount,
-    h.haddr,
-    h.hphoto
+      h.hno,
+      h.htitle,
+      h.hcontent,
+      h.hdate,
+      h.hcount,
+      h.haddr,
+      h.hphoto
     from hotplace h
     order by h.hno desc
   </select>
 
 </mapper>
-
 
 
 

@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import javax.swing.text.Position;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -40,7 +39,6 @@ public class ClubAddHandler extends HttpServlet {
 
         ClubService clubService = (ClubService) request.getServletContext().getAttribute("clubService");
 
-
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -48,9 +46,11 @@ public class ClubAddHandler extends HttpServlet {
         out.println("<html>");
         out.println("<head>");
         out.println("<title>클럽 등록</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>클럽 등록</h1>");
 
         try {
-            request.setCharacterEncoding("UTF-8");
             Club c = new Club();
 
             c.setArrive(request.getParameter("arrive"));
@@ -66,91 +66,84 @@ public class ClubAddHandler extends HttpServlet {
             Member loginUser = (Member) request.getSession().getAttribute("loginUser");//회원번호로 받기
             c.setWriter(loginUser);
 
-            String[] members = request.getParameterValues("members");//클럽 생성자가 들어간다
-            ArrayList<Member> memberList = new ArrayList<>();
-            for (String value : members) {
-                Member m = new Member();
-                m.setNo(Integer.parseInt(value));
-                memberList.add(loginUser);
-            }
-            c.setMembers(memberList);
+//            String[] members = request.getParameterValues("members");//클럽 생성자가 들어간다
+//            ArrayList<Member> memberList = new ArrayList<>();
+//            for (String value : members) {
+//                Member m = new Member();
+//                m.setNo(Integer.parseInt(value));
+//                memberList.add(loginUser);
+//            }
+//            c.setMembers(memberList);
 
             ///////////////사진 받기
-            Part photoPart1 = request.getPart("photo1");
-            if (photoPart1.getSize() > 0) {
-                //파일을 선택해서 업로드 했다면
+            Part photoPart = request.getPart("photo1");
+            if (photoPart.getSize() > 0) {
+                // 파일을 선택해서 업로드 했다면,
                 String filename = UUID.randomUUID().toString();
-                photoPart1.write(this.uploadDir + "/" + filename);
+                photoPart.write(this.uploadDir + "/" + filename);
                 c.setPhoto1(filename);
 
-                Thumbnails.of(this.uploadDir + "/" + filename).
-                        size(254, 178)
+                // 썸네일 이미지 생성
+                Thumbnails.of(this.uploadDir + "/" + filename)
+                        .size(254, 178)
                         .outputFormat("jpg")
                         .crop(Positions.CENTER)
                         .toFiles(new Rename() {
                             @Override
                             public String apply(String name, ThumbnailParameter param) {
-                                return name + "_254*178";
+                                return name + "_254x178";
                             }
                         });
             }
 
-            Part photoPart2 = request.getPart("photo2");
-            if (photoPart2.getSize() > 0) {
-                //파일을 선택해서 업로드 했다면
-                String filename = UUID.randomUUID().toString();
-                photoPart2.write(this.uploadDir + "/" + filename);
-                c.setPhoto1(filename);
-
-                Thumbnails.of(this.uploadDir + "/" + filename).
-                        size(254, 178)
-                        .outputFormat("jpg")
-                        .crop(Positions.CENTER)
-                        .toFiles(new Rename() {
-                            @Override
-                            public String apply(String name, ThumbnailParameter param) {
-                                return name + "_254*178";
-                            }
-                        });
-            }
-
-            Part photoPart3 = request.getPart("photo3");
-            if (photoPart3.getSize() > 0) {
-                //파일을 선택해서 업로드 했다면
-                String filename = UUID.randomUUID().toString();
-                photoPart3.write(this.uploadDir + "/" + filename);
-                c.setPhoto1(filename);
-
-                Thumbnails.of(this.uploadDir + "/" + filename).
-                        size(254, 178)
-                        .outputFormat("jpg")
-                        .crop(Positions.CENTER)
-                        .toFiles(new Rename() {
-                            @Override
-                            public String apply(String name, ThumbnailParameter param) {
-                                return name + "_254*178";
-                            }
-                        });
-            }
+//            Part photoPart2 = request.getPart("photo2");
+//            if (photoPart2.getSize() > 0) {
+//                //파일을 선택해서 업로드 했다면
+//                String filename = UUID.randomUUID().toString();
+//                photoPart2.write(this.uploadDir + "/" + filename);
+//                c.setPhoto1(filename);
+//
+//                Thumbnails.of(this.uploadDir + "/" + filename).
+//                        size(254, 178)
+//                        .outputFormat("jpg")
+//                        .crop(Positions.CENTER)
+//                        .toFiles(new Rename() {
+//                            @Override
+//                            public String apply(String name, ThumbnailParameter param) {
+//                                return name + "_254*178";
+//                            }
+//                        });
+//            }
+//
+//            Part photoPart3 = request.getPart("photo3");
+//            if (photoPart3.getSize() > 0) {
+//                //파일을 선택해서 업로드 했다면
+//                String filename = UUID.randomUUID().toString();
+//                photoPart3.write(this.uploadDir + "/" + filename);
+//                c.setPhoto1(filename);
+//
+//                Thumbnails.of(this.uploadDir + "/" + filename).
+//                        size(254, 178)
+//                        .outputFormat("jpg")
+//                        .crop(Positions.CENTER)
+//                        .toFiles(new Rename() {
+//                            @Override
+//                            public String apply(String name, ThumbnailParameter param) {
+//                                return name + "_254*178";
+//                            }
+//                        });
+//            }
             ////////////////////////////////
 
-
             clubService.add(c);
-
-            out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>클럽 등록</h1>");
             out.println("<p>클럽 등록했습니다.</p>");
+            response.setHeader("Refresh", "0;url=list");
 
         } catch (Exception e) {
             StringWriter strWriter = new StringWriter();
             PrintWriter printWriter = new PrintWriter(strWriter);
             e.printStackTrace(printWriter);
 
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>클럽 등록 오류</h1>");
             out.printf("<pre>%s</pre>\n", strWriter.toString());
             out.println("<p><a href='list'>클럽 목록</a></p>");
         }
@@ -159,7 +152,7 @@ public class ClubAddHandler extends HttpServlet {
         out.println("</html>");
     }
 
-//    @Override
+///    @Override
 //    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //
 ////        ClubService clubService = (ClubService) request.getServletContext().getAttribute("clubService");

@@ -12,19 +12,19 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
-import java.io.IOException;
+import javax.servlet.http.HttpServlet;
 import java.io.InputStream;
 
-@WebServlet(value = "/init", loadOnStartup = 1)
-public class AppInitHandler implements Servlet {
+@SuppressWarnings("serial")
+public class AppInitHandler extends HttpServlet {
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init() throws ServletException {
 
         try {
             // 1) Mybatis 관련 객체 준비
             InputStream mybatisConfigStream = Resources.getResourceAsStream(
-                    "com/osk/team/conf/mybatis-config.xml");
+                    this.getInitParameter("mybatis-config"));
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(mybatisConfigStream);
             SqlSessionFactoryProxy sqlSessionFactoryProxy = new SqlSessionFactoryProxy(sqlSessionFactory);
 
@@ -46,7 +46,7 @@ public class AppInitHandler implements Servlet {
             QnaService qnaService = new DefaultQnaService(qnaDao);
 
             // 4) 서비스 객체를 ServletContext 보관소에 저장한다.
-            ServletContext servletContext = config.getServletContext();
+            ServletContext servletContext = this.getServletContext();
 
             servletContext.setAttribute("boardService", boardService);
             servletContext.setAttribute("clubService", clubService);
@@ -54,29 +54,10 @@ public class AppInitHandler implements Servlet {
             servletContext.setAttribute("memberService", memberService);
             servletContext.setAttribute("qnaService", qnaService);
 
-            System.out.println("의존 객체를 모두 준비하였습니다.");
+            System.out.println("AppInitHandler: 의존 객체를 모두 준비하였습니다.");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void destroy() {
-    }
-
-    @Override
-    public ServletConfig getServletConfig() {
-        return null;
-    }
-
-    @Override
-    public String getServletInfo() {
-        return null;
-    }
-
-    @Override
-    public void service(ServletRequest request, ServletResponse response)
-            throws ServletException, IOException {
     }
 }

@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.osk.team.dao.BoardDao">
-  
+
   <resultMap id="boardMap" type="board">
     <id column="bno" property="no"/>
-    <result column="b_tno" property="tno"/>
-    <result column="bcount" property="count"/>
-    <result column="btitle" property="btitle"/>
-    <result column="bcontent" property="bcontent"/>
-    <result column="bdate" property="bdate"/>
+    <!--   <result column="b_tno" property="tno"/>   게시판 종류번호(다른테이블) 보류   -->
+    <result column="btitle" property="title"/>
+    <result column="bcontent" property="content"/>
+    <result column="bcount" property="viewCount"/>
+    <result column="bdate" property="registeredDate"/>
 
     <association property="writer" javaType="member">
-	    <id column="writer_no" property="mno"/>
-	    <result column="writer_name" property="mname"/>
+      <id column="writer_no" property="no"/>
+      <result column="writer_name" property="name"/>
     </association>
-    
+
+
   </resultMap>
-  
+
   <insert id="insert" parameterType="board">
-    insert into board(b_tno, btitle, bcontent)
-    values (#{b_tno}, #{btitle}, #{bcontent})
+    insert into board(btitle, bcontent, bcount, bdate ,mno, b_tno )
+    values (#{title}, #{content}, #{viewCount}, #{registeredDate} ,#{writer.no}, #{boardTypeNo})
   </insert>
 
   <select id="findByKeyword" resultMap="boardMap" parameterType="string">
     select
-    b.no,
+    b.bno,
     b.btitle,
-    b.bcontent,
-    m.mno as writer_no
+
+    b.bdate,
+    b.bcount,
+    m.mno as writer_no,
+    m.mname as writer_name,
+    t.b_tno
     from board b
     inner join member m on m.mno=b.mno
+    inner join b_type t on t.b_tno=b.b_tno
 
     <if test="value != null">
       where
@@ -43,21 +49,28 @@
 
     order by b.bno desc
   </select>
-  
+
   <select id="findByNo" resultMap="boardMap" parameterType="int">
     select
-      b.no,
-      b.title,
-      b.content,
-      b.date,
-      b.count,
-      b.t_bno,
-      m.mno as writer_no,
-      m.mname as writer_name
+      b.bno,
+      b.btitle,
+      b.bcontent,
+      b.bdate,
+      b.bcount,
+      m.mno as mno,
+      m.mname as mname,
+      t.b_tno
     from board b
-      inner join member m on m.mno=b.writer
+           inner join member m on m.mno=b.mno
+           inner join b_type t on t.b_tno=b.b_tno
     where b.bno = #{value}
   </select>
+
+  <update id="updateViewCount" parameterType="int">
+    update board set
+      bcount = bcount  + 1
+    where bno = #{value}
+  </update>
 
   <update id="update" parameterType="board">
     update board

@@ -3,7 +3,6 @@ package com.osk.team.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +32,7 @@ public class HotplaceListHandler extends HttpServlet {
     out.println("<body>");
     out.println("<h1>핫플레이스 목록</h1>");
 
-    out.println("<p><a href='club.html'>새 글</a></p>");
+    out.println("<p><a href='hotplaceAdd.html'>새 글</a></p>");
 
     try {
 
