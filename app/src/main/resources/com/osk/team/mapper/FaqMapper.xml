@@ -18,9 +18,9 @@
 
   </resultMap>
   
-   <insert id="insert" parameterType="discount">
-    insert into discount(dtitle, dcontent, ddate, dcount, dphoto) 
-    values(#{title}, #{content}, #{date}, #{count}, #{photo})
+   <insert id="insert" parameterType="faq">
+    insert into faq(ftitle, fcontent, fdate) 
+    values(#{title}, #{content}, #{date})
   </insert>
 
   <select id="findByKeyword" resultMap="faqMap" parameterType="string">
@@ -37,20 +37,23 @@
   
   <select id="findByNo" resultMap="faqMap" parameterType="int">
     select
-      d.dno,
-      d.dtitle,
-      d.dcontent,
-      d.ddate,
-      d.dcount,
-      d.dphoto
-    from discount d
-    where d.dno = #{value}
+      f.fno,
+      f.ftitle,
+      f.fcontent,
+      f.fdate
+
+    from faq f
+
+    where f.fno = #{value}
   </select>
   
-    <update id="update" parameterType="discount">
+  <update id="update" parameterType="faq">
     update faq set
-        title = #{title}, 
-        content = #{content}
+    
+        ftitle = #{title}, 
+        fcontent = #{content},
+        fdate = #{date}
+        
     where fno = #{no}
   </update>
   
@@ -60,7 +63,7 @@
   </delete>
 
 </mapper>
-
+ 
 
 
 

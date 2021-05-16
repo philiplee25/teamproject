@@ -3,7 +3,9 @@ package com.osk.team.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,7 @@ import com.osk.team.domain.Faq;
 import com.osk.team.service.FaqService;
 
 @SuppressWarnings("serial")
+@WebServlet("/faq/add")
 public class FaqAddHandler extends HttpServlet {
 
   @Override
@@ -23,6 +26,7 @@ public class FaqAddHandler extends HttpServlet {
 
     f.setTitle(request.getParameter("title"));
     f.setContent(request.getParameter("content"));
+    f.setDate(Date.valueOf(request.getParameter("date")));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();

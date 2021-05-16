@@ -13,25 +13,15 @@ public class DefaultDiscountService implements DiscountService {
     this.discountDao = discountDao;
   }
 
-  //핫플레이스 등록 업무
   @Override
   public int add(Discount discount) throws Exception {
     return discountDao.insert(discount);
   }
 
-  //핫플레이스 목록 전체 조회 업무
   @Override
   public List<Discount> list() throws Exception {
     return discountDao.findByKeyword(null);
   }
-
-  //    //핫플레이스 상세 조회 업무
-  //    @Override
-  //    public Hotplace get(int no) throws Exception {
-  //        Hotplace hotplace = hotplaceDao.findByNo(no);
-  //        return hotplace;
-  //    }
-
 
   @Override
   public Discount get(int no) throws Exception {
@@ -39,15 +29,18 @@ public class DefaultDiscountService implements DiscountService {
     return discount; 
   }
 
-  //핫플레이스 수정 업무
   @Override
   public int update(Discount discount) throws Exception {
     return discountDao.update(discount);
   }
 
-  //핫플에이스 삭제 업무
   @Override
   public int delete(int no) throws Exception {
     return discountDao.delete(no);
+  }
+
+  @Override
+  public List<Discount> search(String keyword) throws Exception {
+    return discountDao.findByKeyword(keyword);
   }
 }

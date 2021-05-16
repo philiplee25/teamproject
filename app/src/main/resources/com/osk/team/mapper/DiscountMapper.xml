@@ -51,8 +51,12 @@
   
   <update id="update" parameterType="discount">
     update discount set
-        title = #{title}, 
-        content = #{content}
+    
+      dtitle = #{title}, 
+      dcontent = #{content},
+      ddate = #{date},
+      dphoto = #{photo}
+        
     where dno = #{no}
   </update>
   

@@ -9,12 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.osk.team.domain.Discount;
-import com.osk.team.service.DiscountService;
+import com.osk.team.domain.Faq;
+import com.osk.team.service.FaqService;
 
 @SuppressWarnings("serial")
-@WebServlet("/discount/Detail")
-public class DiscountDetailHandler extends HttpServlet {
+@WebServlet("/faq/detail")
+public class FaqDetailHandler extends HttpServlet {
 
   SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -22,7 +22,7 @@ public class DiscountDetailHandler extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    DiscountService discountService = (DiscountService) request.getServletContext().getAttribute("discountService");
+    FaqService faqService = (FaqService) request.getServletContext().getAttribute("faqService");
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -32,15 +32,15 @@ public class DiscountDetailHandler extends HttpServlet {
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
-    out.println("<title>할인정보 상세보기</title>");
+    out.println("<title>FAQ상세보기</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>할인정보 상세보기</h1>");
+    out.println("<h1>FAQ 상세보기</h1>");
 
     try {
-      Discount d = discountService.get(no);
-      if (d == null) {
-        out.println("<p>해당 번호의 할인정보가 없습니다.</p>");
+      Faq f = faqService.get(no);
+      if (f == null) {
+        out.println("<p>해당 번호의 FAQ가 없습니다.</p>");
         out.println("</body>");
         out.println("</html>");
         return;
@@ -49,25 +49,21 @@ public class DiscountDetailHandler extends HttpServlet {
       out.println("<table border='1'>");
       out.println("<tbody>");
       out.printf("<tr><th>번호</th>"
-          + " <td><input type='text' name='no' value='%d' readonly></td></tr>\n", d.getNo());
+          + " <td><input type='text' name='no' value='%d' readonly></td></tr>\n", f.getNo());
       out.printf("<tr><th>제목</th>"
-          + " <td><input name='title' type='text' value='%s'></td></tr>\n", d.getTitle());
+          + " <td><input name='title' type='text' value='%s'></td></tr>\n", f.getTitle());
       out.printf("<tr><th>내용</th>"
-          + " <td><textarea name='content' rows='10' cols='60'>%s</textarea></td></tr>\n", d.getContent());
-      out.printf("<tr><th>등록일</th> <td>%s</td></tr>\n", formatter.format(d.getDate()));
-      out.printf("<tr><th>사진</th> <td>"
-          + "<a href='%s'><img src='%s'></a><br>"
-          + "<input name='photo' type='file'></td></tr>\n",
-          d.getPhoto() != null ? "../upload/" + d.getPhoto() : "",
-              d.getPhoto() != null ? "../upload/" + d.getPhoto() + "_80x80.jpg" : "../images/person_80x80.jpg");
+          + " <td><textarea name='content' rows='10' cols='60'>%s</textarea></td></tr>\n", f.getContent());
+      out.printf("<tr><th>등록일</th> <td>%s</td></tr>\n", formatter.format(f.getDate()));
       out.println("</tbody>");
 
       out.println("<tfoot>");
       out.println("<tr><td colspan='2'>");
       out.println("<input type='submit' value='변경'> "
-          + "<a href='delete?no=" + d.getNo() + "'>삭제</a> ");
+          + "<a href='delete?no=" + f.getNo() + "'>삭제</a> ");
       out.println("</td></tr>");
       out.println("</tfoot>");
+
 
       out.println("</table>");
       out.println("</form>");

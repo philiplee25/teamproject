@@ -3,32 +3,23 @@ package com.osk.team.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.osk.team.domain.Discount;
-import com.osk.team.service.DiscountService;
+import com.osk.team.domain.Faq;
+import com.osk.team.service.FaqService;
 
 @SuppressWarnings("serial")
-@WebServlet("/discount/add")
-public class DiscountAddHandler extends HttpServlet {
+@WebServlet("/faq/delete")
+public class FaqDeleteHandler extends HttpServlet {
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    DiscountService discountService = (DiscountService) request.getServletContext().getAttribute("discountService");
-
-    Discount d = new Discount();
-
-    d.setTitle(request.getParameter("title"));
-    d.setContent(request.getParameter("content"));
-    d.setDate(Date.valueOf(request.getParameter("date")));
-    d.setCount(0);
-    d.setPhoto(request.getParameter("photo"));
+    FaqService faqService = (FaqService) request.getServletContext().getAttribute("faqService");
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -36,16 +27,23 @@ public class DiscountAddHandler extends HttpServlet {
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
-    out.println("<title>할인정보 등록</title>");
+    out.println("<title>FAQ 삭제</title>");
 
     try {
-      discountService.add(d);
+      int no = Integer.parseInt(request.getParameter("no"));
+
+      Faq oldFaq = faqService.get(no);
+      if (oldFaq == null) {
+        throw new Exception("해당 번호의 게시글이 없습니다.");
+      }
+
+      faqService.delete(no);
 
       out.println("<meta http-equiv='Refresh' content='1;url=list'>");
       out.println("</head>");
       out.println("<body>");
-      out.println("<h1>할인정보 등록</h1>");
-      out.println("<p>할인정보를 등록했습니다.</p>");
+      out.println("<h1>FAQ 삭제</h1>");
+      out.println("<p>FAQ를 삭제하였습니다.</p>");
 
     } catch (Exception e) {
       StringWriter strWriter = new StringWriter();
@@ -54,7 +52,8 @@ public class DiscountAddHandler extends HttpServlet {
 
       out.println("</head>");
       out.println("<body>");
-      out.println("<h1>할인정보 등록 오류</h1>");
+      out.println("<h1>FAQ 삭제 오류</h1>");
+      out.printf("<p>%s</p>\n", e.getMessage());
       out.printf("<pre>%s</pre>\n", strWriter.toString());
       out.println("<p><a href='list'>목록</a></p>");
     }

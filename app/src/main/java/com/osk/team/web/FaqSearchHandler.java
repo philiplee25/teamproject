@@ -2,7 +2,6 @@ package com.osk.team.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,14 +12,14 @@ import com.osk.team.domain.Faq;
 import com.osk.team.service.FaqService;
 
 @SuppressWarnings("serial")
-@WebServlet("/faq/list")
-public class FaqListHandler extends HttpServlet {
+@WebServlet("/faq/search")
+public class FaqSearchHandler extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    FaqService faqService = (FaqService) request.getServletContext().getAttribute("faqService");
+    String keyword = request.getParameter("keyword");
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -28,16 +27,21 @@ public class FaqListHandler extends HttpServlet {
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
-    out.println("<title>FAQ 목록</title>");
+    out.println("<title>FAQ 검색</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>FAQ 목록</h1>");
-
-    out.println("<p><a href='faq.html'>새 글</a></p>");
+    out.printf("<h1>게시글 검색 결과 : %s</h1>\n", keyword);
 
     try {
+      if (keyword == null || keyword.length() == 0) {
+        throw new SearchException("검색어를 입력하세요.");
+      }
 
-      List<Faq> faqs = faqService.list();
+      FaqService faqService = (FaqService) request.getServletContext().getAttribute("faqService");
+      List<Faq> list = faqService.search(keyword);
+      if (list.size() == 0) {
+        throw new SearchException("검색어에 해당하는 게시글이 없습니다.");
+      }
 
       out.println("<table border='1'>");
       out.println("<thead>");
@@ -47,37 +51,34 @@ public class FaqListHandler extends HttpServlet {
       out.println("</thead>");
       out.println("<tbody>");
 
-      for (Faq f : faqs) {
+      for (Faq f : list) {
         out.printf("<tr>"
             + " <td>%d</td>"
             + " <td><a href='detail?no=%1$d'>%s</a></td>"
             + " <td>%s</td>"
-            + " <td>%s</td> </tr>\n",
-            f.getNo(),
-            f.getTitle(),
-            f.getContent(),
-            f.getDate());
+            + " <td>%s</td> </tr>\n", 
+            f.getNo(), 
+            f.getTitle(), 
+            f.getDate(),
+            f.getContent());
       }
-
       out.println("</tbody>");
       out.println("</table>");
 
-      out.println("<form action='search' method='get'>");
-      out.println("<input type='text' name='keyword'>");
-      out.println("<button>검색</button>");
-      out.println("</form>");
+    } catch (SearchException e) {
+      out.printf("<p>%s</p>\n", e.getMessage());
 
     } catch (Exception e) {
-      // 상세 오류 내용을 StringWriter로 출력한다.
-      StringWriter strWriter = new StringWriter();
-      PrintWriter printWriter = new PrintWriter(strWriter);
-      e.printStackTrace(printWriter);
-
-      // StringWriter 에 들어 있는 출력 내용을 꺼내 클라이언트로 보낸다.
-      out.printf("<pre>%s</pre>\n", strWriter.toString());
+      throw new ServletException(e);
     }
 
     out.println("</body>");
     out.println("</html>");
   }
 }
+
+
+
+
+
+

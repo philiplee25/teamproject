@@ -12,8 +12,7 @@ public class Faq {
 
   @Override
   public String toString() {
-    return "Faq [no=" + no + ", title=" + title + ", content=" + content + ", registeredDate="
-        + date + "]";
+    return "Faq [no=" + no + ", title=" + title + ", content=" + content + ", date=" + date + "]";
   }
 
 
@@ -47,14 +46,15 @@ public class Faq {
   }
 
 
-  public Date getRegisteredDate() {
+  public Date getDate() {
     return date;
   }
 
 
-  public void setRegisteredDate(Date registeredDate) {
-    this.date = registeredDate;
+  public void setDate(Date date) {
+    this.date = date;
   }
+
 
 
 }

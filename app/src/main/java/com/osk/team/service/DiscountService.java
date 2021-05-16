@@ -15,4 +15,5 @@ public interface DiscountService {
 
   int delete(int no) throws Exception;
 
+  List<Discount> search(String keyword) throws Exception;
 }
