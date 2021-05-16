@@ -1,19 +1,36 @@
 package com.osk.team.web.listener;
 
-import com.osk.mybatis.MybatisDaoFactory;
-import com.osk.mybatis.SqlSessionFactoryProxy;
-import com.osk.mybatis.TransactionManager;
-import com.osk.team.dao.*;
-import com.osk.team.service.*;
-import com.osk.team.service.impl.*;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
+import java.io.InputStream;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.io.InputStream;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import com.osk.mybatis.MybatisDaoFactory;
+import com.osk.mybatis.SqlSessionFactoryProxy;
+import com.osk.mybatis.TransactionManager;
+import com.osk.team.dao.BoardDao;
+import com.osk.team.dao.ClubDao;
+import com.osk.team.dao.DiscountDao;
+import com.osk.team.dao.FaqDao;
+import com.osk.team.dao.HotplaceDao;
+import com.osk.team.dao.MemberDao;
+import com.osk.team.dao.QnaDao;
+import com.osk.team.service.BoardService;
+import com.osk.team.service.ClubService;
+import com.osk.team.service.DiscountService;
+import com.osk.team.service.FaqService;
+import com.osk.team.service.HotplaceService;
+import com.osk.team.service.MemberService;
+import com.osk.team.service.QnaService;
+import com.osk.team.service.impl.DefaultBoardService;
+import com.osk.team.service.impl.DefaultClubService;
+import com.osk.team.service.impl.DefaultDiscountService;
+import com.osk.team.service.impl.DefaultFaqService;
+import com.osk.team.service.impl.DefaultHotplaceService;
+import com.osk.team.service.impl.DefaultMemberService;
+import com.osk.team.service.impl.DefaultQnaService;
 
 // 웹 애플리케이션을 시작하거나 종료할 때 서버로부터 보고를 받는다.
 // 즉 톰캣 서버가 웹 애플리케이션을 시작하거나 종료하면 리스너 규칙에 따라 메서드를 호출한다는 뜻이다.
@@ -37,6 +54,8 @@ public class ContextLoaderListener implements ServletContextListener {
       HotplaceDao hotplaceDao = daoFactory.createDao(HotplaceDao.class);
       MemberDao memberDao = daoFactory.createDao(MemberDao.class);
       QnaDao qnaDao = daoFactory.createDao(QnaDao.class);
+      FaqDao faqDao = daoFactory.createDao(FaqDao.class);
+      DiscountDao discountDao = daoFactory.createDao(DiscountDao.class);
 
       // 3) 서비스 관련 객체 준비
       TransactionManager txManager = new TransactionManager(sqlSessionFactoryProxy);
@@ -46,6 +65,8 @@ public class ContextLoaderListener implements ServletContextListener {
       HotplaceService hotplaceService = new DefaultHotplaceService(hotplaceDao);
       MemberService memberService = new DefaultMemberService(memberDao);
       QnaService qnaService = new DefaultQnaService(qnaDao);
+      FaqService faqService = new DefaultFaqService(faqDao);
+      DiscountService discountService = new DefaultDiscountService(discountDao);
 
       // 4) 서비스 객체를 ServletContext 보관소에 저장한다.
       servletContext.setAttribute("boardService", boardService);
@@ -53,6 +74,8 @@ public class ContextLoaderListener implements ServletContextListener {
       servletContext.setAttribute("hotplaceService", hotplaceService);
       servletContext.setAttribute("memberService", memberService);
       servletContext.setAttribute("qnaService", qnaService);
+      servletContext.setAttribute("faqService", faqService);
+      servletContext.setAttribute("discountService", discountService);
 
       System.out.println("ContextLoaderListener: 의존 객체를 모두 준비하였습니다.");
 

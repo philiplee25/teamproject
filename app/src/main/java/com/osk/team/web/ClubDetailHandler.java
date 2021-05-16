@@ -62,19 +62,11 @@ public class ClubDetailHandler extends HttpServlet {
             out.printf("<tr><th>내용</th> <td>%s</td></tr>\n", c.getContent());
             out.printf("<tr><th>인원수</th> <td>%s</td></tr>\n", c.getTotal());
 
-            //사진 이상하게 출력됨 확인바람!
             out.printf("<tr><th>사진</th> <td>"
-                            + "<a href='%s''%s''%s'><img src='%s''%s''%s'></a><br>"
-                            + "<input name='photo1' type='file'></td></tr>\n"
-                            + "<input name='photo2' type='file'></td></tr>\n"
-                            + "<input name='photo3' type='file'></td></tr>\n",
+                            + "<a href='%s'><img src='%s'></a><br>"
+                            + "<input name='photo' type='file'></td></tr>\n",
                     c.getPhoto1() != null ? "../upload/" + c.getPhoto1() : "",
-                    c.getPhoto1() != null ? "../upload/" + c.getPhoto1() + "_254*178.jpg" : null,
-                    c.getPhoto2() != null ? "../upload/" + c.getPhoto2() : "",
-                    c.getPhoto2() != null ? "../upload/" + c.getPhoto2() + "_254*178.jpg" : null,
-                    c.getPhoto3() != null ? "../upload/" + c.getPhoto3() : "",
-                    c.getPhoto3() != null ? "../upload/" + c.getPhoto3() + "_254*178.jpg" : null
-            );
+                    c.getPhoto1() != null ? "../upload/" + c.getPhoto1() + "_254*178.jpg" : "../images/person_80x80.jpg");
 
             out.println("</tbody>");
 

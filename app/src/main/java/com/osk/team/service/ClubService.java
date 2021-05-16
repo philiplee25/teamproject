@@ -1,11 +1,10 @@
 package com.osk.team.service;
 
-import com.osk.team.domain.Board;
 import com.osk.team.domain.Club;
 import com.osk.team.domain.Member;
+import com.osk.team.domain.Photo;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ClubService {
 
@@ -20,6 +19,8 @@ public interface ClubService {
     int update(Club club) throws Exception;
 
     int delete(int no) throws Exception;
+
+    List<Photo> getPhotos(int clubNo) throws Exception;
 
     int deleteMember(int clubNo) throws Exception;
 

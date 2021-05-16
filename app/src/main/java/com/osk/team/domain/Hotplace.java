@@ -53,8 +53,8 @@ public class Hotplace {
         return date;
     }
 
-    public void setDate(String string) {
-      this.date = null;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getCount() {
@@ -80,5 +80,4 @@ public class Hotplace {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
-
 }

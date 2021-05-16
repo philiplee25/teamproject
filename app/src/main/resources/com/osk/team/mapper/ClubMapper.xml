@@ -27,19 +27,9 @@
     </association>
 
 <!--    &lt;!&ndash;사진&ndash;&gt;-->
-    <association property="photo1" javaType="string">
-      <id column="cno" property="no1"/>
-      <result column="c_pho" property="name1"/>
-    </association>
-
-<!--    <association property="photo2" javaType="string">-->
-<!--      <id column="cno" property="no2"/>-->
-<!--      <result column="c_pho" property="name2"/>-->
-<!--    </association>-->
-
-<!--    <association property="photo3" javaType="string">-->
-<!--      <id column="cno" property="no3"/>-->
-<!--      <result column="c_pho" property="name3"/>-->
+<!--    <association property="photo1" javaType="list">-->
+<!--&lt;!&ndash;      <id column="cno" property="no"/>&ndash;&gt;-->
+<!--      <result column="c_pho" property="name"/>-->
 <!--    </association>-->
 
   </resultMap>
@@ -59,15 +49,34 @@
     values (#{no}, #{writer.no}, #{arrive}, #{theme},
             #{title}, #{content}, #{startDate}, #{endDate},
             #{total});
-    insert into c_photo(c_pno,cno,c_pho)
-    values (#{no},#{club.no},#{photo1.name1});
   </insert>
 
-<!--  <insert id="insert" parameterType="project"-->
-<!--          useGeneratedKeys="true" keyColumn="no" keyProperty="no">-->
-<!--    insert into pms_project(title,content,sdt,edt,owner)-->
-<!--    values(#{title}, #{content}, #{startDate}, #{endDate}, #{owner.no})-->
-<!--  </insert>-->
+
+  <!--사진관련-->
+  <insert id="insertPhoto" parameterType="map">
+    insert into c_photo(c_pno, cno, c_pho)
+    values (#{photoNo}, #{clubNo}, #{photoName})
+  </insert>
+
+  <insert id="insertPhotos" parameterType="map">
+    insert into c_photo(c_pno, cno, c_pho)
+    values
+    <foreach collection="photos" item="p" separator=",">
+      (#{p.no}, #{clubNo})
+    </foreach>
+  </insert>
+
+  <select id="findPhotos" resultType="photo" parameterType="int">
+    select
+      p.c_pno,
+      p.c_pho
+    from c_photo p
+           inner join club c on p.cno=c.cno
+    where
+      c.cno=#{value}
+  </select>
+
+  <!---->
 
   <select id="findByKeyword" resultMap="clubMap" parameterType="string">
     select

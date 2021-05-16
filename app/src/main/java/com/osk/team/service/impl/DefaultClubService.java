@@ -6,11 +6,11 @@ import com.osk.mybatis.TransactionTemplate;
 import com.osk.team.dao.ClubDao;
 import com.osk.team.domain.Club;
 import com.osk.team.domain.Member;
+import com.osk.team.domain.Photo;
 import com.osk.team.service.ClubService;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DefaultClubService implements ClubService {
 
@@ -46,6 +46,11 @@ public class DefaultClubService implements ClubService {
     @Override
     public int delete(int no) throws Exception {
         return clubDao.delete(no);
+    }
+
+    @Override
+    public List<Photo> getPhotos(int clubNo) throws Exception {
+        return clubDao.findPhotos(clubNo);
     }
 
     @Override

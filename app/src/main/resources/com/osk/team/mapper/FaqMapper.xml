@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.osk.team.dao.FaqDao">
+
+  <resultMap id="faqMap" type="faq">
+    <id column="fno" property="no"/>
+    <result column="ftitle" property="title"/>
+    <result column="fcontent" property="content"/>
+    <result column="fdate" property="date"/>
+
+    <!--    <association property="mname" javaType="member">-->
+    <!--      <id column="writer_no" property="mno"/>-->
+    <!--      <result column="writer_name" property="mname"/>-->
+    <!--    </association>-->
+
+  </resultMap>
+  
+   <insert id="insert" parameterType="discount">
+    insert into discount(dtitle, dcontent, ddate, dcount, dphoto) 
+    values(#{title}, #{content}, #{date}, #{count}, #{photo})
+  </insert>
+
+  <select id="findByKeyword" resultMap="faqMap" parameterType="string">
+    select
+    f.fno,
+    f.ftitle,
+    f.fdate,
+    f.fcontent
+
+    from faq f
+
+    order by f.fno desc
+  </select>
+  
+  <select id="findByNo" resultMap="faqMap" parameterType="int">
+    select
+      d.dno,
+      d.dtitle,
+      d.dcontent,
+      d.ddate,
+      d.dcount,
+      d.dphoto
+    from discount d
+    where d.dno = #{value}
+  </select>
+  
+    <update id="update" parameterType="discount">
+    update faq set
+        title = #{title}, 
+        content = #{content}
+    where fno = #{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from faq 
+    where fno = #{value}
+  </delete>
+
+</mapper>
+
+
+
+
+

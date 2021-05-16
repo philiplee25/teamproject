@@ -20,6 +20,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @SuppressWarnings("serial")
@@ -76,64 +77,27 @@ public class ClubAddHandler extends HttpServlet {
 //            c.setMembers(memberList);
 
             ///////////////사진 받기
+            List<String> photos = new ArrayList<>();
             Part photoPart = request.getPart("photo1");
-            if (photoPart.getSize() > 0) {
-                // 파일을 선택해서 업로드 했다면,
-                String filename = UUID.randomUUID().toString();
-                photoPart.write(this.uploadDir + "/" + filename);
-                c.setPhoto1(filename);
+                if (photoPart.getSize() > 0) {
 
-                // 썸네일 이미지 생성
-                Thumbnails.of(this.uploadDir + "/" + filename)
-                        .size(254, 178)
-                        .outputFormat("jpg")
-                        .crop(Positions.CENTER)
-                        .toFiles(new Rename() {
-                            @Override
-                            public String apply(String name, ThumbnailParameter param) {
-                                return name + "_254x178";
-                            }
-                        });
+                    // 파일을 선택해서 업로드 했다면,
+                    String filename = UUID.randomUUID().toString();
+                    photoPart.write(this.uploadDir + "/" + filename);
+                    photos.add(filename);
+
+                    // 썸네일 이미지 생성
+                    Thumbnails.of(this.uploadDir + "/" + filename)
+                            .size(254, 178)
+                            .outputFormat("jpg")
+                            .crop(Positions.CENTER)
+                            .toFiles(new Rename() {
+                                @Override
+                                public String apply(String name, ThumbnailParameter param) {
+                                    return name + "_254x178";
+                                }
+                            });
             }
-
-//            Part photoPart2 = request.getPart("photo2");
-//            if (photoPart2.getSize() > 0) {
-//                //파일을 선택해서 업로드 했다면
-//                String filename = UUID.randomUUID().toString();
-//                photoPart2.write(this.uploadDir + "/" + filename);
-//                c.setPhoto1(filename);
-//
-//                Thumbnails.of(this.uploadDir + "/" + filename).
-//                        size(254, 178)
-//                        .outputFormat("jpg")
-//                        .crop(Positions.CENTER)
-//                        .toFiles(new Rename() {
-//                            @Override
-//                            public String apply(String name, ThumbnailParameter param) {
-//                                return name + "_254*178";
-//                            }
-//                        });
-//            }
-//
-//            Part photoPart3 = request.getPart("photo3");
-//            if (photoPart3.getSize() > 0) {
-//                //파일을 선택해서 업로드 했다면
-//                String filename = UUID.randomUUID().toString();
-//                photoPart3.write(this.uploadDir + "/" + filename);
-//                c.setPhoto1(filename);
-//
-//                Thumbnails.of(this.uploadDir + "/" + filename).
-//                        size(254, 178)
-//                        .outputFormat("jpg")
-//                        .crop(Positions.CENTER)
-//                        .toFiles(new Rename() {
-//                            @Override
-//                            public String apply(String name, ThumbnailParameter param) {
-//                                return name + "_254*178";
-//                            }
-//                        });
-//            }
-            ////////////////////////////////
 
             clubService.add(c);
             out.println("<p>클럽 등록했습니다.</p>");
@@ -151,46 +115,4 @@ public class ClubAddHandler extends HttpServlet {
         out.println("</body>");
         out.println("</html>");
     }
-
-///    @Override
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//
-////        ClubService clubService = (ClubService) request.getServletContext().getAttribute("clubService");
-//
-//        response.setContentType("text/html;charset=UTF-8");
-//        PrintWriter out = response.getWriter();
-//
-//        out.println("<!DOCTYPE html>");
-//        out.println("<html>");
-//        out.println("<head>");
-//        out.println("<meta charset='UTF-8'>");
-//        out.println("<title>클럽 등록</title>");
-//        out.println("</head>");
-//        out.println("<body>");
-//        out.println("<h1>클럽 등록</h1>");
-//        out.println("<form action='add' method='post'>");
-//        out.println("도착지: <input type='text' name='arrive'><br>");
-//        out.println("가는날: <input type='date' name='startDate'><br>");
-//        out.println("오는날: <input type='date' name='endDate'><br>");
-//        out.println("테마: ");
-//        out.println("<select name='theme' id='theme'>" +
-//                "<option value='1박2일'>1박2일</option>" +
-//                "<option value='2박3일'>2박3일</option>" +
-//                "<option value='3박4일'>3박4일</option>" +
-//                "<option value='무박'>무박</option>" +
-//                "<option value='당일치기'>당일치기</option>" +
-//                "<option value='식사'>식사</option>" +
-//                "</select><br>");
-//
-//        out.println("제목: <input type='text' name='title'><br>");
-//        out.println("내용: <textarea name='content' rows='10' cols='60'></textarea><br>");
-//        out.println("인원수<최대 10명>: <input type='number' name='count'><br>");
-//        out.println("사진(최대 3장)" +
-//                "<input type='file' name='photo'><br>");
-//
-//        out.println("<input type='submit' value='등록'>");
-//        out.println("</form>");
-//        out.println("</body>");
-//        out.println("</html>");
-//    }
 }

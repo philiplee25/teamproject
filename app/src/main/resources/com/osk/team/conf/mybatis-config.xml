@@ -28,6 +28,8 @@
     <mapper resource="com/osk/team/mapper/HotplaceMapper.xml"/>
     <mapper resource="com/osk/team/mapper/MemberMapper.xml"/>
     <mapper resource="com/osk/team/mapper/QnaMapper.xml"/>
+    <mapper resource="com/osk/team/mapper/FaqMapper.xml"/>
+    <mapper resource="com/osk/team/mapper/DiscountMapper.xml"/>
   </mappers>
 </configuration>
 

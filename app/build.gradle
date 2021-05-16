@@ -17,7 +17,7 @@ plugins {
 
 eclipse {
     project {
-        name = "team"
+        name = "mine-teamproject"
     }
 }
 

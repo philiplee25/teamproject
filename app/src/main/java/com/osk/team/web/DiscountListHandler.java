@@ -3,24 +3,24 @@ package com.osk.team.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.osk.team.domain.Hotplace;
-import com.osk.team.service.HotplaceService;
+import com.osk.team.domain.Discount;
+import com.osk.team.service.DiscountService;
 
 @SuppressWarnings("serial")
-@WebServlet("/hotplace/list")
-public class HotplaceListHandler extends HttpServlet {
+@WebServlet("/discount/list")
+public class DiscountListHandler extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-    HotplaceService hotplaceService = (HotplaceService) request.getServletContext().getAttribute("hotplaceService");
+      throws ServletException, IOException {
+
+    DiscountService discountService = (DiscountService) request.getServletContext().getAttribute("discountService");
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -28,41 +28,39 @@ public class HotplaceListHandler extends HttpServlet {
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
-    out.println("<title>핫플레이스 목록</title>");
+    out.println("<title>할인정보 목록</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>핫플레이스 목록</h1>");
+    out.println("<h1>할인정보 목록</h1>");
 
-    out.println("<p><a href='add'>새 글</a></p>");
+    out.println("<p><a href='discount.html'>새 글</a></p>");
 
     try {
 
-      List<Hotplace> hotplaces = hotplaceService.list();
+      List<Discount> discounts = discountService.list();
 
       out.println("<table border='1'>");
       out.println("<thead>");
       out.println("<tr>");
-      out.println("<th>번호</th> <th>제목</th> <th>내용</th> <th>조회수</th> <th>등록일</th> <th>주소</th> <th>사진</th> ");
+      out.println("<th>번호</th> <th>제목</th> <th>내용</th> <th>조회수</th> <th>등록일</th> <th>사진</th> ");
       out.println("</tr>");
       out.println("</thead>");
       out.println("<tbody>");
 
-      for (Hotplace h : hotplaces) {
+      for (Discount d : discounts) {
         out.printf("<tr>"
-                        + " <td>%d</td>"
-                        + " <td><a href='hotplace.html'>%s</a></td>"
-                        + " <td>%s</td>"
-                        + " <td>%s</td>"
-                        + " <td>%d</td>"
-                        + " <td>%s</td>"
-                        + " <td>%s</td> </tr>\n",
-                h.getNo(),
-                h.getTitle(),
-                h.getContent(),
-                h.getDate(),
-                h.getCount(),
-                h.getAddress(),
-                h.getPhoto());
+            + " <td>%d</td>"
+            + " <td>%s</a></td>"
+            + " <td>%s</td>"
+            + " <td>%s</td>"
+            + " <td>%d</td>"
+            + " <td>%s</td> </tr>\n",
+            d.getNo(),
+            d.getTitle(),
+            d.getContent(),
+            d.getDate(),
+            d.getCount(),
+            d.getPhoto());
       }
 
       out.println("</tbody>");

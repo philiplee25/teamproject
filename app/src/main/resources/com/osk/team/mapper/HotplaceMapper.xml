@@ -20,11 +20,6 @@
     <!--    </association>-->
 
   </resultMap>
-  
-    <insert id="insert" parameterType="hotplace">
-    insert into hotplace(htitle, hcontent, hdate, hcount, haddress, hphoto) 
-    values(#{title}, #{content}, #{date}, #{count}, #{addr}, #{photo})
-  </insert>
 
   <select id="findByKeyword" resultMap="hotplaceMap" parameterType="String">
     select

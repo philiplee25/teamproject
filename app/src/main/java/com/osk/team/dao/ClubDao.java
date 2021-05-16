@@ -2,6 +2,7 @@ package com.osk.team.dao;
 
 import com.osk.team.domain.Club;
 import com.osk.team.domain.Member;
+import com.osk.team.domain.Photo;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ public interface ClubDao {
 
     int insertMembers(Map<String,Object> params) throws Exception;//맴버 업데이트용
 
-
+    List<Photo> findPhotos(int clubNo) throws Exception;
 
     int insertPhoto(Map<String,Object> params) throws Exception;
 
