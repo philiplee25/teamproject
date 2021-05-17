@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.osk.team.dao.DiscountDao">
-
+  
   <resultMap id="discountMap" type="discount">
     <id column="dno" property="no"/>
     <result column="dtitle" property="title"/>
     <result column="dcontent" property="content"/>
     <result column="ddate" property="date"/>
-    <result column="dcount" property="count"/>
-    <result column="dphoto" property="photo"/>
-
-    <!--    <association property="mname" javaType="member">-->
-    <!--      <id column="writer_no" property="mno"/>-->
-    <!--      <result column="writer_name" property="mname"/>-->
-    <!--    </association>-->
-
+    <result column="dcountt" property="coutn"/>
+    <result column="dphotot" property="photo"/>
+    
   </resultMap>
   
   <insert id="insert" parameterType="discount">
-    insert into discount(dtitle, dcontent, ddate, dcount, dphoto) 
-    values(#{title}, #{content}, #{date}, #{count}, #{photo})
+    insert into discount(dtitle, dcontent, dphoto) 
+    values(#{title}, #{content}, #{photo})
   </insert>
 
-  <select id="findByKeyword" resultMap="discountMap" parameterType="String">
+  <select id="findByKeyword" resultMap="discountMap" parameterType="string">
     select
       d.dno,
       d.dtitle,
-      d.dcontent,
       d.ddate,
+      d.dcontent,
       d.dcount,
       d.dphoto
+
     from discount d
+
+    
+    <if test="value != null">
+    where 
+      d.dtitle like concat('%', #{value},'%')
+      or d.dcontent like concat('%', #{value},'%')
+    </if>
+    
     order by d.dno desc
   </select>
   
@@ -41,31 +45,37 @@
     select
       d.dno,
       d.dtitle,
-      d.dcontent,
       d.ddate,
+      d.dcontent,
       d.dcount,
       d.dphoto
+
     from discount d
+
     where d.dno = #{value}
   </select>
   
   <update id="update" parameterType="discount">
     update discount set
-    
-      dtitle = #{title}, 
-      dcontent = #{content},
-      ddate = #{date},
-      dphoto = #{photo}
-        
-    where dno = #{no}
+        dtitle = #{title}, 
+        dcontent = #{content}
+    where no = #{no}
+  </update>
+  
+  <update id="updateViewCount" parameterType="int">
+    update discount set 
+      dcount = dcount + 1 
+    where no = #{value}
   </update>
   
   <delete id="delete" parameterType="int">
     delete from discount 
-    where dno = #{value}
+    where no = #{value}
   </delete>
 
 </mapper>
+
+
 
 
 
