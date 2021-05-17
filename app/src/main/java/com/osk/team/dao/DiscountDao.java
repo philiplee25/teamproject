@@ -13,6 +13,8 @@ public interface DiscountDao {
 
   int update(Discount discount) throws Exception;
 
+  int updateViewCount(int no) throws Exception;
+
   int delete(int dno) throws Exception;
 
 }

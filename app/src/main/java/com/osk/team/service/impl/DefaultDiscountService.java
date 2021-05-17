@@ -26,6 +26,9 @@ public class DefaultDiscountService implements DiscountService {
   @Override
   public Discount get(int no) throws Exception {
     Discount discount = discountDao.findByNo(no);
+    if (discount != null) {
+      discountDao.updateViewCount(no);
+    }
     return discount; 
   }
 
