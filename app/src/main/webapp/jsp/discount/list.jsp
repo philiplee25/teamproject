@@ -1,10 +1,9 @@
-<%@page import="com.osk.team.domain.Discount"%>
-<%@page import="java.util.List"%>
 <%@ page 
     language="java" 
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,11 +19,8 @@
 </tr>
 </thead>
 <tbody>
-<jsp:useBean id="list" type="List<Discount>" scope="request"/>
-<% 
-for (Discount d : list) {
-  pageContext.setAttribute("d", d);
-%>
+
+<c:forEach items="${list}" var="d">
 <tr> 
   <td>${d.no}</td> 
   <td><a href='detail?no=${d.no}'>${d.title}</a></td>
@@ -32,9 +28,7 @@ for (Discount d : list) {
   <td>${d.date}</td>
   <td>${d.count}</td>
 </tr>
-<%
-}
-%>
+</c:forEach>
 </tbody>
 </table>
 

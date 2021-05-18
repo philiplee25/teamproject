@@ -37,11 +37,7 @@ public class DiscountAddHandler extends HttpServlet {
     // 작성자는 로그인 사용자이다.
     HttpServletRequest httpRequest = request;
     Member loginUser = (Member) httpRequest.getSession().getAttribute("loginUser");
-    if (loginUser.getPower() == 1) {
-      d.setWriter(loginUser);
-    } else {
-      return;
-    }
+    d.setWriter(loginUser);
 
     try {
       discountService.add(d);
