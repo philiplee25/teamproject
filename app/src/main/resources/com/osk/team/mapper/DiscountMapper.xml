@@ -13,6 +13,11 @@
     <result column="dcountt" property="coutn"/>
     <result column="dphotot" property="photo"/>
     
+    <association property="writer" javaType="member">
+      <id column="writer_no" property="no"/>
+      <result column="writer_name" property="name"/>
+    </association>
+    
   </resultMap>
   
   <insert id="insert" parameterType="discount">
@@ -27,9 +32,12 @@
       d.ddate,
       d.dcontent,
       d.dcount,
-      d.dphoto
+      d.dphoto,
+      m.mno as writer_no,
+      m.mname as writer_name
 
     from discount d
+    inner join member m on m.mno=d.mno
 
     
     <if test="value != null">
@@ -48,9 +56,12 @@
       d.ddate,
       d.dcontent,
       d.dcount,
-      d.dphoto
+      d.dphoto,
+      m.mno as writer_no,
+      m.mname as writer_name
 
     from discount d
+    inner join member m on m.mno=d.mno
 
     where d.dno = #{value}
   </select>

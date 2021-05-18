@@ -88,7 +88,8 @@ CREATE TABLE hotplace (
   hdate    TIMESTAMP    NULL     COMMENT '등록 날짜', -- 등록 날짜
   hcount   INTEGER      NOT NULL COMMENT '조회수', -- 조회수
   haddr    VARCHAR(255) NOT NULL COMMENT '주소', -- 주소
-  hphoto   VARCHAR(255) NULL     COMMENT '사진' -- 사진
+  hphoto   VARCHAR(255) NULL     COMMENT '사진', -- 사진
+  mno      INTEGER      NULL     COMMENT '회원번호' -- 회원번호
 )
 COMMENT '핫플레이스';
 
@@ -134,7 +135,8 @@ CREATE TABLE discount (
   dcontent LONGTEXT     NOT NULL COMMENT '게시판 내용', -- 게시판 내용
   ddate    TIMESTAMP    NULL     DEFAULT now() COMMENT '등록 날짜', -- 등록 날짜
   dcount   INTEGER      NOT NULL COMMENT '조회수', -- 조회수
-  dphoto   VARCHAR(255) NULL     COMMENT '사진' -- 사진
+  dphoto   VARCHAR(255) NULL     COMMENT '사진', -- 사진
+  mno      INTEGER      NULL     COMMENT '회원번호' -- 회원번호
 )
 COMMENT '할인정보';
 
@@ -260,7 +262,8 @@ CREATE TABLE faq (
   fno      INTEGER      NOT NULL COMMENT 'FAQ번호', -- FAQ번호
   ftitle   VARCHAR(255) NOT NULL COMMENT '제목', -- 제목
   fdate    TIMESTAMP    NULL     COMMENT '작성일', -- 작성일
-  fcontent LONGTEXT     NOT NULL COMMENT '내용' -- 내용
+  fcontent LONGTEXT     NOT NULL COMMENT '내용', -- 내용
+  mno      INTEGER      NULL     COMMENT '회원번호' -- 회원번호
 )
 COMMENT 'FAQ게시판';
 
@@ -368,6 +371,16 @@ ALTER TABLE c_photo
 ALTER TABLE c_photo
   MODIFY COLUMN c_pno INTEGER NOT NULL AUTO_INCREMENT COMMENT '클럽사진번호';
 
+-- 핫플레이스
+ALTER TABLE hotplace
+  ADD CONSTRAINT FK_member_TO_hotplace -- 회원 -> 핫플레이스
+    FOREIGN KEY (
+      mno -- 회원번호
+    )
+    REFERENCES member ( -- 회원
+      mno -- 회원번호
+    );
+
 -- 신고게시판
 ALTER TABLE b_report
   ADD CONSTRAINT FK_board_TO_b_report -- 게시글 -> 신고게시판
@@ -381,6 +394,16 @@ ALTER TABLE b_report
 -- 신고게시판
 ALTER TABLE b_report
   ADD CONSTRAINT FK_member_TO_b_report -- 회원 -> 신고게시판
+    FOREIGN KEY (
+      mno -- 회원번호
+    )
+    REFERENCES member ( -- 회원
+      mno -- 회원번호
+    );
+
+-- 할인정보
+ALTER TABLE discount
+  ADD CONSTRAINT FK_member_TO_discount -- 회원 -> 할인정보
     FOREIGN KEY (
       mno -- 회원번호
     )
@@ -451,6 +474,16 @@ ALTER TABLE m_qna
 -- 탈퇴회원정보
 ALTER TABLE m_delete
   ADD CONSTRAINT FK_member_TO_m_delete -- 회원 -> 탈퇴회원정보
+    FOREIGN KEY (
+      mno -- 회원번호
+    )
+    REFERENCES member ( -- 회원
+      mno -- 회원번호
+    );
+
+-- FAQ게시판
+ALTER TABLE faq
+  ADD CONSTRAINT FK_member_TO_faq -- 회원 -> FAQ게시판
     FOREIGN KEY (
       mno -- 회원번호
     )
