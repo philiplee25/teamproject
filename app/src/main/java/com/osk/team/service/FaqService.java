@@ -16,5 +16,4 @@ public interface FaqService {
   int delete(int no) throws Exception;
 
   List<Faq> search(String keyword) throws Exception;
-
 }

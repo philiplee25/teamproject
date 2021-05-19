@@ -13,7 +13,6 @@ public interface FaqDao {
 
   int update(Faq faq) throws Exception;
 
-  int delete(int fno) throws Exception;
-
+  int delete(int dno) throws Exception;
 
 }

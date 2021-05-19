@@ -10,19 +10,14 @@
     <result column="dtitle" property="title"/>
     <result column="dcontent" property="content"/>
     <result column="ddate" property="date"/>
-    <result column="dcountt" property="coutn"/>
-    <result column="dphotot" property="photo"/>
-    
-    <association property="writer" javaType="member">
-      <id column="writer_no" property="no"/>
-      <result column="writer_name" property="name"/>
-    </association>
+    <result column="dcount" property="count"/>
+    <result column="dphoto" property="photo"/>
     
   </resultMap>
   
   <insert id="insert" parameterType="discount">
-    insert into discount(dtitle, dcontent, dphoto) 
-    values(#{title}, #{content}, #{photo})
+    insert into discount(dtitle, dcontent, dphoto, dcount, ddate) 
+    values(#{title}, #{content}, #{photo}, #{count}, #{date})
   </insert>
 
   <select id="findByKeyword" resultMap="discountMap" parameterType="string">
@@ -32,13 +27,8 @@
       d.ddate,
       d.dcontent,
       d.dcount,
-      d.dphoto,
-      m.mno as writer_no,
-      m.mname as writer_name
-
+      d.dphoto
     from discount d
-    inner join member m on m.mno=d.mno
-
     
     <if test="value != null">
     where 
@@ -56,32 +46,31 @@
       d.ddate,
       d.dcontent,
       d.dcount,
-      d.dphoto,
-      m.mno as writer_no,
-      m.mname as writer_name
-
+      d.dphoto
     from discount d
-    inner join member m on m.mno=d.mno
 
     where d.dno = #{value}
   </select>
   
-  <update id="update" parameterType="discount">
-    update discount set
-        dtitle = #{title}, 
-        dcontent = #{content}
-    where no = #{no}
-  </update>
-  
   <update id="updateViewCount" parameterType="int">
     update discount set 
       dcount = dcount + 1 
-    where no = #{value}
+    where dno = #{value}
+  </update>
+  
+  <update id="update" parameterType="discount">
+    update discount 
+    <set> 
+      <if test="title != ''">dtitle=#{title},</if>
+      <if test="content != ''">dtitle=#{content},</if>
+      <if test="photo != ''">dphoto=#{photo},</if>
+    </set>
+    where dno=#{no}
   </update>
   
   <delete id="delete" parameterType="int">
     delete from discount 
-    where no = #{value}
+    where dno = #{value}
   </delete>
 
 </mapper>

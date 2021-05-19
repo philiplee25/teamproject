@@ -1,7 +1,6 @@
 package com.osk.team.web;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +10,8 @@ import com.osk.team.domain.Discount;
 import com.osk.team.service.DiscountService;
 
 @SuppressWarnings("serial")
-@WebServlet("/discount/Detail")
+@WebServlet("/discount/detail")
 public class DiscountDetailHandler extends HttpServlet {
-
-  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)

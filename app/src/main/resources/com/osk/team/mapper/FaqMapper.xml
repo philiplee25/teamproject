@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.osk.team.dao.FaqDao">
-
+  
   <resultMap id="faqMap" type="faq">
     <id column="fno" property="no"/>
     <result column="ftitle" property="title"/>
     <result column="fcontent" property="content"/>
     <result column="fdate" property="date"/>
-
-    <!--    <association property="mname" javaType="member">-->
-    <!--      <id column="writer_no" property="mno"/>-->
-    <!--      <result column="writer_name" property="mname"/>-->
-    <!--    </association>-->
-
+    
   </resultMap>
   
-   <insert id="insert" parameterType="faq">
-    insert into faq(ftitle, fcontent, fdate) 
-    values(#{title}, #{content}, #{date})
+  <insert id="insert" parameterType="faq">
+    insert into faq(ftitle, fcontent) 
+    values(#{title}, #{content})
   </insert>
+  
 
   <select id="findByKeyword" resultMap="faqMap" parameterType="string">
     select
-    f.fno,
-    f.ftitle,
-    f.fdate,
-    f.fcontent
-
+      f.fno,
+      f.ftitle,
+      f.fdate,
+      f.fcontent
     from faq f
-
+    
+    <if test="value != null">
+    where 
+      f.ftitle like concat('%', #{value},'%')
+      or f.fcontent like concat('%', #{value},'%')
+    </if>
+    
     order by f.fno desc
   </select>
   
@@ -39,22 +40,20 @@
     select
       f.fno,
       f.ftitle,
-      f.fcontent,
-      f.fdate
-
+      f.fdate,
+      f.fcontent
     from faq f
 
     where f.fno = #{value}
   </select>
   
   <update id="update" parameterType="faq">
-    update faq set
-    
-        ftitle = #{title}, 
-        fcontent = #{content},
-        fdate = #{date}
-        
-    where fno = #{no}
+    update faq 
+    <set> 
+      <if test="title != ''">ftitle=#{title},</if>
+      <if test="content != ''">ftitle=#{content}</if>
+    </set>
+    where fno=#{no}
   </update>
   
   <delete id="delete" parameterType="int">
@@ -63,7 +62,9 @@
   </delete>
 
 </mapper>
- 
+
+
+
 
 
 

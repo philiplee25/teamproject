@@ -14,7 +14,6 @@
     <result column="csdt" property="startDate"/>
     <result column="cedt" property="endDate"/>
     <result column="ctotal" property="total"/>
-<!--    <result column="c_photo.cno" property="no"/>-->
 
     <association property="writer" javaType="member">
       <id column="writer_no" property="no"/>
@@ -34,14 +33,10 @@
 
   </resultMap>
 
-<!--  &lt;!&ndash; >클럽 게시판에 클럽 삽입<&ndash;&gt;-->
-<!--  <insert id="insert" parameterType="club" useGeneratedKeys="true" keyColumn="cno" keyProperty="cno">-->
-<!--    insert into club(cno, mno, carrive, ctheme, ctitle, ccontent, csdt, cedt, ctotal, photo1)-->
-<!--    values (#{no}, #{writer.no}, #{arrive}, #{theme},-->
-<!--            #{title}, #{content}, #{startDate}, #{endDate},-->
-<!--            #{total}, #{c_pho.name1});-->
-<!--  </insert>-->
-
+  <!-- AutoIncrement 값 출력 을 위해 만듬. -->
+  <select id="clubcno" resultMap="clubMap" >
+    select max(cno) cno from club
+  </select>
 
   <!-- >클럽 게시판에 클럽 삽입<-->
   <insert id="insert" parameterType="club">
@@ -51,57 +46,63 @@
             #{total});
   </insert>
 
-
-  <!--사진관련-->
-  <insert id="insertPhoto" parameterType="map">
-    insert into c_photo(c_pno, cno, c_pho)
-    values (#{photoNo}, #{clubNo}, #{photoName})
-  </insert>
-
-  <insert id="insertPhotos" parameterType="map">
-    insert into c_photo(c_pno, cno, c_pho)
-    values
-    <foreach collection="photos" item="p" separator=",">
-      (#{p.no}, #{clubNo})
-    </foreach>
+  <insert id="insertPhoto" parameterType="photo">
+    insert into c_photo(c_pho, cno)
+    values (#{name}, #{no})
   </insert>
 
   <select id="findPhotos" resultType="photo" parameterType="int">
-    select
-      p.c_pno,
-      p.c_pho
-    from c_photo p
-           inner join club c on p.cno=c.cno
-    where
-      c.cno=#{value}
+    select p.c_pho,
+           p.cno
+    from club c
+           left join c_photo cp on c.cno = cp.cno
+    where c.cno = #{value}
+
+#     select
+#       p.c_pho,
+#       p.cno
+#     from c_photo p
+#            inner join club c on p.cno=c.cno
+#     where
+#       c.cno=#{value}
   </select>
+
+
+  <update id="update" parameterType="club">
+    update club set
+    ctitle   = #{title},
+    ccontent = #{content}
+    <!--사진 수정 코드 추가하기-->
+    <!--참여 회원 강퇴 코드 추가하기-->
+    where cno = #{no}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    delete from club
+    where cno = #{value}
+  </delete>
+
+
+  <!--사진관련-->
+
+  <delete id="deletePhotos" parameterType="int">
+    delete from c_photo
+    where cno=#{value}
+  </delete>
 
   <!---->
 
-  <select id="findByKeyword" resultMap="clubMap" parameterType="string">
+  <sql id="select1">
     select
-    c.cno,
-    c.carrive,
-    c.ctitle,
-    c.ccontent,
-    c.ctheme,
-    c.csdt,
-    c.cedt,
-    c.ctotal,
-    m.mno as writer_no,
-    m.mname as writer_name
+      c.cno,
+      c.carrive,
+      c.csdt,
+      c.cedt,
+      c.ctheme,
+      c.ctotal
     from club c
-    inner join member m on m.mno=c.mno
-
-    <if test="value != null">
-      where
-      c.carrive like concat('%', #{value},'%')
-      or c.csdt like concat('%', #{value},'%')
-      or c.cedt like concat('%', #{value},'%')
-      or c.ctheme like concat('%', #{value},'%')
-    </if>
-    order by c.cno desc
-  </select>
+           inner join member m on m.mno=c.mno
+  </sql>
 
   <select id="findByNo" resultMap="clubMap" parameterType="int">
     select
@@ -120,48 +121,69 @@
     where c.cno = #{value}
   </select>
 
-<!--멤버추가-->
+  <select id="findByKeyword" resultMap="clubMap" parameterType="map">
+    <include refid="select1"/>
+    <if test="value != null">
+      where
+      c.carrive like concat('%', #{value},'%')
+      or c.csdt like concat('%', #{value},'%')
+      or c.cedt like concat('%', #{value},'%')
+      or c.ctheme like concat('%', #{value},'%')
+    </if>
+    order by c.cno desc
+  </select>
+
+  <select id="findByKeywords" resultMap="clubMap" parameterType="map">
+    <include refid="select1"/>
+    <where>
+      <if test="arrive != null and arrive != ''">
+        c.carrive like concat('%', #{arrive}, '%')
+      </if>
+      <if test="theme != null and theme != ''">
+        and c.ctheme like concat('%', #{theme}, '%')
+      </if>
+      <if test="startDate != null and startDate != ''">
+        and c.csdt like concat('%', #{startDate}, '%')
+      </if>
+      <if test="endDate != null and endDate != ''">
+        and c.cedt like concat('%', #{endDate}, '%')
+      </if>
+    </where>
+    order by carrive desc
+  </select>
+
+
+  <!--멤버불러오기-->
+  <select id="findMembers" resultType="member" parameterType="int">
+    select
+      m.mno,
+      m.mname,
+      m.mphoto,
+      m.mtel
+    from c_member cm
+        inner join member m on cm.mno=m.mno
+    where
+      cm.cno=#{value}
+  </select>
+
+  <!--멤버추가-->
   <insert id="insertMember" parameterType="map">
-    insert into c_member(mno,cno)
-    values(#{memberNo}, #{clubNo})
+    insert into c_member(mno,cno,c_mdate)
+    values(#{memberNo}, #{clubNo},#{date})
   </insert>
 
   <insert id="insertMembers" parameterType="map">
-    insert into c_member(mno,cno)
+    insert into c_member(mno,cno,c_mdate)
     values
     <foreach collection="members" item="m" separator=",">
-      (#{m.mno}, #{clubNo});
+      (#{m.mno}, #{clubNo}, #{date});
     </foreach>
   </insert>
 
   <!--멤버삭제-->
-  <delete id="deleteMember" parameterType="int">
+  <delete id="deleteMembers" parameterType="int">
     delete from c_member
     where cno=#{value}
-  </delete>
-
-  <!--멤버불러오기-->
-  <select id="findAllMembers" resultType="member" parameterType="int">
-    select
-      m.mno,
-      m.mname
-    from c_member mp
-           inner join member m on mp.mno=m.mno
-    where
-      mp.cno=#{value}
-  </select>
-
-  <update id="update" parameterType="club">
-    update club set
-        ctitle   = #{title},
-        ccontent = #{content},
-    mno=#{writer.mno}
-    where cno = #{no}
-  </update>
-
-  <delete id="delete" parameterType="int">
-    delete from club
-    where cno = #{value}
   </delete>
 
 </mapper>
