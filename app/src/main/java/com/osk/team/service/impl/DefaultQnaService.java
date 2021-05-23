@@ -1,6 +1,7 @@
 package com.osk.team.service.impl;
 
 import java.util.List;
+
 import com.osk.team.dao.QnaDao;
 import com.osk.team.domain.Qna;
 import com.osk.team.service.QnaService;

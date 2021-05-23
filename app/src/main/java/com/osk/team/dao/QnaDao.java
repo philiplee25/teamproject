@@ -1,7 +1,8 @@
 package com.osk.team.dao;
 
-import java.util.List;
 import com.osk.team.domain.Qna;
+
+import java.util.List;
 
 public interface QnaDao {
 

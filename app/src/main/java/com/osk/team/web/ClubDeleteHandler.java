@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringWriter;
 
 @SuppressWarnings("serial")
 @WebServlet("/club/delete")
@@ -20,9 +19,6 @@ public class ClubDeleteHandler extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         ClubService clubService = (ClubService) request.getServletContext().getAttribute("clubService");
-
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
 
         try {
             int no = Integer.parseInt(request.getParameter("no"));
@@ -34,7 +30,7 @@ public class ClubDeleteHandler extends HttpServlet {
 
             Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 
-            if (oldClub.getWriter().getNo() != loginUser.getNo()) {
+            if (oldClub.getWriter().getNo() != loginUser.getNo() && loginUser.getPower() == 0) {
                 throw new Exception("삭제 권한이 없습니다.");
             }
 

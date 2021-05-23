@@ -12,18 +12,33 @@
     <result column="bcontent" property="content"/>
     <result column="bcount" property="viewCount"/>
     <result column="bdate" property="registeredDate"/>
-
+    
     <association property="writer" javaType="member">
       <id column="writer_no" property="no"/>
       <result column="writer_name" property="name"/>
     </association>
 
+ <collection property="photos" ofType="BoardPhoto">
+      <result column="bphoto" property="photo"/>
+  </collection>
+  
+   
 
   </resultMap>
+  
+  <!-- AutoIncrement 값 출력 을 위해 만듬. -->
+  <select id="boardbno" resultMap="boardMap" >
+    select max(bno) bno from board;
+  </select>
 
   <insert id="insert" parameterType="board">
     insert into board(btitle, bcontent, bcount, bdate ,mno, b_tno )
     values (#{title}, #{content}, #{viewCount}, #{registeredDate} ,#{writer.no}, #{boardTypeNo})
+  </insert>
+  
+  <insert id="insertphoto" parameterType="BoardPhoto">
+    insert into b_photo(bphoto, bno )
+    values (#{photo}, #{bno})
   </insert>
 
   <select id="findByKeyword" resultMap="boardMap" parameterType="string">
@@ -44,7 +59,7 @@
       where
       b.btitle like concat('%', #{value},'%')
       or b.bcontent like concat('%', #{value},'%')
-      or m.bname like concat('%', #{value},'%')
+      or m.mname like concat('%', #{value},'%')
     </if>
 
     order by b.bno desc
@@ -57,13 +72,16 @@
       b.bcontent,
       b.bdate,
       b.bcount,
-      m.mno as mno,
-      m.mname as mname,
-      t.b_tno
+      m.mno as writer_no,
+      m.mname as writer_name,
+      t.b_tno,
+      p.bphoto
     from board b
            inner join member m on m.mno=b.mno
            inner join b_type t on t.b_tno=b.b_tno
+           left outer join b_photo p on p.bno=b.bno
     where b.bno = #{value}
+    order by bno desc
   </select>
 
   <update id="updateViewCount" parameterType="int">
@@ -74,8 +92,8 @@
 
   <update id="update" parameterType="board">
     update board
-    set btitle = #{btitle},
-        bcontent = #{bcontent}
+    set btitle = #{title},
+        bcontent = #{content}
     where bno = #{no}
   </update>
 

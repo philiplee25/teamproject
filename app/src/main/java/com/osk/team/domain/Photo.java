@@ -19,4 +19,12 @@ public class Photo {
     public void setNo(int no) {
         this.no = no;
     }
+
+    @Override
+    public String toString() {
+        return "Photo{" +
+                "no=" + no +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

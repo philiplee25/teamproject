@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
 import com.osk.team.domain.Discount;
 import com.osk.team.service.DiscountService;
 import net.coobird.thumbnailator.ThumbnailParameter;
@@ -56,20 +57,17 @@ public class DiscountAddHandler extends HttpServlet {
         d.setPhoto(filename);
 
         // 썸네일 이미지 생성
-        Thumbnails.of(this.uploadDir + "/" + filename)
-        .size(80, 80)
-        .outputFormat("jpg")
-        .crop(Positions.CENTER)
-        .toFiles(new Rename() {
-          @Override
-          public String apply(String name, ThumbnailParameter param) {
-            return name + "_80x80";
-          }
-        });
+        Thumbnails.of(this.uploadDir + "/" + filename).size(80, 80).outputFormat("jpg")
+            .crop(Positions.CENTER).toFiles(new Rename() {
+              @Override
+              public String apply(String name, ThumbnailParameter param) {
+                return name + "_80x80";
+              }
+            });
 
         discountService.add(d);
         response.sendRedirect("list");
-      } 
+      }
 
     } catch (Exception e) {
       throw new ServletException(e);

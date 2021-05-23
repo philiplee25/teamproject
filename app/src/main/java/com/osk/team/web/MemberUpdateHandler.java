@@ -1,5 +1,8 @@
 package com.osk.team.web;
 
+import com.osk.team.domain.Member;
+import com.osk.team.service.MemberService;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -8,8 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.osk.team.domain.Member;
-import com.osk.team.service.MemberService;
 
 @SuppressWarnings("serial")
 @WebServlet("/member/update")

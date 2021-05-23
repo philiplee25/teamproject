@@ -4,7 +4,6 @@ import com.osk.team.domain.Club;
 import com.osk.team.domain.Member;
 import com.osk.team.domain.Photo;
 
-import java.util.Date;
 import java.util.List;
 
 public interface ClubService {
@@ -27,11 +26,14 @@ public interface ClubService {
 
     List<Club> search(String keyword) throws Exception;
 
+    int addWithMember(Member member) throws Exception;//클럽 가입 멤버
+
+
     List<Photo> getPhotos(int clubNo) throws Exception;//사진 가져옴
 
-    int deleteMember(int clubNo) throws Exception;
+    int deleteMembers(int clubNo) throws Exception;
 
-    int updateMember(int projectNo, List<Member> members) throws Exception;
+    int updateMembers(int projectNo, List<Member> members) throws Exception;
 
     int deletePhotos(int clubNo) throws Exception;
 

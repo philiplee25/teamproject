@@ -4,7 +4,6 @@ import com.osk.team.domain.Club;
 import com.osk.team.domain.Member;
 import com.osk.team.domain.Photo;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +23,6 @@ public interface ClubDao {
 
     List<Club> findByKeywords(Map<String, Object> params) throws Exception;
 
-
     //사진 관련
     List<Photo> findPhotos(int clubNo) throws Exception;
 
@@ -40,10 +38,13 @@ public interface ClubDao {
 
 
     //멤버관련
+//    int insertMember(Member member) throws Exception;
+
+    int insertMember(Member member) throws Exception;
+
     List<Member> findMembers(int clubNo) throws Exception;
 
-    int insertMember(Map<String, Object> params) throws Exception;
-
+//    int insertMembers(Member member, List<Member> members) throws Exception;
     int insertMembers(Map<String, Object> params) throws Exception;
 
     int deleteMembers(int memberNo) throws Exception;

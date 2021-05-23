@@ -85,7 +85,7 @@ CREATE TABLE hotplace (
   hno      INTEGER      NOT NULL COMMENT '게시판 번호', -- 게시판 번호
   htitle   VARCHAR(255) NOT NULL COMMENT '게시판 제목', -- 게시판 제목
   hcontent LONGTEXT     NOT NULL COMMENT '게시판 내용', -- 게시판 내용
-  hdate    TIMESTAMP    NULL     COMMENT '등록 날짜', -- 등록 날짜
+  hdate    TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '등록 날짜', -- 등록 날짜
   hcount   INTEGER      NOT NULL COMMENT '조회수', -- 조회수
   haddr    VARCHAR(255) NOT NULL COMMENT '주소', -- 주소
   hphoto   VARCHAR(255) NULL     COMMENT '사진' -- 사진
@@ -132,7 +132,7 @@ CREATE TABLE discount (
   dno      INTEGER      NOT NULL COMMENT '게시판 번호', -- 게시판 번호
   dtitle   VARCHAR(255) NOT NULL COMMENT '게시판 제목', -- 게시판 제목
   dcontent LONGTEXT     NOT NULL COMMENT '게시판 내용', -- 게시판 내용
-  ddate    TIMESTAMP    NULL     DEFAULT now() COMMENT '등록 날짜', -- 등록 날짜
+  ddate    TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '등록 날짜', -- 등록 날짜
   dcount   INTEGER      NOT NULL COMMENT '조회수', -- 조회수
   dphoto   VARCHAR(255) NULL     COMMENT '사진' -- 사진
 )
@@ -222,7 +222,7 @@ CREATE TABLE m_qna (
   m_qtitle   VARCHAR(255) NOT NULL COMMENT '제목', -- 제목
   m_qcontent LONGTEXT     NOT NULL COMMENT '내용', -- 내용
   a_qcontent LONGTEXT     NULL     COMMENT '답변내용', -- 답변내용
-  a_qdate    TIMESTAMP    NULL     DEFAULT current_timestamp COMMENT '답변일' -- 답변일
+  a_qdate    TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '답변일' -- 답변일
 )
 COMMENT 'QnA게시판';
 
@@ -259,7 +259,7 @@ ALTER TABLE m_delete
 CREATE TABLE faq (
   fno      INTEGER      NOT NULL COMMENT 'FAQ번호', -- FAQ번호
   ftitle   VARCHAR(255) NOT NULL COMMENT '제목', -- 제목
-  fdate    TIMESTAMP    NULL     COMMENT '작성일', -- 작성일
+  fdate    TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '작성일', -- 작성일
   fcontent LONGTEXT     NOT NULL COMMENT '내용' -- 내용
 )
 COMMENT 'FAQ게시판';
@@ -509,3 +509,4 @@ ALTER TABLE c_photo
     REFERENCES club ( -- 여행클럽
       cno -- 클럽게시판번호
     );
+    

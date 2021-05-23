@@ -4,33 +4,16 @@ import java.io.InputStream;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+
+import com.osk.team.dao.*;
+import com.osk.team.service.*;
+import com.osk.team.service.impl.*;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.osk.mybatis.MybatisDaoFactory;
 import com.osk.mybatis.SqlSessionFactoryProxy;
 import com.osk.mybatis.TransactionManager;
-import com.osk.team.dao.BoardDao;
-import com.osk.team.dao.ClubDao;
-import com.osk.team.dao.DiscountDao;
-import com.osk.team.dao.FaqDao;
-import com.osk.team.dao.HotplaceDao;
-import com.osk.team.dao.MemberDao;
-import com.osk.team.dao.QnaDao;
-import com.osk.team.service.BoardService;
-import com.osk.team.service.ClubService;
-import com.osk.team.service.DiscountService;
-import com.osk.team.service.FaqService;
-import com.osk.team.service.HotplaceService;
-import com.osk.team.service.MemberService;
-import com.osk.team.service.QnaService;
-import com.osk.team.service.impl.DefaultBoardService;
-import com.osk.team.service.impl.DefaultClubService;
-import com.osk.team.service.impl.DefaultDiscountService;
-import com.osk.team.service.impl.DefaultFaqService;
-import com.osk.team.service.impl.DefaultHotplaceService;
-import com.osk.team.service.impl.DefaultMemberService;
-import com.osk.team.service.impl.DefaultQnaService;
 
 @SuppressWarnings("serial")
 public class AppInitHandler extends HttpServlet {

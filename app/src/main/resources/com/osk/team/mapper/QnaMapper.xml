@@ -12,6 +12,7 @@
     <result column="m_qcontent" property="content"/>
     <result column="a_qcontent" property="answer"/>
     <result column="a_qdate" property="answerDate"/>
+    
     <association property="writer" javaType="member">
        <id column="writer_no" property="no"/>
        <result column="writer_name" property="name"/>
@@ -19,12 +20,12 @@
     </association>
 
   </resultMap>
- <!--
+
   <insert id="insert" parameterType="qna">
-    insert into qna(title, content, writer)
-    values (#{title}, #{content}, #{writer.no})
+    insert into m_qna(m_qtitle, m_qcontent, mno, m_qdate, a_qcontent, a_qdate)
+    values (#{title}, #{content}, #{writer.no}, #{registeredDate}, #{answer}, #{answerDate})
   </insert> 
--->
+
   
   <select id="listAll" resultMap="qnaMap" parameterType="int">
     select
@@ -33,7 +34,7 @@
       q.m_qdate,
       m.mname as writer_name
     from m_qna q
-    inner join member m on m.mno=q.m_qno
+    inner join member m on m.mno=q.mno
   </select>
   
   <select id="findByKeyword" resultMap="qnaMap" parameterType="int">
@@ -43,10 +44,19 @@
       q.m_qdate,
       m.mname as writer_name
     from m_qna q
-    inner join member m on m.mno=q.m_qno
+    inner join member m on m.mno=q.mno
   </select>
+  
+    <update id="update" parameterType="qna">
+    update m_qna set 
+        m_qtitle = #{title},
+        m_qcontent = #{content},
+        a_qcontent = #{answer},
+        a_qdate = #{answerDate}
+    where m_qno = #{no}
+   </update>
 
-<!-- 
+
   <select id="findByNo" resultMap="qnaMap" parameterType="int">
     select
       q.m_qno,
@@ -58,21 +68,16 @@
       m.mno as writer_no,
       m.mname as writer_name
     from m_qna q
-    inner join member m on m.mno=q.m_qno
+    inner join member m on m.mno=q.mno
     where q.m_qno = #{value}
   </select>
 
-  <update id="update" parameterType="qna">
-    update m_qna set 
-        m_qtitle = #{m_qtitle},
-        m_qtitle = #{m_qtitle}
-    where m_qno = #{no}
-  </update>
+
 
   <delete id="delete" parameterType="int">
     delete from m_qna
     where m_qno = #{value}
   </delete>
-    -->
+    
 
 </mapper>

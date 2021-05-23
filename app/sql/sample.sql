@@ -59,15 +59,15 @@ values ('9', '3', '9', '세컨3', '내용3', '1', '2020-1-1');
 
 -- 클럽 테이블 예제 데이터 삽입
 insert into club(cno, mno, carrive, ctheme, ctitle, ccontent, csdt, cedt, ctotal)
-values ('1', '1', '부산', '1박2일', '치맥', '바다에서 먹읍시다', '2020-1-1', '2020-1-2', 5);
+values ('1', '1', '부산', '불멍때리기', '치맥', '바다에서 먹읍시다', '2020-1-1', '2020-1-2', 5);
 insert into club(cno, mno, carrive, ctheme, ctitle, ccontent, csdt, cedt, ctotal)
-values ('2', '2', '서울', '당일치기', '치맥', '바다에서 먹읍시다', '2020-1-1', '2020-1-2', 5);
+values ('2', '2', '서울', '고기파티', '치맥', '바다에서 먹읍시다', '2020-1-1', '2020-1-2', 5);
 insert into club(cno, mno, carrive, ctheme, ctitle, ccontent, csdt, cedt, ctotal)
-values ('3', '3', '대구', '3박4일', '치맥', '바다에서 먹읍시다', '2020-1-1', '2020-1-2', 5);
+values ('3', '3', '대구', '낚시', '치맥', '바다에서 먹읍시다', '2020-1-1', '2020-1-2', 5);
 insert into club(cno, mno, carrive, ctheme, ctitle, ccontent, csdt, cedt, ctotal)
-values ('4', '4', '대전', '저녁', '치맥', '바다에서 먹읍시다', '2020-1-1', '2020-1-2', 5);
+values ('4', '4', '대전', '일상탈출', '치맥', '바다에서 먹읍시다', '2020-1-1', '2020-1-2', 5);
 insert into club(cno, mno, carrive, ctheme, ctitle, ccontent, csdt, cedt, ctotal)
-values ('5', '5', '경주', '점심', '치맥', '바다에서 먹읍시다', '2020-1-1', '2020-1-2', 5);
+values ('5', '5', '경주', '별보기', '치맥', '바다에서 먹읍시다', '2020-1-1', '2020-1-2', 5);
 
 -- 핫플레이스 테이블 예제 데이터 삽입
 insert into hotplace(hno, htitle, hcontent, hdate, hcount, haddr, hphoto)

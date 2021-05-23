@@ -11,3 +11,4 @@
   <input type='checkbox' name='member' value='${m.no}' ${checked}>${m.name}<br>
   <c:remove var="checked"/>
 </c:forEach>
+

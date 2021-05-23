@@ -19,11 +19,29 @@
     <result column="mcnt" property="count"/>
   </resultMap>
 
-  <!--  <insert id="insert" parameterType="member">
-    insert into member(name, password, email, birth, tel, gender, photo, status, power, count)
-    values (#{mname}, password(#{mpwd}), #{memail}, #{mbirth}, #{mtel}, #{mgender}, #{mphoto}, #{mstatus}, #{mpow}, #{mcnt})
-  </insert> -->
+  <insert id="insert" parameterType="member">
+    insert into member(mname, mpwd, memail, mbirth, mtel, mgender, mphoto, mstatus, mpow, mcnt)
+    values (#{name}, password(#{password}), #{email}, #{birth}, #{tel}, #{gender}, #{photo}, #{status}, #{power}, #{count})
+  </insert> 
 
+
+  
+  <select id="findByNo" resultMap="memberMap" parameterType="int">
+    select
+    mno,
+    mname,
+    memail,  
+    mphoto,
+    mbirth,
+    mtel,
+    mgender,
+    mstatus,
+    mpow,
+    mcnt
+    from member
+    where mno = #{no}
+  </select>
+  
   <select id="findByKeyword" resultMap="memberMap" parameterType="string">
     select
     mno,
@@ -65,19 +83,19 @@
     where mno = #{value}
   </select>-->
 
-  <!--<update id="update" parameterType="member">
+  <update id="update" parameterType="member">
     update member
     set mphoto = #{mphoto},
         mpwd = password(#{mpwd})
     where mno = #{no}
-  </update>-->
+  </update>
 
 
-  <!--<delete id="delete" parameterType="int">
-    delete mno
+  <delete id="delete" parameterType="int">
+    delete
     from member
     where mno = #{value}
-  </delete>-->
+  </delete>
 
   <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
    select
