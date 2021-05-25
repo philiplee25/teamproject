@@ -4,80 +4,93 @@ import java.sql.Date;
 
 public class Hotplace {
 
-    private int no;
-    private String title;
-    private String content;
-    private Date date;
-    private int count;
-    private String address;
-    private String photo;
+  private int no;
+  private String title;
+  private String content;
+  private Date date;
+  private int count;
+  private String address;
+  private String photo;
+  private String latitude;
+  private String longitude;
 
+  @Override
+  public String toString() {
+    return "Hotplace [no=" + no + ", title=" + title + ", content=" + content + ", date=" + date
+        + ", count=" + count + ", address=" + address + ", photo=" + photo + ", latitude="
+        + latitude + ", longitude=" + longitude + "]";
+  }
 
+  public int getNo() {
+    return no;
+  }
 
-    @Override
-    public String toString() {
-        return "Hotplace [no=" + no +
-                ", title=" + title +
-                ", content=" + content +
-                ", date=" + date +
-                ", count=" + count +
-                ", address=" + address +
-                ", photo=" + photo + "]";
-    }
+  public void setNo(int no) {
+    this.no = no;
+  }
 
-    public int getNo() {
-        return no;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public void setNo(int no) {
-        this.no = no;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public String getTitle() {
-        return title;
-    }
+  public String getContent() {
+    return content;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public void setContent(String content) {
+    this.content = content;
+  }
 
-    public String getContent() {
-        return content;
-    }
+  public Date getDate() {
+    return date;
+  }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+  public void setDate(Date date) {
+    this.date = date;
+  }
 
-    public Date getDate() {
-        return date;
-    }
+  public int getCount() {
+    return count;
+  }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+  public void setCount(int count) {
+    this.count = count;
+  }
 
-    public int getCount() {
-        return count;
-    }
+  public String getAddress() {
+    return address;
+  }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-    public String getAddress() {
-        return address;
-    }
+  public String getPhoto() {
+    return photo;
+  }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+  public void setPhoto(String photo) {
+    this.photo = photo;
+  }
 
-    public String getPhoto() {
-        return photo;
-    }
+  public String getLatitude() {
+    return latitude;
+  }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
+  public void setLatitude(String latitude) {
+    this.latitude = latitude;
+  }
+
+  public String getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(String longitude) {
+    this.longitude = longitude;
+  }
+
 }

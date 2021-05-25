@@ -5,12 +5,16 @@ import com.osk.team.domain.Hotplace;
 
 public interface HotplaceDao {
 
-    int insert(Hotplace hotplace) throws Exception;
+  int insert(Hotplace hotplace) throws Exception;
 
-    List<Hotplace> findByKeyword(String keyword) throws Exception;
+  List<Hotplace> findByKeyword(String keyword) throws Exception;
 
-    int update(Hotplace hotplace) throws Exception;
+  Hotplace findByNo(int no) throws Exception;
 
-    int delete(int hno) throws Exception;
+  int update(Hotplace hotplace) throws Exception;
+
+  int updateViewCount(int no) throws Exception;
+
+  int delete(int hno) throws Exception;
 
 }
