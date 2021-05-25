@@ -63,7 +63,7 @@
         or mtel like concat('%', #{keyword}, '%')
       </if>
     </where>
-    order by mname asc
+    order by mno desc
   </select>
 
   <!--<select id="findByMember" resultMap="memberMap" parameterType="int">
@@ -85,8 +85,9 @@
 
   <update id="update" parameterType="member">
     update member
-    set mphoto = #{mphoto},
-        mpwd = password(#{mpwd})
+    set mpwd = password(#{password}),
+        mtel = #{tel},
+        mphoto = #{photo}
     where mno = #{no}
   </update>
 

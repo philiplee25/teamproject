@@ -1,73 +1,100 @@
 package com.osk.team.web;
 
-import com.osk.team.domain.Member;
-import com.osk.team.service.MemberService;
-
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.util.UUID;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import com.osk.team.domain.Member;
+import com.osk.team.service.MemberService;
+import net.coobird.thumbnailator.ThumbnailParameter;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
+import net.coobird.thumbnailator.name.Rename;
 
 @SuppressWarnings("serial")
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 @WebServlet("/member/update")
 public class MemberUpdateHandler extends HttpServlet {
 
-    @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+  private String uploadDir;
 
-        MemberService memberService = (MemberService) request.getServletContext().getAttribute("memberService");
+  @Override
+  public void init() throws ServletException {
+    this.uploadDir = this.getServletContext().getRealPath("/upload");
+  }
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-        response.setContentType("text/plain;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+    MemberService memberService = (MemberService) request.getServletContext().getAttribute("memberService");
 
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>회원 정보 변경</title>");
-        try {
-            out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>회원 정보 변경</h1>");
+    try {
+      request.setCharacterEncoding("UTF-8");
+      int no = Integer.parseInt(request.getParameter("no"));
 
-            int no = Integer.parseInt(request.getParameter("no"));
+      Member oldMember = memberService.get(no);
+      if (oldMember == null) {
+        throw new Exception("해당 번호의 회원이 없습니다.");
+      } 
 
-//            Member oldMember = memberService.get(no);
-//            if (oldMember == null) {
-//                out.println("<p>해당하는 회원정보가 없습니다.</p>");
-//                return;
-//            }
+      /*Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+      if (oldMember.getWriter().getNo() != loginUser.getNo()) {
+        throw new Exception("변경 권한이 없습니다!");
+      }*/
 
-            Member member = new Member();
-            member.setName(request.getParameter("mname"));
-//            member.setMemail(request.getParameter("memail"));
-            member.setPassword(request.getParameter("mpassword"));
-//            member.setMphoto(request.getParameter("mphoto"));
-//            member.setMtel(request.getIntHeader("mtel"));
+      Member member = new Member();
+      //m.setName(request.getParameter("name"));
+      member.setNo(oldMember.getNo());
+      member.setPassword(request.getParameter("password"));
+      //m.setEmail(request.getParameter("email"));
+      member.setTel(Integer.parseInt(request.getParameter("tel")));
+      //m.setGender(Integer.parseInt(request.getParameter("gender")));
+      //m.setBirth(Date.valueOf(request.getParameter("birth")));
+      //m.setStatus(Integer.parseInt(request.getParameter("status")));
+      //m.setPower(Integer.parseInt(request.getParameter("power")));
+      //m.setStatus(Integer.parseInt(request.getParameter("count")));
 
-            memberService.update(member);
+      Part photoPart = request.getPart("photo");
+      if (photoPart.getSize() > 0) {
+        // 파일을 선택해서 업로드 했다면,
+        String filename = UUID.randomUUID().toString();
+        photoPart.write(this.uploadDir + "/" + filename);
+        member.setPhoto(filename);
 
-            out.println("<p>회원정보 변경을 완료했습니다.</p>");
+        // 썸네일 이미지 생성
+        Thumbnails.of(this.uploadDir + "/" + filename)
+        .size(30, 30)
+        .outputFormat("jpg")
+        .crop(Positions.CENTER)
+        .toFiles(new Rename() {
+          @Override
+          public String apply(String name, ThumbnailParameter param) {
+            return name + "_30x30";
+          }
+        });
 
-        } catch (Exception e) {
-            StringWriter strWriter = new StringWriter();
-            PrintWriter printWriter = new PrintWriter(strWriter);
-            e.printStackTrace(printWriter);
-            out.println(strWriter.toString());
+        Thumbnails.of(this.uploadDir + "/" + filename)
+        .size(80, 80)
+        .outputFormat("jpg")
+        .crop(Positions.CENTER)
+        .toFiles(new Rename() {
+          @Override
+          public String apply(String name, ThumbnailParameter param) {
+            return name + "_80x80";
+          }
+        });
+      }
 
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>회원정보 변경 오류!</h1>");
-            out.printf("<pre>%s</pre>\n", strWriter.toString());
-            out.println("<p><a href='list'>회원 목록</a></p>");
-        }
+      memberService.update(member);
+      response.sendRedirect("list");
 
-        out.println("</body>");
-        out.println("</html>");
+    } catch (Exception e) {
+      throw new ServletException(e);
     }
+  }
 }

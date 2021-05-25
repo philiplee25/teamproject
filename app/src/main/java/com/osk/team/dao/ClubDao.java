@@ -24,27 +24,25 @@ public interface ClubDao {
     List<Club> findByKeywords(Map<String, Object> params) throws Exception;
 
     //사진 관련
-    List<Photo> findPhotos(int clubNo) throws Exception;
-
     int insertPhoto(Photo photo) throws Exception;
-
-//    int updatePhoto(Photo photo) throws Exception;
-
-//    int insertPhotos(Photo photo) throws Exception;
-
-//    int insertPhotos(Map<String, Object> params) throws Exception;
-
-    int deletePhotos(int clubNo) throws Exception;
-
-
-    //멤버관련
-//    int insertMember(Member member) throws Exception;
-
-    int insertMember(Member member) throws Exception;
 
     List<Member> findMembers(int clubNo) throws Exception;
 
-//    int insertMembers(Member member, List<Member> members) throws Exception;
+    int insertMember(Map<String, Object> params) throws Exception;
+
+
+
+
+
+
+
+
+    int deletePhotos(int clubNo) throws Exception;
+
+    List<Photo> findPhotos(int clubNo) throws Exception;
+
+//    int insertMember(Member member) throws Exception;
+
     int insertMembers(Map<String, Object> params) throws Exception;
 
     int deleteMembers(int memberNo) throws Exception;

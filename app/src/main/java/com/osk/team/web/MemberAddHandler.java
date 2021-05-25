@@ -58,9 +58,9 @@ public class MemberAddHandler extends HttpServlet {
       m.setTel(Integer.parseInt(request.getParameter("tel")));
       m.setGender(Integer.parseInt(request.getParameter("gender")));
       m.setBirth(Date.valueOf(request.getParameter("birth")));
-      m.setStatus(Integer.parseInt(request.getParameter("status")));
-      m.setPower(Integer.parseInt(request.getParameter("power")));
-      m.setStatus(Integer.parseInt(request.getParameter("count")));
+      m.setStatus(0);
+      m.setPower(0);
+      m.setStatus(0);
 
 
       Part photoPart = request.getPart("photo");
@@ -83,7 +83,7 @@ public class MemberAddHandler extends HttpServlet {
           }
         });
 
-        /*Thumbnails.of(this.uploadDir + "/" + filename)
+        Thumbnails.of(this.uploadDir + "/" + filename)
         .size(80, 80)
         .outputFormat("jpg")
         .crop(Positions.CENTER)
@@ -92,7 +92,7 @@ public class MemberAddHandler extends HttpServlet {
           public String apply(String name, ThumbnailParameter param) {
             return name + "_80x80";
           }
-        });*/
+        });
       }        
 
       memberService.add(m);

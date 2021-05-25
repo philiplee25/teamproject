@@ -21,17 +21,15 @@
   <tbody>
     <tr><th>번호</th> <td><input type='text' name='no' value='${discount.no}' readonly></td></tr>
     <tr><th>제목</th> <td><input name='title' type='text' value='${discount.title}'></td></tr>
-        <tr><th>사진</th> 
-  <td><a href='${photoUrl}'>
-  <img src='${photo80x80Url}'></a><br>
-  <c:if test="${not empty loginUser and loginUser.power == 1}">
-    <input name='photo' type='file'></td></tr>
-  </c:if>
     <tr><th>내용</th> <td><textarea name='content' rows='10' cols='60'>${discount.content}</textarea></td></tr>
     <tr><th>작성자</th> <td>관리자</td></tr>
     <tr><th>등록일</th> <td>${discount.date}</td></tr>
     <tr><th>조회수</th> <td>${discount.count}</td></tr>
     
+    <tr><th>사진</th> 
+  <td><a href='${photoUrl}'>
+  <img src='${photo80x80Url}'></a><br>
+  <input name='photo' type='file'></td></tr>
 </tbody>
 
   <c:if test="${not empty loginUser and loginUser.power == 1}">

@@ -1,10 +1,10 @@
 <%@page import="com.osk.team.domain.Member"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.osk.team.domain.Board"%>
 <%@ page language="java"
          contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"
          trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,17 +12,18 @@
 </head>
 <body>
 <h1>회원 상세정보</h1>
-<jsp:useBean id="member" type="com.osk.team.domain.Member" scope="request"/>
-<%
-  if (member != null) {
-    pageContext.setAttribute("photo80x80Url",
-            member.getPhoto() != null ?
-                    "../upload/" + member.getPhoto() + "_80x80.jpg" : "../images/person_80x80.jpg");
-    pageContext.setAttribute("photoUrl",
-            member.getPhoto() != null ?
-                    "../upload/" + member.getPhoto() : "");
-%>
 
+<c:if test="${not empty member}">
+  <c:if test="${not empty member.photo}">
+    <c:set var="photo80x80Url">../upload/${member.photo}_80x80.jpg</c:set>
+    <c:set var="photoUrl">../upload/${member.photo}</c:set>
+  </c:if>
+  <c:if test="${empty member.photo}">
+    <c:set var="photo80x80Url">../images/person_80x80.jpg</c:set>
+    <c:set var="photoUrl"></c:set>
+  </c:if>
+  
+  
 <form action='update' method='post' enctype='multipart/form-data'>
   <table border='1'>
     <tbody>
@@ -31,10 +32,10 @@
       <td><input type='text' name='no' value='${member.no}' readonly></td></tr>
     <tr>
       <th>이름</th>
-      <td><input name='name' type='text' value='${member.name}'></td></tr>
+      <td><input name='name' type='text' value='${member.name}'readonly></td></tr>
     <tr>
       <th>이메일</th>
-      <td><input name='email' type='email' value='${member.email}'></td></tr>
+      <td><input name='email' type='email' value='${member.email}'readonly></td></tr>
     <tr>
       <th>암호</th>
       <td><input name='password' type='password'></td></tr>
@@ -46,21 +47,21 @@
       <td><input name='tel' type='tel' value='${member.tel}'></td></tr>
     <tr>
       <th>성별</th>
-      <td><input type='no' name='gender' value='${member.gender}'></td></tr>
+      <td><input type='no' name='gender' value='${member.gender}'readonly></td></tr>
     <tr>
       <th>사진</th>
       <td><a href='${photoUrl}'>
         <img src='${photo80x80Url}'></a><br>
         <input name='photo' type='file'></td></tr>
-    <tr>
+<%--     <tr>
       <th>탈퇴여부</th>
-      <td><input type='no' name='status' value='${member.status}'></td></tr>
+      <td><input type='no' name='status' value='${member.status}'readonly></td></tr>
     <tr>
       <th>관리자권한</th>
-      <td><input type='no' name='power' value='${member.power}'></td></tr>
-    <tr>
+      <td><input type='no' name='power' value='${member.power}'readonly></td></tr> --%>
+    <tr> 
       <th>제제횟수</th>
-      <td><input type='no' name='count' value='${member.count}'></td></tr>
+      <td><input type='no' name='count' value='${member.count}'readonly></td></tr>
     </tbody>
     <tfoot>
     <tr><td colspan='2'>
@@ -68,11 +69,12 @@
     </td></tr>
     </tfoot>
   </table>
-</form>
+  </form>
+</c:if>
 
-<%} else {%>
-<p>해당 번호의 회원이 없습니다.</p>
-<%}%>
+<c:if test="${empty member}">
+  <p>해당 번호의 회원이 없습니다.</p>
+</c:if>
 
 <p><a href='list'>목록</a></p>
 </body>

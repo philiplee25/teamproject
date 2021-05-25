@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Member {
   private int no;//멤버번호
+  private Member writer;
   private String name;//이름
   private String password;//암호
   private String email;//이메일
@@ -34,6 +35,15 @@ public class Member {
     this.no = no;
   }
 
+
+  public Member getWriter() {
+    return writer;
+  }
+
+
+  public void setWriter(Member writer) {
+    this.writer = writer;
+  }
 
   public String getName() {
     return name;

@@ -5,6 +5,7 @@ import com.osk.team.domain.Member;
 import com.osk.team.domain.Photo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ClubService {
 
@@ -26,7 +27,16 @@ public interface ClubService {
 
     List<Club> search(String keyword) throws Exception;
 
-    int addWithMember(Member member) throws Exception;//클럽 가입 멤버
+    int addWithMember(Map<String, Object> params) throws Exception;//클럽 가입 멤버
+
+    List<Member> getMembers(int clubNo) throws Exception;//클럽 맴버 가져오기
+
+
+
+
+
+
+
 
 
     List<Photo> getPhotos(int clubNo) throws Exception;//사진 가져옴

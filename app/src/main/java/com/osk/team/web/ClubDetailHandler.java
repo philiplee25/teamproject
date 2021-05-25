@@ -37,15 +37,13 @@ public class ClubDetailHandler extends HttpServlet {
                 throw new Exception("해당 번호의 클럽이 없습니다.");
             }
 
-
             if (loginUser == null) {
                 throw new Exception("로그인 후 이용가능합니다.");
             }
 
             request.setAttribute("club", c);
-//            request.setAttribute("loginUser", loginUser);//현재 로그인된 사람
             request.setAttribute("clubMembers", c.getMembers());
-            request.setAttribute("member", memberService.list(null));
+            request.setAttribute("members", memberService.list(null));
 
             response.setContentType("text/html;charset=UTF-8");
             request.getRequestDispatcher("/jsp/club/detail.jsp").include(request, response);

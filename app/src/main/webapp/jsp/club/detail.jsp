@@ -1,9 +1,3 @@
-<%@page import="org.apache.ibatis.reflection.SystemMetaObject" %>
-<%@page import="java.text.SimpleDateFormat" %>
-<%@ page import="com.osk.team.domain.Qna" %>
-<%@ page import="com.osk.team.service.ClubService" %>
-<%@ page import="com.osk.team.domain.Club" %>
-<%@ page import="com.osk.team.domain.Member" %>
 <%@ page language="java"
          contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
@@ -19,12 +13,28 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
 <c:if test="${not empty club}">
+    <form action="join" method="post">
+클럽 번호: <input type="text" name="no" value="${club.no}" readonly>
+회원 번호: <input type="text" name="loginUser" value="${loginUser.no}" readonly>
+        <input type="submit" value="클럽 참여">
+    </form>
+
+<%--    팀원:<jsp:include page="/jsp/club/member_list.jsp"/>--%>
+<form name="member" method="get">
+    팀원:
+    <c:forEach items="${clubMembers}" var="cm">
+    <c:forEach items="${member}" var="m">
+        <c:if test="${cm.no == m.no}">
+            <td>${m.name}</td>
+        </c:if>
+    </c:forEach>
+</c:forEach>
+</form>
+
     <form action='update' method='post'>
         <table border='1'>
             번호: <input type='text' name='no' value='${club.no}' readonly><br>
             방장: <input type='text' name='writer' value='${club.writer.name}' readonly><br>
-            팀원:<br>
-            <jsp:include page="/jsp/club/member_list.jsp"/>
             도착지: <input type='text' name='arrive' value='${club.arrive}' readonly><br>
             가는날: <input type='date' name='startDate' value='${club.startDate}' readonly><br>
             오는날: <input type='date' name='endDate' value='${club.endDate}' readonly><br>

@@ -1,10 +1,9 @@
-<%@page import="com.osk.team.domain.Member"%>
-<%@page import="java.util.List"%>
-<%@ page
-        language="java"
-        contentType="text/html; charset=UTF-8"
-        pageEncoding="UTF-8"
-        trimDirectiveWhitespaces="true"%>
+<%@ page 
+    language="java" 
+    contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,33 +15,32 @@
 <table border='1'>
   <thead>
   <tr>
-    <th>번호</th> <th>이름</th> <th>이메일</th> <th>사진</th>
+    <th>번호</th> <th>이름</th> <th>이메일</th> 
     <th>생년월일</th> <th>전화번호</th><th>성별</th>
-    <th>탈퇴여부</th> <th>관리자권한</th> <th>재재횟수</th>
+    <th>사진</th> 
   </tr>
   </thead>
   <tbody>
-  <jsp:useBean id="list" type="List<Member>" scope="request"/>
-  <%
-    for (Member m : list) {
-      pageContext.setAttribute("m", m);
-      pageContext.setAttribute("photoUrl",
-              m.getPhoto() != null ? "../upload/" + m.getPhoto() + "_30x30.jpg" : "../images/person_30x30.jpg");
-  %>
+  
+<c:forEach items="${list}" var="m">
+  <c:if test="${not empty m.photo}">
+    <c:set var="photoUrl">../upload/${m.photo}_30x30.jpg</c:set>
+  </c:if>
+  <c:if test="${empty m.photo}">
+    <c:set var="photoUrl">../images/person_30x30.jpg</c:set>
+  </c:if>
   <tr>
     <td>${m.no}</td>
     <td><a href='detail?no=${m.no}'>${m.name}</a></td>
-
     <td>${m.email}</td>
     <td>${m.birth}</td>
     <td>${m.tel}</td>
     <td>${m.gender}</td>
     <td><img src='${photoUrl}'></td>
-    <td>${m.status}</td>
-    <td>${m.power}</td>
-    <td>${m.count}</td> </tr>
-  <%}%>
-  </tbody>
+  </tr>
+</c:forEach>
+
+</tbody>
 </table>
 
 <form action='list' method='get'>

@@ -21,8 +21,8 @@
     </association>
 
     <association property="members" javaType="member">
-      <id column="member_no" property="no"/>
-      <result column="member_name" property="name"/>
+      <id column="mno" property="no"/>
+      <result column="mname" property="name"/>
     </association>
 
     <collection property="photos" ofType="photo">
@@ -50,8 +50,8 @@
 
   <update id="update" parameterType="club">
     update club set
-    ctitle   = #{title},
-    ccontent = #{content}
+                  ctitle   = #{title},
+                  ccontent = #{content}
     where cno = #{no}
   </update>
 
@@ -84,19 +84,19 @@
 
   <select id="findByNo" resultMap="clubMap" parameterType="int">
     select c.cno,
-           c.carrive,
-           c.ctitle,
-           c.ccontent,
-           c.ctheme,
-           c.csdt,
-           c.cedt,
-           c.ctotal,
-           p.c_pho,<!--사진-->
-           m.mno   as writer_no,
-           m.mname as writer_name
+    c.carrive,
+    c.ctitle,
+    c.ccontent,
+    c.ctheme,
+    c.csdt,
+    c.cedt,
+    c.ctotal,
+    p.c_pho,<!--사진-->
+    m.mno   as writer_no,
+    m.mname as writer_name
     from club c
-           inner join member m on m.mno = c.mno
-           left outer join c_photo p on p.cno = c.cno
+    inner join member m on m.mno = c.mno
+    left outer join c_photo p on p.cno = c.cno
     where c.cno = #{value}
     order by cno desc
   </select>
