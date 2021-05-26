@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>여러개 마커 표시하기</title>
+    <title>핫플레이스 목록</title>
     
     <style>
     .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
@@ -26,9 +26,13 @@
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info .link {color: #5085BB;}
 </style>
-
 </head>
 <body>
+<h1>핫플레이스</h1>
+<c:if test="${not empty loginUser and loginUser.power == 1}">
+<p><a href='add'>핫플레이스 등록</a></p>
+</c:if>
+
 <div id="map" style="width:700px;height:700px;margin:auto;"></div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=321d4ad60c277c79886760c525a516fe"></script>
