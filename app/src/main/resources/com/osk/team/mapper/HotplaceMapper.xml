@@ -1,86 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.osk.team.dao.HotplaceDao">
-
+  
   <resultMap id="hotplaceMap" type="hotplace">
     <id column="hno" property="no"/>
     <result column="htitle" property="title"/>
     <result column="hcontent" property="content"/>
     <result column="hdate" property="date"/>
     <result column="hcount" property="count"/>
-    <result column="haddr" property="address"/>
-    <result column="hphoto" property="photo"/>
+<!--     <result column="haddr" property="address"/> -->
+<!--    <result column="hphoto" property="photo"/> -->
     <result column="hlat" property="latitude"/>
     <result column="hlng" property="longitude"/>
+    
   </resultMap>
-
-<insert id="insert" parameterType="hotplace">
-    insert into hotplace(htitle, hcontent, hdate, hcount, haddr, hphoto, hlat, hlng) 
-    values(#{title}, #{content}, #{date}, #{count}, #{address}, #{photo}, #{latitude}, #longitude})
+  
+  <insert id="insert" parameterType="hotplace">
+    insert into hotplace(htitle, hcontent, hdate, hcount, hlat, hlng) 
+    values(#{title}, #{content}, #{date}, #{count}, #{latitude}, #{longitude})
   </insert>
 
-  <select id="findByKeyword" resultMap="hotplaceMap" parameterType="string">
-    select
-      h.hno,
-      h.htitle,
-      h.hcontent,
-      h.hdate,
-      h.hcount,
-      h.haddr,
-      h.hphoto,
-      h.hlat,
-      h.hlng
-      
-    from hotplace h
-    
-    order by h.hno desc
-  </select>
-  
-    <select id="findByNo" resultMap="hotplaceMap" parameterType="int">
-    select
-      h.hno,
-      h.htitle,
-      h.hcontent,
-      h.hdate,
-      h.hcount,
-      h.haddr,
-      h.hphoto,
-      h.hlat,
-      h.hlng
-      
-    from hotplace h
-
-    where h.hno = #{value}
-  </select>
-  
-  <update id="updateViewCount" parameterType="int">
-    update discount set 
-      hcount = hcount + 1 
-    where hno = #{value}
-  </update>
-  
-  <update id="update" parameterType="hotplace">
-    update hotplace 
-    <set> 
-      <if test="title != ''">htitle=#{title},</if>
-      <if test="content != ''">hcontent=#{content},</if>
-      <if test="photo != ''">hphoto=#{photo},</if>
-      <if test="photo != ''">haddr=#{address},</if>
-      <if test="photo != ''">hlat=#{latitude},</if>
-      <if test="photo != ''">hlng=#{longitude}</if>
-    </set>
-    where hno=#{no}
-  </update>
-  
-  <delete id="delete" parameterType="int">
-    delete from hotplace 
-    where hno = #{value}
-  </delete>
-
 </mapper>
+
+
 
 
 

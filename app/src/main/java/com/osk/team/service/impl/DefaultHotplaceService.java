@@ -13,13 +13,11 @@ public class DefaultHotplaceService implements HotplaceService {
     this.hotplaceDao = hotplaceDao;
   }
 
-  //핫플레이스 등록 업무
   @Override
   public int add(Hotplace hotplace) throws Exception {
     return hotplaceDao.insert(hotplace);
   }
 
-  //핫플레이스 목록 전체 조회 업무
   @Override
   public List<Hotplace> list() throws Exception {
     return hotplaceDao.findByKeyword(null);
@@ -31,19 +29,21 @@ public class DefaultHotplaceService implements HotplaceService {
     if (hotplace != null) {
       hotplaceDao.updateViewCount(no);
     }
-    return hotplace; 
+    return hotplace;
   }
 
-
-  //핫플레이스 수정 업무
   @Override
   public int update(Hotplace hotplace) throws Exception {
     return hotplaceDao.update(hotplace);
   }
 
-  //핫플에이스 삭제 업무
   @Override
   public int delete(int no) throws Exception {
     return hotplaceDao.delete(no);
+  }
+
+  @Override
+  public List<Hotplace> search(String keyword) throws Exception {
+    return hotplaceDao.findByKeyword(keyword);
   }
 }

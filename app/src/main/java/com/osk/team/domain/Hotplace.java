@@ -4,21 +4,20 @@ import java.sql.Date;
 
 public class Hotplace {
 
-  private int no;
-  private String title;
-  private String content;
-  private Date date;
-  private int count;
-  private String address;
-  private String photo;
-  private String latitude;
-  private String longitude;
+  private int no; // 게시판 번호
+  private String title; // 게시판 제목
+  private String content; // 게시판 내용
+  private Date date; // 작성일
+  private int count; // 조회수
+  private String photo; // 사진
+  private String latitude; // 위도
+  private String longitude; // 경도
 
   @Override
   public String toString() {
     return "Hotplace [no=" + no + ", title=" + title + ", content=" + content + ", date=" + date
-        + ", count=" + count + ", address=" + address + ", photo=" + photo + ", latitude="
-        + latitude + ", longitude=" + longitude + "]";
+        + ", count=" + count + ", photo=" + photo + ", latitude=" + latitude + ", longitude="
+        + longitude + "]";
   }
 
   public int getNo() {
@@ -61,14 +60,6 @@ public class Hotplace {
     this.count = count;
   }
 
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
   public String getPhoto() {
     return photo;
   }
@@ -92,5 +83,6 @@ public class Hotplace {
   public void setLongitude(String longitude) {
     this.longitude = longitude;
   }
+
 
 }
