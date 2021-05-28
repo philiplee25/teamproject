@@ -22,7 +22,6 @@ public class HotplaceListHandler extends HttpServlet {
 
     // JSP가 게시글 목록을 출력할 때 사용할 데이터를 준비한다.  
     try {
-      String keyword = request.getParameter("keyword");
       List<Hotplace> hotplaces = null;
       hotplaces = hotplaceService.list();
 

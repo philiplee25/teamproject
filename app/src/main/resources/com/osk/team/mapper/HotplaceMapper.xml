@@ -10,18 +10,63 @@
     <result column="htitle" property="title"/>
     <result column="hcontent" property="content"/>
     <result column="hdate" property="date"/>
-    <result column="hcount" property="count"/>
-<!--     <result column="haddr" property="address"/> -->
-<!--    <result column="hphoto" property="photo"/> -->
+    <result column="hphoto" property="photo"/>
     <result column="hlat" property="latitude"/>
     <result column="hlng" property="longitude"/>
     
   </resultMap>
   
   <insert id="insert" parameterType="hotplace">
-    insert into hotplace(htitle, hcontent, hdate, hcount, hlat, hlng) 
-    values(#{title}, #{content}, #{date}, #{count}, #{latitude}, #{longitude})
+    insert into hotplace(htitle, hcontent, hdate, hcount, hphoto, hlat, hlng) 
+    values(#{title}, #{content}, #{date}, 0, #{photo}, #{latitude}, #{longitude})
   </insert>
+  
+  <select id="findByKeyword" resultMap="hotplaceMap" parameterType="string">
+    select
+      h.hno,
+      h.htitle,
+      h.hdate,
+      h.hcontent,
+      h.hphoto,
+      h.hlat,
+      h.hlng
+      
+    from hotplace h
+    
+    order by h.hno desc
+  </select>
+  
+  <select id="findByNo" resultMap="hotplaceMap" parameterType="int">
+    select
+      h.hno,
+      h.htitle,
+      h.hdate,
+      h.hcontent,
+      h.hphoto,
+      h.hlat,
+      h.hlng
+      
+    from hotplace h
+
+    where h.hno = #{value}
+  </select>
+  
+    <update id="update" parameterType="hotplace">
+    update discount 
+    <set> 
+      <if test="title != ''">htitle=#{title},</if>
+      <if test="content != ''">hcontent=#{content},</if>
+      <if test="photo != ''">hphoto=#{photo},</if>
+      <if test="latitude != ''">hlat=#{latitude},</if>
+      <if test="longitude != ''">hlng=#{longitude}</if>
+    </set>
+    where hno=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from hotplace 
+    where hno = #{value}
+  </delete>
 
 </mapper>
 

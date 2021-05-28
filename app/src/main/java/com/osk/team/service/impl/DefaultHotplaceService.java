@@ -26,9 +26,6 @@ public class DefaultHotplaceService implements HotplaceService {
   @Override
   public Hotplace get(int no) throws Exception {
     Hotplace hotplace = hotplaceDao.findByNo(no);
-    if (hotplace != null) {
-      hotplaceDao.updateViewCount(no);
-    }
     return hotplace;
   }
 

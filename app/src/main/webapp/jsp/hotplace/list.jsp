@@ -28,15 +28,21 @@
 </style>
 </head>
 <body>
-<h1>핫플레이스</h1>
+<h1>핫플레이스3</h1>
 <c:if test="${not empty loginUser and loginUser.power == 1}">
 <p><a href='add'>핫플레이스 등록</a></p>
 </c:if>
 
 <div id="map" style="width:700px;height:700px;margin:auto;"></div>
+<p>
+    <button onclick="hideMarkers()">마커 감추기</button>
+    <button onclick="showMarkers()">마커 보이기</button>
+</p> 
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=321d4ad60c277c79886760c525a516fe"></script>
 <script>
+"use strict"
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
         center: new kakao.maps.LatLng(36.382998928428584, 128.11241397383552), // 지도의 중심좌표
@@ -46,24 +52,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
  
 // 마커를 표시할 위치와 title 객체 배열입니다 
-var positions = [
-    {
-        title: '카카오', 
-        latlng: new kakao.maps.LatLng(33.450705, 126.570677)
-    },
-    {
-        title: '생태연못', 
-        latlng: new kakao.maps.LatLng(33.450936, 126.569477)
-    },
-    {
-        title: '텃밭', 
-        latlng: new kakao.maps.LatLng(33.450879, 126.569940)
-    },
-    {
-        title: '근린공원',
-        latlng: new kakao.maps.LatLng(33.451393, 126.570738)
-    }
-];
+var positions = [];
 
 // 마커 이미지의 이미지 주소입니다
 var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
@@ -77,10 +66,9 @@ for (var i = 0; i < positions.length; i ++) {
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
     
     // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
+    var markers = new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
-        position: positions[i].latlng, // 마커를 표시할 위치
-        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        position: positions[i].latlng(latitude[i], longitude[i]), // 마커를 표시할 위치
         image : markerImage // 마커 이미지 
     });
 }
@@ -120,6 +108,16 @@ overlay.setMap(map);
 //커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
 function closeOverlay() {
 overlay.setMap(null);     
+}
+
+//"마커 보이기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에 표시하는 함수입니다
+function showMarkers() {
+    setMarkers(map)    
+}
+
+// "마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
+function hideMarkers() {
+    setMarkers(null);    
 }
 </script>
 </body>

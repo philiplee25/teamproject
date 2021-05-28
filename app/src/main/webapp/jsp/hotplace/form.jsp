@@ -10,7 +10,7 @@
     
 </head>
 <body>
-<h1>핫플레이스 등록</h1>
+<h1>핫플레이스 등록2</h1>
 <div id="map" style="width:700px;height:700px;"></div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=321d4ad60c277c79886760c525a516fe&libraries=services"></script>
@@ -41,8 +41,8 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     // 마커 위치를 클릭한 위치로 옮깁니다
     marker.setPosition(latlng);
     
-    document.getElementById("lat").value = latlng.getLat(); 
-    document.getElementById("lng").value = latlng.getLng(); 
+    document.getElementById("latitude").value = latlng.getLat(); 
+    document.getElementById("longitude").value = latlng.getLng(); 
     
 });
 </script>
@@ -50,9 +50,9 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 <form action="add" method="post" enctype="multipart/form-data">
 제목: <input type='text' name='title'><br>
 내용: <textarea name='content' rows='10' cols='60'></textarea><br>
-사진1: <input type='file' name='photo1'><br>
-위도: <input type='text' id='lat' readonly>
-경도: <input type='text' id='lng' readonly><br>
+사진: <input type='file' name='photo'><br>
+위도: <input type='text' id='latitude' name='latitude' value='' readonly>
+경도: <input type='text' id='longitude' name='longitude' value='' readonly><br>
 <input type='submit' value='등록'>
 <p><a href='list'>목록</a></p>
 </form>

@@ -62,7 +62,7 @@ public class LoginHandler extends HttpServlet {
         } else if (member.getPower() == 1) {
           request.getRequestDispatcher("/jsp/login_admin_success.jsp").include(request, response);
         }
-        response.setHeader("Refresh", "1;url=userInfo");
+        // response.setHeader("Refresh", "1;url=userInfo");
 
       }
     } catch (Exception e) {
