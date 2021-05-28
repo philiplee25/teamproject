@@ -38,9 +38,4 @@ public class DefaultHotplaceService implements HotplaceService {
   public int delete(int no) throws Exception {
     return hotplaceDao.delete(no);
   }
-
-  @Override
-  public List<Hotplace> search(String keyword) throws Exception {
-    return hotplaceDao.findByKeyword(keyword);
-  }
 }

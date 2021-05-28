@@ -8,7 +8,6 @@
   <resultMap id="hotplaceMap" type="hotplace">
     <id column="hno" property="no"/>
     <result column="htitle" property="title"/>
-    <result column="hcontent" property="content"/>
     <result column="hdate" property="date"/>
     <result column="hphoto" property="photo"/>
     <result column="hlat" property="latitude"/>
@@ -17,8 +16,8 @@
   </resultMap>
   
   <insert id="insert" parameterType="hotplace">
-    insert into hotplace(htitle, hcontent, hdate, hcount, hphoto, hlat, hlng) 
-    values(#{title}, #{content}, #{date}, 0, #{photo}, #{latitude}, #{longitude})
+    insert into hotplace(htitle, hcontent, hdate, hphoto, hlat, hlng) 
+    values(#{title}, #{content}, #{date}, #{photo}, #{latitude}, #{longitude})
   </insert>
   
   <select id="findByKeyword" resultMap="hotplaceMap" parameterType="string">

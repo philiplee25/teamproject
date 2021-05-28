@@ -8,7 +8,6 @@ public class Hotplace {
   private String title; // 게시판 제목
   private String content; // 게시판 내용
   private Date date; // 작성일
-  private int count; // 조회수
   private String photo; // 사진
   private String latitude; // 위도
   private String longitude; // 경도
@@ -16,8 +15,7 @@ public class Hotplace {
   @Override
   public String toString() {
     return "Hotplace [no=" + no + ", title=" + title + ", content=" + content + ", date=" + date
-        + ", count=" + count + ", photo=" + photo + ", latitude=" + latitude + ", longitude="
-        + longitude + "]";
+        + ", photo=" + photo + ", latitude=" + latitude + ", longitude=" + longitude + "]";
   }
 
   public int getNo() {
@@ -50,14 +48,6 @@ public class Hotplace {
 
   public void setDate(Date date) {
     this.date = date;
-  }
-
-  public int getCount() {
-    return count;
-  }
-
-  public void setCount(int count) {
-    this.count = count;
   }
 
   public String getPhoto() {

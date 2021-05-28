@@ -15,5 +15,4 @@ public interface HotplaceService {
 
   int delete(int no) throws Exception;
 
-  List<Hotplace> search(String keyword) throws Exception;
 }

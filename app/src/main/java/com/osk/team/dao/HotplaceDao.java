@@ -13,8 +13,6 @@ public interface HotplaceDao {
 
   int update(Hotplace hotplace) throws Exception;
 
-  int updateViewCount(int no) throws Exception;
-
   int delete(int hno) throws Exception;
 
 }
