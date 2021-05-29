@@ -52,7 +52,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
  
 // 마커를 표시할 위치와 title 객체 배열입니다 
-var positions = [];
+var positions = new Array();
 
 // 마커 이미지의 이미지 주소입니다
 var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
@@ -120,5 +120,30 @@ function hideMarkers() {
     setMarkers(null);    
 }
 </script>
+
+<table border='1'>
+<thead>
+<tr>
+<th>번호</th> <th> </th><th>제목</th> <th>작성자</th> <th>등록일</th> <th>조회수</th>
+</tr>
+</thead>
+<tbody>
+
+<c:forEach items="${list}" var="d">
+  <c:if test="${not empty d.photo}">
+    <c:set var="photoUrl">../upload/${d.photo}_80x80.jpg</c:set>
+  </c:if>
+
+<tr> 
+  <td>${d.no}</td> 
+  <td><img src='${photoUrl}'></td>
+  <td><a href='detail?no=${d.no}'>${d.title}</a></td>
+  <td>관리자</td>
+  <td>${d.date}</td>
+  <td>${d.count}</td>
+</tr>
+</c:forEach>
+</tbody>
+</table>
 </body>
 </html>

@@ -38,11 +38,5 @@
 </c:forEach>
 </tbody>
 </table>
-
-<form action='list' method='get'>
-<input type='search' name='keyword' value='${param.keyword}'> 
-<button>검색</button>
-</form>
-
 </body>
 </html>
