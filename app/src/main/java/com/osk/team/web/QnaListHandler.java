@@ -1,36 +1,37 @@
 package com.osk.team.web;
 
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.osk.team.domain.Qna;
 import com.osk.team.service.QnaService;
 
-import java.io.IOException;
-import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+@Controller
+public class QnaListHandler {
 
-@SuppressWarnings("serial")
-@WebServlet("/qna/list")
-public class QnaListHandler extends HttpServlet {
+  QnaService qnaService;
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  public QnaListHandler(QnaService qnaService) {
+    this.qnaService = qnaService;
+    System.out.println("qnaService 객체 생성됨!");
+  }
 
-    QnaService qnaService = (QnaService) request.getServletContext().getAttribute("qnaService");
+  @RequestMapping("/qna/list")
+  public String execute(HttpServletRequest request, HttpServletResponse response)
+          throws Exception {
 
-    try {
-      List<Qna> qnas = qnaService.listAll();
-
-      request.setAttribute("list", qnas);
-
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/jsp/qna/list.jsp").include(request, response);
-
-    }  catch (Exception e) {
-      throw new ServletException(e);
+    String myContent = request.getParameter("keyword");
+    List<Qna> qnas = null;
+    if (myContent != null) {
+      qnas = qnaService.search(myContent);
+    } else {
+      qnas = qnaService.listAll();
     }
+
+    request.setAttribute("list", qnas);
+
+    return "/jsp/qna/list.jsp";
   }
 }

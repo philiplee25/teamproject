@@ -1,7 +1,8 @@
 package com.osk.team.service;
 
-import java.util.List;
 import com.osk.team.domain.Discount;
+
+import java.util.List;
 
 public interface DiscountService {
 

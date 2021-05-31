@@ -1,8 +1,7 @@
 package com.osk.team.service;
 
-import com.osk.team.domain.Qna;
-
 import java.util.List;
+import com.osk.team.domain.Qna;
 
 public interface QnaService {
 
@@ -15,5 +14,7 @@ public interface QnaService {
     int update(Qna qna) throws Exception;
 
     int delete(int no) throws Exception;
+
+    List<Qna> search(String keyword) throws Exception;
 
 }

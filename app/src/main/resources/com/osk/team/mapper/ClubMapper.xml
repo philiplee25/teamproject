@@ -5,6 +5,17 @@
 
 <mapper namespace="com.osk.team.dao.ClubDao">
 
+  <resultMap id="memberMap" type="member">
+    <id column="mno" property="no"/>
+    <result column="mname" property="name"/>
+    <result column="mphoto" property="photo"/>
+    <result column="mtel" property="tel"/>
+    <result column="mgender" property="gender"/>
+    <result column="mstatus" property="status"/>
+    <result column="mpow" property="power"/>
+    <result column="mcnt" property="count"/>
+  </resultMap>
+
   <resultMap id="clubMap" type="club">
     <id column="cno" property="no"/>
     <result column="carrive" property="arrive"/>
@@ -14,6 +25,9 @@
     <result column="csdt" property="startDate"/>
     <result column="cedt" property="endDate"/>
     <result column="ctotal" property="total"/>
+    <result column="c_rreason" property="reason"/>
+    <result column="c_rresult" property="result"/>
+    <result column="c_rdate" property="date"/>
 
     <association property="writer" javaType="member">
       <id column="writer_no" property="no"/>
@@ -133,7 +147,7 @@
   </select>
 
   <!--멤버불러오기-->
-  <select id="findMembers" resultType="member" parameterType="int">
+  <select id="findMembers" resultMap="memberMap" parameterType="int">
     select
       m.mno,
       m.mname,
@@ -143,6 +157,7 @@
            inner join member m on cm.mno=m.mno
     where
       cm.cno=#{value}
+    order by m.mno desc
   </select>
 
   <!--멤버추가-->
@@ -150,6 +165,51 @@
     insert into c_member(mno,cno,c_mdate)
     values(#{memberNo}, #{clubNo},#{date})
   </insert>
+
+  <!--멤버삭제-->
+  <delete id="deleteMember" parameterType="int">
+    delete from c_member
+    where mno=#{value}
+  </delete>
+
+  <insert id="insertReport" parameterType="map">
+    insert into c_report(mno, cno, c_rreason, c_rresult)
+    values (#{memberNo}, #{clubNo}, #{reason}, #{result})
+  </insert>
+
+  <!--수정 후-->
+  <select id="findByReports" resultMap="clubMap" parameterType="map">
+    select c.cno,
+           m.mno as writer_no,
+           cr.c_rreason,
+           cr.c_rresult,
+           cr.c_rdate
+    from c_report cr
+           inner join member m on m.mno = cr.mno
+           inner join club c on c.cno = cr.cno
+    <if test="value != null">
+      where
+      m.mno like concat('%', #{value},'%')
+      or cr.c_rreason like concat('%', #{value},'%')
+      or cr.c_rresult like concat('%', #{value},'%')
+      or cr.c_rdate like concat('%', #{value},'%')
+    </if>
+    order by cr.c_rdate desc
+  </select>
+
+  <!--수정 전-->
+<!--  <select id="findByReports" resultMap="clubMap" parameterType="int">-->
+<!--    select c.cno,-->
+<!--           m.mno as writer_no,-->
+<!--           cr.c_rreason,-->
+<!--           cr.c_rresult,-->
+<!--           cr.c_rdate-->
+<!--    from c_report cr-->
+<!--           inner join member m on m.mno = cr.mno-->
+<!--           inner join club c on c.cno = cr.cno-->
+<!--    where cr.cno = #{value}-->
+<!--    order by c.cno desc-->
+<!--  </select>-->
 
   <insert id="insertMembers" parameterType="map">
     insert into c_member(mno,cno,c_mdate)
@@ -160,10 +220,10 @@
   </insert>
 
   <!--멤버삭제-->
-  <delete id="deleteMembers" parameterType="int">
-    delete from c_member
-    where cno=#{value}
-  </delete>
+<!--  <delete id="deleteMember" parameterType="map">-->
+<!--    delete from c_member-->
+<!--    where cno=#{value}-->
+<!--  </delete>-->
 
 </mapper>
 

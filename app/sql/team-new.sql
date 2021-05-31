@@ -86,9 +86,9 @@ CREATE TABLE hotplace (
   htitle   VARCHAR(255) NOT NULL COMMENT '게시판 제목', -- 게시판 제목
   hcontent LONGTEXT     NOT NULL COMMENT '게시판 내용', -- 게시판 내용
   hdate    TIMESTAMP    NOT NULL DEFAULT current_timestamp COMMENT '등록 날짜', -- 등록 날짜
-  hphoto   VARCHAR(255) NULL     COMMENT '사진', -- 사진
-  hlat     VARCHAR(255) NOT NULL COMMENT '위도', -- 위도
-  hlng     VARCHAR(255) NOT NULL COMMENT '경도' -- 경도
+  hcount   INTEGER      NOT NULL COMMENT '조회수', -- 조회수
+  haddr    VARCHAR(255) NOT NULL COMMENT '주소', -- 주소
+  hphoto   VARCHAR(255) NULL     COMMENT '사진' -- 사진
 )
 COMMENT '핫플레이스';
 

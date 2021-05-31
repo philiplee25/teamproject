@@ -1,28 +1,26 @@
 package com.osk.team.web;
 
-import java.io.IOException;
-import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.osk.team.domain.Discount;
 import com.osk.team.service.DiscountService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@SuppressWarnings("serial")
-@WebServlet("/discount/list")
-public class DiscountListHandler extends HttpServlet {
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+@Controller
+public class DiscountListHandler {
 
-    DiscountService discountService = (DiscountService) request.getServletContext().getAttribute("discountService");
+  DiscountService discountService;
 
-    // JSP가 게시글 목록을 출력할 때 사용할 데이터를 준비한다.  
-    try {
+  public DiscountListHandler(DiscountService discountService) {
+    this.discountService = discountService;
+  }
+
+  @RequestMapping("/discount/list")
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
       String keyword = request.getParameter("keyword");
       List<Discount> discounts = null;
       if (keyword != null && keyword.length() > 0) {
@@ -31,15 +29,10 @@ public class DiscountListHandler extends HttpServlet {
         discounts = discountService.list();
       }
 
-      // JSP가 사용할 수 있도록 ServletRequest 보관소에 저장한다.
       request.setAttribute("list", discounts);
 
-      // 목록 출력을 JSP에게 맡긴다.
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/jsp/discount/list.jsp").include(request, response);
 
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
+      return "/jsp/discount/list.jsp";
+
   }
 }

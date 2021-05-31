@@ -25,4 +25,3 @@ public interface BoardDao {
   int updateViewCount(int bno) throws Exception;
 }
 
-

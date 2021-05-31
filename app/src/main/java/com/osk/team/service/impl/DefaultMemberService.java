@@ -3,12 +3,12 @@ package com.osk.team.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-//import com.osk.team.domain.Photo;
+import org.springframework.stereotype.Service;
 import com.osk.team.dao.MemberDao;
 import com.osk.team.domain.Member;
 import com.osk.team.service.MemberService;
 
+@Service
 public class DefaultMemberService implements MemberService {
 
   MemberDao memberDao;
@@ -50,16 +50,19 @@ public class DefaultMemberService implements MemberService {
     return memberDao.findByEmailPassword(params);
   }
 
+  //이메일 조회
+  @Override
+  public Member get(String email) throws Exception {
+    return memberDao.findByEmail(email);
+  }
+
+
   // 변경 업무
   @Override
   public int update(Member member) throws Exception {
     return memberDao.update(member);
   }
 
-  /* @Override
-  public int deletePhoto(int no) throws Exception {
-    return MemberDao.deletePhoto(no);
-  }*/
 
   // 삭제 업무
   @Override
@@ -72,20 +75,5 @@ public class DefaultMemberService implements MemberService {
     // TODO Auto-generated method stub
     return null;
   }
-
-
-  /*@Override
-  public int updatePhoto(int no, String photo) throws Exception {
-    // TODO Auto-generated method stub
-    return 0;
-  }
-
-  @Override
-  public int addWithPhoto(Photo photo) throws Exception {
-    // TODO Auto-generated method stub
-    return 0;
-  }*/
-
-
 
 }

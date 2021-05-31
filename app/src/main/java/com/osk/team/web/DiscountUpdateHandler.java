@@ -1,15 +1,5 @@
 package com.osk.team.web;
 
-import java.io.IOException;
-import java.util.UUID;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-
 import com.osk.team.domain.Discount;
 import com.osk.team.domain.Member;
 import com.osk.team.service.DiscountService;
@@ -17,26 +7,27 @@ import net.coobird.thumbnailator.ThumbnailParameter;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import net.coobird.thumbnailator.name.Rename;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@SuppressWarnings("serial")
-@MultipartConfig(maxFileSize = 1024 * 1024 * 1024)
-@WebServlet("/discount/update")
-public class DiscountUpdateHandler extends HttpServlet {
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.util.UUID;
 
-  private String uploadDir;
+@Controller
+public class DiscountUpdateHandler {
 
-  @Override
-  public void init() throws ServletException {
-    this.uploadDir = this.getServletContext().getRealPath("/upload");
+  DiscountService discountService;
+
+  public DiscountUpdateHandler(DiscountService discountService) {
+    this.discountService = discountService;
   }
 
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  @RequestMapping("/discount/update")
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-    DiscountService discountService = (DiscountService) request.getServletContext().getAttribute("discountService");
-
-    try {
+      String uploadDir = request.getServletContext().getRealPath("/upload");
       int no = Integer.parseInt(request.getParameter("no"));
 
       Discount oldDiscount = discountService.get(no);
@@ -57,10 +48,10 @@ public class DiscountUpdateHandler extends HttpServlet {
       Part photoPart = request.getPart("photo");
       if (photoPart.getSize() > 0) {
         String filename = UUID.randomUUID().toString();
-        photoPart.write(this.uploadDir + "/" + filename);
+        photoPart.write(uploadDir + "/" + filename);
         d.setPhoto(filename);
 
-        Thumbnails.of(this.uploadDir + "/" + filename)
+        Thumbnails.of(uploadDir + "/" + filename)
         .size(80, 80)
         .outputFormat("jpg")
         .crop(Positions.CENTER)
@@ -73,11 +64,7 @@ public class DiscountUpdateHandler extends HttpServlet {
       }
 
       discountService.update(d);
+      return "redirect:list";
 
-      response.sendRedirect("list");
-
-    } catch (Exception e) {
-      throw new ServletException(e);
     }
   }
-}

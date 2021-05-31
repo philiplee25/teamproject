@@ -1,11 +1,12 @@
 package com.osk.team.service.impl;
 
 import java.util.List;
-
+import org.springframework.stereotype.Service;
 import com.osk.team.dao.QnaDao;
 import com.osk.team.domain.Qna;
 import com.osk.team.service.QnaService;
 
+@Service
 public class DefaultQnaService implements QnaService {
 
   QnaDao qnaDao;
@@ -21,7 +22,7 @@ public class DefaultQnaService implements QnaService {
 
   @Override
   public List<Qna> listAll() throws Exception {
-    return qnaDao.findByKeyword(null);
+    return qnaDao.listAll();
   }
   @Override
   public Qna get(int no) throws Exception {
@@ -36,5 +37,10 @@ public class DefaultQnaService implements QnaService {
   @Override
   public int delete(int no) throws Exception {
     return qnaDao.delete(no);
+  }
+
+  @Override
+  public List<Qna> search(String keyword) throws Exception{
+    return qnaDao.findByKeyword(keyword);
   }
 }

@@ -10,35 +10,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.osk.team.domain.Faq;
 import com.osk.team.service.FaqService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@SuppressWarnings("serial")
-@WebServlet("/faq/detail")
-public class FaqDetailHandler extends HttpServlet {
+@Controller
+public class FaqDetailHandler {
 
-  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  FaqService faqService;
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  public FaqDetailHandler(FaqService faqService) {
+    this.faqService = faqService;
+  }
 
-    FaqService faqService = (FaqService) request.getServletContext().getAttribute("faqService");
-
-    response.setContentType("text/html;charset=UTF-8");
+  @RequestMapping("/faq/detail")
+  public String execute(HttpServletRequest request, HttpServletResponse response)       throws Exception {
 
     int no = Integer.parseInt(request.getParameter("no"));
-
-    try {
       Faq faq = faqService.get(no);
-
       request.setAttribute("faq", faq);
-
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/jsp/faq/detail.jsp").include(request, response);
-
-
-
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
+      return "/jsp/faq/detail.jsp";
   }
 }

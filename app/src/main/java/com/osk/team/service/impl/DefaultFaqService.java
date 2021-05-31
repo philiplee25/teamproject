@@ -4,7 +4,9 @@ import java.util.List;
 import com.osk.team.dao.FaqDao;
 import com.osk.team.domain.Faq;
 import com.osk.team.service.FaqService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultFaqService implements FaqService {
 
   FaqDao faqDao;

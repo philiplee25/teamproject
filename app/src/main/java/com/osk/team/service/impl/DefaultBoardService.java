@@ -8,7 +8,9 @@ import com.osk.team.dao.BoardDao;
 import com.osk.team.domain.Board;
 import com.osk.team.domain.BoardPhoto;
 import com.osk.team.service.BoardService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultBoardService implements BoardService {
 
   BoardDao boardDao;
@@ -27,10 +29,6 @@ public class DefaultBoardService implements BoardService {
     return boardDao.insertphoto(photo);
   }
 
-  //  @Override
-  //  public int getBoardBno() throws Exception {
-  //    return boardDao.boardbno();
-  //  }
   @Override
   public Board getBoardBno() throws Exception {
     return boardDao.boardbno();

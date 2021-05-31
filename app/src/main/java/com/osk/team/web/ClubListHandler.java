@@ -3,49 +3,41 @@ package com.osk.team.web;
 
 import com.osk.team.domain.Club;
 import com.osk.team.service.ClubService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.List;
 
-@SuppressWarnings("serial")
-@WebServlet("/club/list")
-public class ClubListHandler extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+@Controller
+public class ClubListHandler {
 
-        ClubService clubService = (ClubService) request.getServletContext().getAttribute("clubService");
+    ClubService clubService;
 
-        try {
+    public ClubListHandler(ClubService clubService) {
+        this.clubService = clubService;
+    }
 
-            List<Club> clubs = null;
+    @RequestMapping("/club/list")
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        List<Club> clubs = null;
 
-            String arrive = request.getParameter("arrive");
-            String startDate = request.getParameter("startDate");
-            String endDate = request.getParameter("endDate");
-            String theme = request.getParameter("theme");
+        String arrive = request.getParameter("arrive");
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        String theme = request.getParameter("theme");
 
-            if ((arrive != null && arrive.length() > 0) ||
-                    (startDate != null && startDate.length() > 0) ||
-                    (endDate != null && endDate.length() > 0) ||
-                    (theme != null && theme.length() > 0)) {
-                clubs = clubService.search(arrive, startDate, endDate, theme);
-            } else {
-                clubs = clubService.list();
-            }
-
-            request.setAttribute("clubs", clubs);
-            response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/jsp/club/list.jsp").include(request, response);
-
-        } catch (Exception e) {
-            throw new ServletException(e);
+        if ((arrive != null && arrive.length() > 0) ||
+                (startDate != null && startDate.length() > 0) ||
+                (endDate != null && endDate.length() > 0) ||
+                (theme != null && theme.length() > 0)) {
+            clubs = clubService.search(arrive, startDate, endDate, theme);
+        } else {
+            clubs = clubService.list();
         }
+
+        request.setAttribute("clubs", clubs);
+        return "/jsp/club/list.jsp";
     }
 }

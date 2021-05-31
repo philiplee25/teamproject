@@ -10,18 +10,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.osk.team.domain.Faq;
 import com.osk.team.service.FaqService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@SuppressWarnings("serial")
-@WebServlet("/faq/list")
-public class FaqListHandler extends HttpServlet {
+@Controller
+public class FaqListHandler {
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  FaqService faqService;
 
-    FaqService faqService = (FaqService) request.getServletContext().getAttribute("faqService");
+  public FaqListHandler(FaqService faqService) {
+    this.faqService = faqService;
+  }
 
-    try {
+  @RequestMapping("/faq/list")
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
       String keyword = request.getParameter("keyword");
       List<Faq> faqs = null;
       if (keyword != null && keyword.length() > 0) {
@@ -29,16 +32,8 @@ public class FaqListHandler extends HttpServlet {
       } else {
         faqs = faqService.list();
       }
-
-      // JSP가 사용할 수 있도록 ServletRequest 보관소에 저장한다.
       request.setAttribute("list", faqs);
+      return "/jsp/faq/list.jsp";
 
-      // 목록 출력을 JSP에게 맡긴다.
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/jsp/faq/list.jsp").include(request, response);
-
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
   }
 }

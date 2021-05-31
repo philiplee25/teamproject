@@ -1,22 +1,16 @@
 package com.osk.team.web;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@SuppressWarnings("serial")
-@WebServlet("/logout")
-public class LogOutHandler extends HttpServlet {
+@Controller
+public class LogoutHandler {
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-
+  @RequestMapping("/member/logout")
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
     request.getSession().invalidate();
-
-    response.sendRedirect("login");  
+    return "redirect:login";
   }
 }

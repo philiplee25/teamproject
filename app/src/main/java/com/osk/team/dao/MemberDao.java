@@ -1,22 +1,12 @@
 package com.osk.team.dao;
 
-import com.osk.team.domain.Member;
-
 import java.util.List;
 import java.util.Map;
+import com.osk.team.domain.Member;
 
 public interface MemberDao {
 
   int insert(Member member) throws Exception;
-
-  //int insertPhoto(Photo photo) throws Exception;
-
-  //int updatePhoto(Photo photo) throws Exception;
-
-  //static int deletePhoto(int no) throws Exception {
-  // TODO Auto-generated method stub
-  //  return 0;
-  //}
 
   Member membermno() throws Exception;
 
@@ -28,11 +18,12 @@ public interface MemberDao {
 
   Member findByEmailPassword(Map<String,Object> params) throws Exception;
 
+  Member findByEmail(String email) throws Exception;
+
   int update(Member member) throws Exception;
 
   int delete(int no) throws Exception;
 
   Member findByName(String name) throws Exception;
-
 
 }

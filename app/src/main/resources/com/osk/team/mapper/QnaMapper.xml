@@ -12,11 +12,11 @@
     <result column="m_qcontent" property="content"/>
     <result column="a_qcontent" property="answer"/>
     <result column="a_qdate" property="answerDate"/>
-    
-    <association property="writer" javaType="member">
-       <id column="writer_no" property="no"/>
-       <result column="writer_name" property="name"/>
 
+    <association property="writer" javaType="member">
+      <id column="writer_no" property="no"/>
+      <result column="writer_name" property="name"/>
+      <result column="writer_email" property="email"/>
     </association>
 
   </resultMap>
@@ -24,37 +24,40 @@
   <insert id="insert" parameterType="qna">
     insert into m_qna(m_qtitle, m_qcontent, mno, m_qdate, a_qcontent, a_qdate)
     values (#{title}, #{content}, #{writer.no}, #{registeredDate}, #{answer}, #{answerDate})
-  </insert> 
+  </insert>
 
-  
+
   <select id="listAll" resultMap="qnaMap" parameterType="int">
     select
       q.m_qno,
-      q.m_qtitle,   
+      q.m_qtitle,
       q.m_qdate,
-      m.mname as writer_name
+      m.mname as writer_name,
+      m.memail as writer_email
     from m_qna q
-    inner join member m on m.mno=q.mno
+           inner join member m on m.mno=q.mno
   </select>
-  
-  <select id="findByKeyword" resultMap="qnaMap" parameterType="int">
+
+  <select id="findByKeyword" resultMap="qnaMap" parameterType="string">
     select
       q.m_qno,
-      q.m_qtitle,   
+      q.m_qtitle,
       q.m_qdate,
-      m.mname as writer_name
+      m.mname as writer_name,
+      m.memail as writer_email
     from m_qna q
-    inner join member m on m.mno=q.mno
+           inner join member m on m.mno=q.mno
+    where m.mno = #{value}
   </select>
-  
-    <update id="update" parameterType="qna">
-    update m_qna set 
-        m_qtitle = #{title},
-        m_qcontent = #{content},
-        a_qcontent = #{answer},
-        a_qdate = #{answerDate}
+
+  <update id="update" parameterType="qna">
+    update m_qna set
+                   m_qtitle = #{title},
+                   m_qcontent = #{content},
+                   a_qcontent = #{answer},
+                   a_qdate = #{answerDate}
     where m_qno = #{no}
-   </update>
+  </update>
 
 
   <select id="findByNo" resultMap="qnaMap" parameterType="int">
@@ -66,9 +69,10 @@
       q.a_qcontent,
       q.a_qdate,
       m.mno as writer_no,
-      m.mname as writer_name
+      m.mname as writer_name,
+      m.memail as writer_email
     from m_qna q
-    inner join member m on m.mno=q.mno
+           inner join member m on m.mno=q.mno
     where q.m_qno = #{value}
   </select>
 
@@ -78,6 +82,6 @@
     delete from m_qna
     where m_qno = #{value}
   </delete>
-    
+
 
 </mapper>

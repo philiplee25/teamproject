@@ -51,7 +51,7 @@
     update faq 
     <set> 
       <if test="title != ''">ftitle=#{title},</if>
-      <if test="content != ''">ftitle=#{content}</if>
+      <if test="content != ''">fcontent=#{content}</if>
     </set>
     where fno=#{no}
   </update>

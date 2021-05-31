@@ -12,8 +12,8 @@
 <h1>할인정보 상세보기</h1>
 
 <c:if test="${not empty discount.photo}">
-  <c:set var="photo80x80Url">../upload/${discount.photo}_80x80.jpg</c:set>
-  <c:set var="photoUrl">../upload/${discount.photo}</c:set>
+  <c:set var="photo80x80Url">../../upload/${discount.photo}_80x80.jpg</c:set>
+  <c:set var="photoUrl">../../upload/${discount.photo}</c:set>
 </c:if>
 
 <form action='update' method='post' enctype='multipart/form-data'>

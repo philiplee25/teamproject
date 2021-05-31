@@ -5,101 +5,101 @@
 
 <mapper namespace="com.osk.team.dao.BoardDao">
 
-  <resultMap id="boardMap" type="board">
-    <id column="bno" property="no"/>
-    <!--   <result column="b_tno" property="tno"/>   게시판 종류번호(다른테이블) 보류   -->
-    <result column="btitle" property="title"/>
-    <result column="bcontent" property="content"/>
-    <result column="bcount" property="viewCount"/>
-    <result column="bdate" property="registeredDate"/>
-    
-    <association property="writer" javaType="member">
-      <id column="writer_no" property="no"/>
-      <result column="writer_name" property="name"/>
-    </association>
+    <resultMap id="boardMap" type="board">
+        <id column="bno" property="no"/>
+        <!--   <result column="b_tno" property="tno"/>   게시판 종류번호(다른테이블) 보류   -->
+        <result column="btitle" property="title"/>
+        <result column="bcontent" property="content"/>
+        <result column="bcount" property="viewCount"/>
+        <result column="bdate" property="registeredDate"/>
 
- <collection property="photos" ofType="BoardPhoto">
-      <result column="bphoto" property="photo"/>
-  </collection>
-  
-   
+        <association property="writer" javaType="member">
+            <id column="writer_no" property="no"/>
+            <result column="writer_name" property="name"/>
+        </association>
 
-  </resultMap>
-  
-  <!-- AutoIncrement 값 출력 을 위해 만듬. -->
-  <select id="boardbno" resultMap="boardMap" >
-    select max(bno) bno from board;
-  </select>
+        <collection property="photos" ofType="BoardPhoto">
+            <result column="bphoto" property="photo"/>
+        </collection>
 
-  <insert id="insert" parameterType="board">
-    insert into board(btitle, bcontent, bcount, bdate ,mno, b_tno )
-    values (#{title}, #{content}, #{viewCount}, #{registeredDate} ,#{writer.no}, #{boardTypeNo})
-  </insert>
-  
-  <insert id="insertphoto" parameterType="BoardPhoto">
-    insert into b_photo(bphoto, bno )
-    values (#{photo}, #{bno})
-  </insert>
 
-  <select id="findByKeyword" resultMap="boardMap" parameterType="string">
-    select
-    b.bno,
-    b.btitle,
 
-    b.bdate,
-    b.bcount,
-    m.mno as writer_no,
-    m.mname as writer_name,
-    t.b_tno
-    from board b
-    inner join member m on m.mno=b.mno
-    inner join b_type t on t.b_tno=b.b_tno
+    </resultMap>
 
-    <if test="value != null">
-      where
-      b.btitle like concat('%', #{value},'%')
-      or b.bcontent like concat('%', #{value},'%')
-      or m.mname like concat('%', #{value},'%')
-    </if>
+    <!-- AutoIncrement 값 출력 을 위해 만듬. -->
+    <select id="boardbno" resultMap="boardMap" >
+        select max(bno) bno from board;
+    </select>
 
-    order by b.bno desc
-  </select>
+    <insert id="insert" parameterType="board">
+        insert into board(btitle, bcontent, bcount, bdate ,mno, b_tno )
+        values (#{title}, #{content}, #{viewCount}, #{registeredDate} ,#{writer.no}, #{boardTypeNo})
+    </insert>
 
-  <select id="findByNo" resultMap="boardMap" parameterType="int">
-    select
-      b.bno,
-      b.btitle,
-      b.bcontent,
-      b.bdate,
-      b.bcount,
-      m.mno as writer_no,
-      m.mname as writer_name,
-      t.b_tno,
-      p.bphoto
-    from board b
-           inner join member m on m.mno=b.mno
-           inner join b_type t on t.b_tno=b.b_tno
-           left outer join b_photo p on p.bno=b.bno
-    where b.bno = #{value}
-    order by bno desc
-  </select>
+    <insert id="insertphoto" parameterType="BoardPhoto">
+        insert into b_photo(bphoto, bno )
+        values (#{photo}, #{bno})
+    </insert>
 
-  <update id="updateViewCount" parameterType="int">
-    update board set
-      bcount = bcount  + 1
-    where bno = #{value}
-  </update>
+    <select id="findByKeyword" resultMap="boardMap" parameterType="string">
+        select
+        b.bno,
+        b.btitle,
 
-  <update id="update" parameterType="board">
-    update board
-    set btitle = #{title},
-        bcontent = #{content}
-    where bno = #{no}
-  </update>
+        b.bdate,
+        b.bcount,
+        m.mno as writer_no,
+        m.mname as writer_name,
+        t.b_tno
+        from board b
+        inner join member m on m.mno=b.mno
+        inner join b_type t on t.b_tno=b.b_tno
 
-  <delete id="delete" parameterType="int">
-    delete from board
-    where bno = #{value}
-  </delete>
+        <if test="value != null">
+            where
+            b.btitle like concat('%', #{value},'%')
+            or b.bcontent like concat('%', #{value},'%')
+            or m.mname like concat('%', #{value},'%')
+        </if>
+
+        order by b.bno desc
+    </select>
+
+    <select id="findByNo" resultMap="boardMap" parameterType="int">
+        select
+            b.bno,
+            b.btitle,
+            b.bcontent,
+            b.bdate,
+            b.bcount,
+            m.mno as writer_no,
+            m.mname as writer_name,
+            t.b_tno,
+            p.bphoto
+        from board b
+                 inner join member m on m.mno=b.mno
+                 inner join b_type t on t.b_tno=b.b_tno
+                 left outer join b_photo p on p.bno=b.bno
+        where b.bno = #{value}
+        order by bno desc
+    </select>
+
+    <update id="updateViewCount" parameterType="int">
+        update board set
+            bcount = bcount  + 1
+        where bno = #{value}
+    </update>
+
+    <update id="update" parameterType="board">
+        update board
+        set btitle = #{title},
+            bcontent = #{content}
+        where bno = #{no}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from board
+        where bno = #{value}
+    </delete>
 
 </mapper>

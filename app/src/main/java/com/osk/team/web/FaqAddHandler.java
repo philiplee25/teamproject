@@ -1,34 +1,30 @@
 package com.osk.team.web;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.osk.team.domain.Faq;
 import com.osk.team.service.FaqService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@SuppressWarnings("serial")
-@WebServlet("/faq/add")
-public class FaqAddHandler extends HttpServlet {
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+@Controller
+public class FaqAddHandler {
 
-    response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/jsp/faq/form.jsp").include(request, response);
+  FaqService faqService;
+
+  public FaqAddHandler(FaqService faqService) {
+  this.faqService = faqService;
   }
 
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  @RequestMapping("/faq/add")
+  public String execute (HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-    FaqService faqService = (FaqService) request.getServletContext().getAttribute("faqService");
-
-    try {
+    if (request.getMethod().equals("GET")) {
+      return "/jsp/faq/form.jsp";
+    }
 
       Faq f = new Faq();
 
@@ -36,11 +32,7 @@ public class FaqAddHandler extends HttpServlet {
       f.setContent(request.getParameter("content"));
 
       faqService.add(f);
-      response.sendRedirect("list");
+      return "redirect:list";
 
-
-    } catch (Exception e) {
-      throw new ServletException(e);
     }
   }
-}

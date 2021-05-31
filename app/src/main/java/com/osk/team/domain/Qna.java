@@ -14,8 +14,8 @@ public class Qna {
   @Override
   public String toString() {
     return "Qna [no=" + no + ", writer=" + writer + ", registeredDate=" + registeredDate
-        + ", title=" + title + ", content=" + content + ", answer=" + answer + ", answerDate="
-        + answerDate + "]";
+            + ", title=" + title + ", content=" + content + ", answer=" + answer + ", answerDate="
+            + answerDate + "]";
   }
   public int getNo() {
     return no;

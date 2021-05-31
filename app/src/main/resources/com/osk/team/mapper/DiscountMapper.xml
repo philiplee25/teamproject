@@ -62,7 +62,7 @@
     update discount 
     <set> 
       <if test="title != ''">dtitle=#{title},</if>
-      <if test="content != ''">dtitle=#{content},</if>
+      <if test="content != ''">dcontent=#{content},</if>
       <if test="photo != ''">dphoto=#{photo},</if>
     </set>
     where dno=#{no}

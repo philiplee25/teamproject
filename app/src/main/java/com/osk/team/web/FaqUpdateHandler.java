@@ -10,18 +10,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.osk.team.domain.Faq;
 import com.osk.team.domain.Member;
 import com.osk.team.service.FaqService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@SuppressWarnings("serial")
-@WebServlet("/faq/update")
-public class FaqUpdateHandler extends HttpServlet {
+@Controller
+public class FaqUpdateHandler {
 
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  FaqService faqService;
 
-    FaqService faqService = (FaqService) request.getServletContext().getAttribute("faqService");
+  public FaqUpdateHandler(FaqService faqService) {
+    this.faqService = faqService;
+  }
 
-    try {
+  @RequestMapping("/faq/update")
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
       int no = Integer.parseInt(request.getParameter("no"));
 
       Faq oldFaq = faqService.get(no);
@@ -41,10 +44,7 @@ public class FaqUpdateHandler extends HttpServlet {
 
       faqService.update(f);
 
-      response.sendRedirect("list");
+    return "redirect:list";
 
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
   }
 }

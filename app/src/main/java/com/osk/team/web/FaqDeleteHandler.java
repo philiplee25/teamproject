@@ -10,36 +10,35 @@ import javax.servlet.http.HttpServletResponse;
 import com.osk.team.domain.Faq;
 import com.osk.team.domain.Member;
 import com.osk.team.service.FaqService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@SuppressWarnings("serial")
-@WebServlet("/faq/delete")
-public class FaqDeleteHandler extends HttpServlet {
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+@Controller
+public class FaqDeleteHandler {
 
-    FaqService faqService = (FaqService) request.getServletContext().getAttribute("faqService");
+  FaqService faqService;
 
-    try {
-      int no = Integer.parseInt(request.getParameter("no"));
+  public FaqDeleteHandler(FaqService faqService) {
+    this.faqService = faqService;
+  }
 
-      Faq oldFaq = faqService.get(no);
-      if (oldFaq== null) {
-        throw new Exception("해당 번호의 할인정보가 없습니다.");
-      }
+  @RequestMapping("/faq/delete")
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+    int no = Integer.parseInt(request.getParameter("no"));
+
+    Faq oldFaq = faqService.get(no);
+    if (oldFaq == null) {
+      throw new Exception("해당 번호의 게시글이 없습니다.");
+    }
       Member loginUser = (Member) request.getSession().getAttribute("loginUser");
       if (1 != loginUser.getPower()) {
         throw new Exception("삭제 권한이 없습니다!");
       }
 
       faqService.delete(no);
+      return "redirect:list";
 
-      response.sendRedirect("list");
-
-    } catch (Exception e) {
-      throw new ServletException(e);
     }
   }
-}

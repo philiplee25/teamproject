@@ -23,13 +23,9 @@
 
 <tr><th>사진</th>
 <c:if test="${not empty board.photos}">
-<%System.out.println("11");%>
   <c:forEach items="${board.photos}" var="p" >
-  <%System.out.println("22");%>
-  <c:set var="photo250x250Url">../upload/${p.photo}_250x250.jpg</c:set>
-   <%System.out.println("33");%>
+  <c:set var="photo250x250Url">../../upload/${p.photo}_250x250.jpg</c:set>
    <td><img src='${photo250x250Url}'><br></td>
-   <%System.out.println("44");%>
 <%--    <input name='photo' type='file'></td> --%>  
    </c:forEach> 
 </c:if>

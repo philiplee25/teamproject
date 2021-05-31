@@ -22,26 +22,26 @@
   <insert id="insert" parameterType="member">
     insert into member(mname, mpwd, memail, mbirth, mtel, mgender, mphoto, mstatus, mpow, mcnt)
     values (#{name}, password(#{password}), #{email}, #{birth}, #{tel}, #{gender}, #{photo}, #{status}, #{power}, #{count})
-  </insert> 
+  </insert>
 
 
-  
+
   <select id="findByNo" resultMap="memberMap" parameterType="int">
     select
-    mno,
-    mname,
-    memail,  
-    mphoto,
-    mbirth,
-    mtel,
-    mgender,
-    mstatus,
-    mpow,
-    mcnt
+      mno,
+      mname,
+      memail,
+      mphoto,
+      mbirth,
+      mtel,
+      mgender,
+      mstatus,
+      mpow,
+      mcnt
     from member
     where mno = #{no}
   </select>
-  
+
   <select id="findByKeyword" resultMap="memberMap" parameterType="string">
     select
     mno,
@@ -66,22 +66,6 @@
     order by mno desc
   </select>
 
-  <!--<select id="findByMember" resultMap="memberMap" parameterType="int">
-    select
-      mno,
-      mname,
-      memail,
-      mpwd,
-      mphoto,
-      mbirth,
-      mtel,
-      mgender,
-      mstatus,
-      mpow
-      mcnt
-    from member
-    where mno = #{value}
-  </select>-->
 
   <update id="update" parameterType="member">
     update member
@@ -99,20 +83,33 @@
   </delete>
 
   <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
-   select
-     mno,
-     mname,
-     memail,
-     mpwd,
-     mphoto,
-     mbirth,
-     mtel,
-     mgender,
-     mstatus,
-     mpow,
-     mcnt
-   from member
-   where memail = #{email} and mpwd = password(#{password})
- </select>
+    select
+      mno,
+      mname,
+      memail,
+      mpwd,
+      mphoto,
+      mbirth,
+      mtel,
+      mgender,
+      mstatus,
+      mpow,
+      mcnt
+    from member
+    where memail = #{email} and mpwd = password(#{password})
+  </select>
+
+  <select id="findByEmail" resultMap="memberMap" parameterType="string">
+    select
+      mno,
+      mname,
+      memail,
+      mphoto,
+      mtel
+    from member
+    where memail = #{value}
+    order by name asc
+  </select>
 
 </mapper>
+

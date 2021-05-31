@@ -1,31 +1,45 @@
 package com.osk.team.service.impl;
 
-import com.osk.mybatis.TransactionCallback;
-import com.osk.mybatis.TransactionManager;
-import com.osk.mybatis.TransactionTemplate;
 import com.osk.team.dao.ClubDao;
 import com.osk.team.domain.Club;
 import com.osk.team.domain.Member;
 import com.osk.team.domain.Photo;
 import com.osk.team.service.ClubService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class DefaultClubService implements ClubService {
 
+
     TransactionTemplate transactionTemplate;
+
     ClubDao clubDao;
 
-    public DefaultClubService(TransactionManager txManager, ClubDao clubDao) {
+    public DefaultClubService(PlatformTransactionManager txManager, ClubDao clubDao) {
         this.transactionTemplate = new TransactionTemplate(txManager);
         this.clubDao = clubDao;
     }
 
     @Override
     public int add(Club club) throws Exception {
-        return clubDao.insert(club);
+        return transactionTemplate.execute(new TransactionCallback<Integer>(){
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                try {
+                    return clubDao.insert(club);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     @Override
@@ -55,28 +69,30 @@ public class DefaultClubService implements ClubService {
 
     @Override
     public int update(Club club) throws Exception {
-//        return (int) transactionTemplate.execute(new TransactionCallback() {
-//            @Override
-//            public Object doInTransaction() throws Exception {
-//                int count = clubDao.update(club);
-//                clubDao.deleteMembers(club.getNo());
-//
-//                if (club.getMembers().size() > 0) {
-//                    HashMap<String, Object> params = new HashMap<>();
-//                    params.put("clubNo", club.getNo());
-//                    params.put("members", club.getMembers());
-//
-//                    clubDao.insertMembers(params);
-//                }
-//                return count;
-//            }
-//        });
-        return clubDao.update(club);
+        return transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                try {
+                    return clubDao.update(club);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     @Override
     public int delete(int no) throws Exception {
-        return clubDao.delete(no);
+        return transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                try {
+                    return clubDao.delete(no);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     @Override
@@ -107,45 +123,35 @@ public class DefaultClubService implements ClubService {
     }
 
     @Override
+    public int addWithReport(Map<String, Object> params) throws Exception {//신고 기능
+        return clubDao.insertReport(params);
+    }
+
+    @Override
+    public List<Club> getReports() throws Exception {//신고글 가져오기
+        return clubDao.findByReports(null);
+    }
+
+    @Override
     public int deletePhotos(int clubNo) throws Exception {
         return clubDao.deletePhotos(clubNo);
     }
 
-    @Override
-    public int updatePhotos(int clubNo, List<Photo> photos) throws Exception {
-        return (int) transactionTemplate.execute(new TransactionCallback() {
-            @Override
-            public Object doInTransaction() throws Exception {
-                clubDao.deletePhotos(clubNo);
-
-                HashMap<String,Object> params = new HashMap<>();
-                params.put("clubNo", clubNo);
-                params.put("photos", photos);
-
-                return clubDao.insertMember(null);
-            }
-        });
-    }
-
     //현재 인원 관리파트
     @Override
-    public int deleteMembers(int clubNo) throws Exception {
-        return clubDao.deleteMembers(clubNo);
+    public int deleteMember(int memberNo) throws Exception {
+        return clubDao.deleteMember(memberNo);
+    }
+
+    ////////////////////////////////////////////////////////
+
+    @Override
+    public int updatePhotos(int clubNo, List<Photo> photos) throws Exception {
+        return 0;
     }
 
     @Override
     public int updateMembers(int clubNo, List<Member> members) throws Exception {
-        return (int) transactionTemplate.execute(new TransactionCallback() {
-            @Override
-            public Object doInTransaction() throws Exception {
-                clubDao.deleteMembers(clubNo);
-
-                HashMap<String,Object> params = new HashMap<>();
-                params.put("clubNo", clubNo);
-                params.put("members", members);
-
-                return clubDao.insertMembers(params);
-            }
-        });
+        return 0;
     }
 }

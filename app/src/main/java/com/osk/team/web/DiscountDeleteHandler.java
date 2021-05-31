@@ -1,27 +1,26 @@
 package com.osk.team.web;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.osk.team.domain.Discount;
 import com.osk.team.domain.Member;
 import com.osk.team.service.DiscountService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@SuppressWarnings("serial")
-@WebServlet("/discount/delete")
-public class DiscountDeleteHandler extends HttpServlet {
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+@Controller
+public class DiscountDeleteHandler {
 
-    DiscountService discountService = (DiscountService) request.getServletContext().getAttribute("discountService");
+  DiscountService discountService;
 
-    try {
+  public DiscountDeleteHandler(DiscountService discountService) {
+    this.discountService = discountService;
+  }
+
+  @RequestMapping("/discount/delete")
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
       int no = Integer.parseInt(request.getParameter("no"));
 
       Discount oldDiscount = discountService.get(no);
@@ -35,11 +34,6 @@ public class DiscountDeleteHandler extends HttpServlet {
       }
 
       discountService.delete(no);
-
-      response.sendRedirect("list");
-
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
+      return "redirect:list";
   }
 }
