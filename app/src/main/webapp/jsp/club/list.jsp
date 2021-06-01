@@ -11,27 +11,41 @@
 <html>
 <head>
     <title>Club List</title>
-    <style>
-        #background {
-            background-image: url("airplane-2619434.jpg");
-        }
+<style>
+body{
+  background-image: url("../../images/airplane-2619434.jpg");
+  background-size: 100%;
+  background-position: 50% 30%;
+  background-repeat: no-repeat;
+}
         
-        .dropbtn {
+header{
   background-color: #fff;
-  color: #a3a3a3;
-  padding: 16px;
-  font-size: 16px;
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  margin: 0 0 149px;
+  padding: 16px 100px 15px 83px;
+}
+
+.dropbtn {
+  position: absolute;
+  top: 25%;
+  background-color: #fff;
   border: none;
 }
 
 .dropdown {
-  position: relative;
+  position: absolute;
+  top:32.8%;
+  left:54%;
   display: inline-block;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
+  top: 50%;
   background-color: #fff;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -50,10 +64,115 @@
 .dropdown:hover .dropdown-content {display: block;}
 
 .dropdown:hover .dropbtn {background-color: #fff;}
-    </style>
-</head>
-<body id="background">
 
+button.btn.btn-primary.btn-sm {
+    position: absolute;
+    top: 25%;
+    right: 5.2%;
+}
+
+.btn-primary {
+    width: 80px;
+    height: 40px;
+    padding: 8px 15px 11px;
+    border-radius: 10px;
+    background-color:#4d90eb;
+    border-color:#4d90eb;
+}
+
+
+.logo-box {
+    position: absolute;
+    top:25%;
+    left: 5.2%;
+    background-color: #fff;
+    border: none;
+}
+ 
+.logo {
+    width: 150px;
+    height: 38px;
+}
+
+.hotplace-box {
+    position: absolute;
+    top:32.8%;
+    left: 46%;
+    background-color: #fff;
+    border: none;
+}
+ 
+.hotplace {
+    width: 80px;
+    height: 21px;
+}
+
+.discount-box {
+    position: absolute;
+    top:32.8%;
+    left: 61.3%;
+    background-color: #fff;
+    border: none;
+}
+ 
+.discount {
+    width: 64px;
+    height: 21px;
+}
+
+.qna-box {
+    position: absolute;
+    top:32.8%;
+    left: 68.6%;
+    background-color: #fff;
+    border: none;
+}
+ 
+.qna {
+    width: 64px;
+    height: 21px;
+}
+
+.faq-box {
+    position: absolute;
+    top:32.8%;
+    left: 75.9%;
+    background-color: #fff;
+    border: none;
+}
+ 
+.faq {
+    width: 29px;
+    height: 21px;
+}
+
+</style>
+</head>
+
+<header>
+    <div class="black"> 
+            <button type="button" class="logo-box" onclick="location.href='../club/list'"><img  src="../../images/joinjoylogo-wh.png"></button>
+            <button type="button" class="hotplace-box" onclick="location.href='../hotplace/list'"><img  src="../../images/hotplace-wh.png"></button>
+            <div class="dropdown">
+                <button class="dropbtn"><img  src="../../images/community-wh.png"></button>
+              <div class="dropdown-content">
+                <a href="#">꿀팁게시판</a>
+                <a href="#">자유게시판</a>
+                <a href="#">세컨핸즈샵</a>
+                <a href="#">신고게시판</a>
+              </div>
+            </div>
+            <button type="button" class="discount-box" onclick="location.href='../discount/list'"><img  src="../../images/discount-wh.png"></button>
+            <button type="button" class="qna-box" onclick="location.href='../qna/list'"><img  src="../../images/qna-wh.png"></button>
+            <button type="button" class="faq-box" onclick="location.href='../faq/list'"><img  src="../../images/faq-wh.png"></button>
+            
+      <button type="button" class="btn btn-primary btn-sm">logout</button>
+      </div>
+</header>
+
+
+<body id="background">
+<br><br><br>
 <h1>Club List</h1>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -72,21 +191,6 @@
     <label class="form-check-label" for="selectadd">
         생성
     </label>
-</div>
-
-<div class="dropdown">
-  <button type="button" class="dropbtn" onclick="location.href='hotplace.jsp'">핫플레이스</button>
-    <button class="dropbtn">커뮤니티</button>
-  <div class="dropdown-content">
-    <a href="#">꿀팁게시판</a>
-    <a href="#">자유게시판</a>
-    <a href="#">세컨핸즈샵</a>
-    <a href="#">신고게시판</a>
-  </div>
-<button type="button" class="dropbtn" onclick="location.href='discount.jsp'">할인정보</button>
-<button type="button" class="dropbtn" onclick="location.href='qna.jsp'">고객센터</button>
-<button type="button" class="dropbtn" onclick="location.href='faq.jsp'">도움말</button>
-  
 </div>
 
 <p><a href='reportList'>클럽 신고게시판</a></p>
