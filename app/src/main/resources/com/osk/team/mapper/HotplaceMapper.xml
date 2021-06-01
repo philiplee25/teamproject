@@ -10,7 +10,6 @@
     <result column="htitle" property="title"/>
     <result column="hcontent" property="content"/>
     <result column="hdate" property="date"/>
-    <result column="hcount" property="count"/>
     <result column="haddr" property="address"/>
     <result column="hphoto" property="photo"/>
 
@@ -27,7 +26,6 @@
       h.htitle,
       h.hcontent,
       h.hdate,
-      h.hcount,
       h.haddr,
       h.hphoto
     from hotplace h

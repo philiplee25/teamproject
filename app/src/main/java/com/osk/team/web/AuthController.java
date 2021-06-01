@@ -1,24 +1,25 @@
 package com.osk.team.web;
 
+import com.osk.team.domain.Member;
+import com.osk.team.service.MemberService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.osk.team.domain.Member;
-import com.osk.team.service.MemberService;
 
 @Controller
-public class LoginHandler {
+public class AuthController {
 
   MemberService memberService;
 
-  public LoginHandler(MemberService memberService) {
+  public AuthController(MemberService memberService) {
     this.memberService = memberService;
   }
 
-  @RequestMapping("/member/login")
-  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  @RequestMapping("/login")
+  public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     if (request.getMethod().equals("GET")) {
       return "/jsp/login_form.jsp";
@@ -26,7 +27,6 @@ public class LoginHandler {
 
     String email = request.getParameter("email");
     String password = request.getParameter("password");
-
 
     if (request.getParameter("saveEmail") != null) {
       Cookie cookie = new Cookie("email", email);
@@ -53,5 +53,17 @@ public class LoginHandler {
       }
       return "/jsp/login_success.jsp";
     }
+  }
+
+  @RequestMapping("/logout")
+  public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    request.getSession().invalidate();
+    return "redirect:login";
+  }
+
+  @RequestMapping("/userInfo")
+  public String userInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    return "/jsp/user_info.jsp";
+
   }
 }

@@ -28,24 +28,23 @@ header{
   padding: 16px 100px 15px 83px;
 }
 
+.dropdown {
+  position: relative;
+  top: 0%;
+  left:55%;
+  display: inline-block;
+}
+
 .dropbtn {
   position: absolute;
-  top: 25%;
   background-color: #fff;
   border: none;
 }
 
-.dropdown {
-  position: absolute;
-  top:32.8%;
-  left:54%;
-  display: inline-block;
-}
-
 .dropdown-content {
-  display: none;
   position: absolute;
-  top: 50%;
+  top: 100%;
+  display: none;
   background-color: #fff;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -150,30 +149,28 @@ button.btn.btn-primary.btn-sm {
 </head>
 
 <header>
-    <div class="black"> 
-            <button type="button" class="logo-box" onclick="location.href='../club/list'"><img  src="../../images/joinjoylogo-wh.png"></button>
-            <button type="button" class="hotplace-box" onclick="location.href='../hotplace/list'"><img  src="../../images/hotplace-wh.png"></button>
-            <div class="dropdown">
-                <button class="dropbtn"><img  src="../../images/community-wh.png"></button>
-              <div class="dropdown-content">
-                <a href="#">꿀팁게시판</a>
-                <a href="#">자유게시판</a>
-                <a href="#">세컨핸즈샵</a>
-                <a href="#">신고게시판</a>
-              </div>
-            </div>
-            <button type="button" class="discount-box" onclick="location.href='../discount/list'"><img  src="../../images/discount-wh.png"></button>
-            <button type="button" class="qna-box" onclick="location.href='../qna/list'"><img  src="../../images/qna-wh.png"></button>
-            <button type="button" class="faq-box" onclick="location.href='../faq/list'"><img  src="../../images/faq-wh.png"></button>
-            
+        <button type="button" class="logo-box" onclick="location.href='../club/list'"><img  src="../../images/joinjoylogo-wh.png"></button>
+        <button type="button" class="hotplace-box" onclick="location.href='../hotplace/list'"><img  src="../../images/hotplace-wh.png"></button>
+        <div class="dropdown">
+            <button class="dropbtn"><img  src="../../images/community-wh.png"></button>
+          <div class="dropdown-content">
+            <a href="#">꿀팁게시판</a>
+            <a href="#">자유게시판</a>
+             <a href="#">세컨핸즈샵</a>
+             <a href="#">신고게시판</a>
+          </div>
+         </div>
+         <button type="button" class="discount-box" onclick="location.href='../discount/list'"><img  src="../../images/discount-wh.png"></button>
+         <button type="button" class="qna-box" onclick="location.href='../qna/list'"><img  src="../../images/qna-wh.png"></button>
+        <button type="button" class="faq-box" onclick="location.href='../faq/list'"><img  src="../../images/faq-wh.png"></button>
+         
       <button type="button" class="btn btn-primary btn-sm">logout</button>
-      </div>
 </header>
 
 
 <body id="background">
 <br><br><br>
-<h1>Club List</h1>
+<h1>Club List1</h1>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"

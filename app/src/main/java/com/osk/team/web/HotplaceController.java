@@ -9,22 +9,20 @@ import com.osk.team.domain.Hotplace;
 import com.osk.team.service.HotplaceService;
 
 @Controller 
-public class HotplaceListHandler {
+@RequestMapping("/hotplace/")
+public class HotplaceController {
 
   HotplaceService hotplaceService;
 
-  public HotplaceListHandler(HotplaceService hotplaceService) {
+  public HotplaceController(HotplaceService hotplaceService) {
     this.hotplaceService = hotplaceService;
   }
 
-  @RequestMapping("/hotplace/list")
-  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  @RequestMapping("list")
+  public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
     List<Hotplace> hotplaces = null;
     hotplaces = hotplaceService.list();
-
     request.setAttribute("list", hotplaces);
-
     return "/jsp/hotplace/list.jsp";
-
   }
 }
