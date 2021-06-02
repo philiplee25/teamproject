@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
   <meta charset="utf-8">
   <title>핫플레이스 목록</title>
   <style>
@@ -25,8 +26,17 @@
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info .link {color: #5085BB;}
     
-    body{
+  body{
   background-color: #fff;
+}
+
+#map {
+   z-index: 100;
+   position: absolute;
+   width: 80%;
+   height: 800px;
+   top: 25%;
+   left: 25%;
 }
         
 header{
@@ -36,29 +46,31 @@ header{
   height: 80px;
   margin: 0 0 149px;
   padding: 16px 100px 15px 83px;
+  z-index: 200;
+}
+
+.dropbtn {
+  background-color: #20273b;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
 }
 
 .dropdown {
   position: relative;
-  top: 0%;
-  left:55%;
+  top: -10%;
+  left:54%;
   display: inline-block;
 }
 
-.dropbtn {
-  position: absolute;
-  background-color: #20273b;
-  border: none;
-}
-
 .dropdown-content {
-  position: absolute;
-  top: 100%;
   display: none;
+  position: absolute;
   background-color: #20273b;
-  min-width: 160px;
+  min-width: 115px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .dropdown-content a {
@@ -72,7 +84,7 @@ header{
 
 .dropdown:hover .dropdown-content {display: block;}
 
-.dropdown:hover .dropbtn {background-color: #fff;}
+.dropdown:hover .dropbtn {background-color: #20273b;}
 
 button.btn.btn-primary.btn-sm {
     position: absolute;
@@ -128,6 +140,7 @@ button.btn.btn-primary.btn-sm {
     background-color: #20273b;
     border: none;
 }
+
 </style>
 </head>
 
@@ -149,11 +162,12 @@ button.btn.btn-primary.btn-sm {
          
       <button type="button" class="btn btn-primary btn-sm">logout</button>
 </header>
+
 <body>
 <br><br><br>
 <h1>핫플레이스</h1>
 
-<div id="map" style="width:80%;height:800px;"></div>
+<div id="map"></div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=321d4ad60c277c79886760c525a516fe"></script>
 <script>
@@ -161,7 +175,7 @@ button.btn.btn-primary.btn-sm {
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
         center: new kakao.maps.LatLng(37.577962, 126.976915), // 지도의 중심좌표
-        level: 6 // 지도의 확대 레벨
+        level: 7 // 지도의 확대 레벨
     };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다

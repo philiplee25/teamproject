@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <title>FAQ 목록</title>
 
 <style>
@@ -21,29 +22,31 @@ header{
   height: 80px;
   margin: 0 0 149px;
   padding: 16px 100px 15px 83px;
+  z-index: 200;
+}
+
+.dropbtn {
+  background-color: #20273b;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
 }
 
 .dropdown {
   position: relative;
-  top: 0%;
-  left:55%;
+  top: -10%;
+  left:54%;
   display: inline-block;
 }
 
-.dropbtn {
-  position: absolute;
-  background-color: #20273b;
-  border: none;
-}
-
 .dropdown-content {
-  position: absolute;
-  top: 100%;
   display: none;
+  position: absolute;
   background-color: #20273b;
-  min-width: 160px;
+  min-width: 115px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .dropdown-content a {
@@ -57,7 +60,7 @@ header{
 
 .dropdown:hover .dropdown-content {display: block;}
 
-.dropdown:hover .dropbtn {background-color: #fff;}
+.dropdown:hover .dropbtn {background-color: #20273b;}
 
 button.btn.btn-primary.btn-sm {
     position: absolute;
@@ -113,6 +116,18 @@ button.btn.btn-primary.btn-sm {
     background-color: #20273b;
     border: none;
 }
+
+table{
+border-collapse: separate;
+border-spacing: 0 40px;
+border: 1px solid #f4f4f4;
+}
+
+  th, td {
+    border: 1px solid #f4f4f4;
+    text-align: center;
+    bgcolor: #f4f4f4;
+  }
 </style>
 
 </head>
@@ -142,7 +157,7 @@ button.btn.btn-primary.btn-sm {
 <c:if test="${not empty loginUser and loginUser.power == 1}">
 <p><a href='add'>새 글</a></p>
 </c:if>
-<table border='1'>
+<table class="table">
 <thead>
 <tr>
 <th>번호</th> <th>제목</th> <th>작성자</th> <th>등록일</th>
