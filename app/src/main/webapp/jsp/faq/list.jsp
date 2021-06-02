@@ -10,125 +10,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <title>FAQ 목록</title>
 
-<style>
-body{
-  background-color: #fff;
-}
-        
-header{
-  background-color: #20273b;
-  position: fixed;
-  width: 100%;
-  height: 80px;
-  margin: 0 0 149px;
-  padding: 16px 100px 15px 83px;
-  z-index: 200;
-}
-
-.dropbtn {
-  background-color: #20273b;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
-
-.dropdown {
-  position: relative;
-  top: -10%;
-  left:54%;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #20273b;
-  min-width: 115px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  border-radius: 10px;
-}
-
-.dropdown-content a {
-  color: #a3a3a3;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {background-color: #fff;}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #20273b;}
-
-button.btn.btn-primary.btn-sm {
-    position: absolute;
-    top: 25%;
-    right: 5.2%;
-}
-
-.btn-primary {
-    width: 80px;
-    height: 40px;
-    padding: 8px 15px 11px;
-    border-radius: 10px;
-    background-color:#4d90eb;
-    border-color:#4d90eb;
-}
-
-
-.logo-box {
-    position: absolute;
-    top:25%;
-    left: 5.2%;
-    background-color: #20273b;
-    border: none;
-}
-
-.hotplace-box {
-    position: absolute;
-    top:32.8%;
-    left: 46%;
-    background-color: #20273b;
-    border: none;
-}
-
-.discount-box {
-    position: absolute;
-    top:32.8%;
-    left: 61.3%;
-    background-color: #20273b;
-    border: none;
-}
-
-.qna-box {
-    position: absolute;
-    top:32.8%;
-    left: 68.6%;
-    background-color: #20273b;
-    border: none;
-}
-.faq-box {
-    position: absolute;
-    top:32.8%;
-    left: 75.9%;
-    background-color: #20273b;
-    border: none;
-}
-
-table{
-border-collapse: separate;
-border-spacing: 0 40px;
-border: 1px solid #f4f4f4;
-}
-
-  th, td {
-    border: 1px solid #f4f4f4;
-    text-align: center;
-    bgcolor: #f4f4f4;
-  }
-</style>
+<link rel="stylesheet" href="../../css/header_wh.css" type="text/css">
 
 </head>
 
@@ -152,19 +34,18 @@ border: 1px solid #f4f4f4;
 </header>
 
 <body>
-<br><br><br>
-<h1>FAQ 목록</h1>
+<div style="position:absolute; left:16.6%; top:10.8%; font-size:2em">FAQ</div>
 <c:if test="${not empty loginUser and loginUser.power == 1}">
-<p><a href='add'>새 글</a></p>
+<a class="btn btn-primary" href="add" role="button" style="position: absolute; right:16.6%; top:10.8%;">Add</a>
 </c:if>
-<table class="table">
+
+<table style="position: absolute; border: 1px; width: 66.6%; border-collapse: separate; border-spacing: 0 13px; top: 16.76%; left: 16.7%">
 <thead>
 <tr>
 <th>번호</th> <th>제목</th> <th>작성자</th> <th>등록일</th>
 </tr>
 </thead>
 <tbody>
-
 <c:forEach items="${list}" var="f">
 <tr> 
   <td>${f.no}</td> 

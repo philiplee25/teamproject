@@ -11,6 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
   <meta charset="utf-8">
   <title>핫플레이스 목록</title>
+  <link rel="stylesheet" href="../../css/header_wh.css" type="text/css">
   <style>
     .wrap {position: absolute;left: 75px;bottom: 40px;top: -95px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
@@ -24,124 +25,8 @@
     .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
     .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
-    .info .link {color: #5085BB;}
-    
-  body{
-  background-color: #fff;
-}
-
-#map {
-   z-index: 100;
-   position: absolute;
-   width: 80%;
-   height: 800px;
-   top: 25%;
-   left: 25%;
-}
-        
-header{
-  background-color: #20273b;
-  position: fixed;
-  width: 100%;
-  height: 80px;
-  margin: 0 0 149px;
-  padding: 16px 100px 15px 83px;
-  z-index: 200;
-}
-
-.dropbtn {
-  background-color: #20273b;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
-
-.dropdown {
-  position: relative;
-  top: -10%;
-  left:54%;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #20273b;
-  min-width: 115px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  border-radius: 10px;
-}
-
-.dropdown-content a {
-  color: #a3a3a3;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {background-color: #fff;}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #20273b;}
-
-button.btn.btn-primary.btn-sm {
-    position: absolute;
-    top: 25%;
-    right: 5.2%;
-}
-
-.btn-primary {
-    width: 80px;
-    height: 40px;
-    padding: 8px 15px 11px;
-    border-radius: 10px;
-    background-color:#4d90eb;
-    border-color:#4d90eb;
-}
-
-
-.logo-box {
-    position: absolute;
-    top:25%;
-    left: 5.2%;
-    background-color: #20273b;
-    border: none;
-}
-
-.hotplace-box {
-    position: absolute;
-    top:32.8%;
-    left: 46%;
-    background-color: #20273b;
-    border: none;
-}
-
-.discount-box {
-    position: absolute;
-    top:32.8%;
-    left: 61.3%;
-    background-color: #20273b;
-    border: none;
-}
-
-.qna-box {
-    position: absolute;
-    top:32.8%;
-    left: 68.6%;
-    background-color: #20273b;
-    border: none;
-}
-.faq-box {
-    position: absolute;
-    top:32.8%;
-    left: 75.9%;
-    background-color: #20273b;
-    border: none;
-}
-
-</style>
+    .info .link {color: #5085BB;}   
+  </style>
 </head>
 
 <header>
@@ -164,10 +49,11 @@ button.btn.btn-primary.btn-sm {
 </header>
 
 <body>
-<br><br><br>
-<h1>핫플레이스</h1>
 
-<div id="map"></div>
+<div class="hotplace-background">
+  <div style="position:absolute; left:2%; top:2.74%; font-size:2em">핫플레이스</div>
+  <div id="map"></div>
+</div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=321d4ad60c277c79886760c525a516fe"></script>
 <script>

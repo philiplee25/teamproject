@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+body{
+  background-color: #fff;
+}
+        
+header{
+  background-color: #20273b;
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  margin: 0 0 149px;
+  padding: 16px 100px 15px 83px;
+  z-index: 200;
+}
+
+.dropbtn {
+  background-color: #20273b;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  top: -10%;
+  left:54%;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #20273b;
+  min-width: 115px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+
+.dropdown-content a {
+  color: #a3a3a3;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #fff;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #20273b;}
+
+button.btn.btn-primary.btn-sm {
+    position: absolute;
+    top: 25%;
+    right: 5.2%;
+}
+
+.btn-primary {
+    width: 80px;
+    height: 40px;
+    padding: 8px 15px 11px;
+    border-radius: 10px;
+    background-color:#4d90eb;
+    border-color:#4d90eb;
+}
+
+
+.logo-box {
+    position: absolute;
+    top:25%;
+    left: 5.2%;
+    background-color: #20273b;
+    border: none;
+}
+
+.hotplace-box {
+    position: absolute;
+    top:32.8%;
+    left: 46%;
+    background-color: #20273b;
+    border: none;
+}
+
+.discount-box {
+    position: absolute;
+    top:32.8%;
+    left: 61.3%;
+    background-color: #20273b;
+    border: none;
+}
+
+.qna-box {
+    position: absolute;
+    top:32.8%;
+    left: 68.6%;
+    background-color: #20273b;
+    border: none;
+}
+.faq-box {
+    position: absolute;
+    top:32.8%;
+    left: 75.9%;
+    background-color: #20273b;
+    border: none;
+}
+   
+   .hotplace-background {
+   z-index:99;
+   background-color: #f8f8f8;
+   position:absolute;
+   width: 66.6%;
+   height: 81.1%;
+   left: 16.7%;
+   bottom: 8.2%;
+   border-radius: 20px;
+   }
+
+  #map {
+   z-index: 100;
+   position: absolute;
+   width: 76.4%;
+   height: 86.3%;
+   top: 10.5%;
+   left: 11.8%;
+}
+
+  tr, td{
+    border: 1px solid #f4f4f4;
+    text-align: center;
+    background-color: #f4f4f4;
+    height: 50px;
+    border-radius: 10px;
+  }
+  
+  th{
+  border: 1px solid #fff;
+      text-align: center;
+      background-color: #fff;
+      font-size: 0.75em;
+  }
