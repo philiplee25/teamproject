@@ -9,8 +9,26 @@
 <html>
 <head>
 <title>게시글 상세</title>
+<link rel="stylesheet" type="text/css" href="../../css/clublist.css">
 </head>
 <body>
+
+<!-- 헤더 -->
+<button type="button" class="dropbtn" onclick="location.href='../hotplace/list'">핫플레이스</button>
+<div class="dropdown">
+    <button class="dropbtn">커뮤니티</button>
+  <div class="dropdown-content">
+    <a href="../board/list?boardtype=1">꿀팁게시판</a>
+    <a href="../board/list?boardtype=2">자유게시판</a>
+    <a href="../board/list?boardtype=3">세컨핸즈샵</a>
+    <a href="#">신고게시판</a>
+  </div>
+</div>
+<button type="button" class="dropbtn" onclick="location.href='../discount/list'">할인정보</button>
+<button type="button" class="dropbtn" onclick="location.href='../qna/list'">고객센터</button>
+<button type="button" class="dropbtn" onclick="location.href='../faq/list'">도움말</button>
+<!-- 헤더 -->
+
 <h1>게시글 상세보기1</h1>
 
 <c:if test="${not empty board}">
@@ -42,7 +60,9 @@
 <tfoot>
 <tr>
   <td colspan='2'>
-    <input type='submit' value='변경'><a href='delete?no=${board.no}'>삭제</a>
+    <input type='hidden' name='boardtype' value='${boardtype}'>
+    <input type='submit' value='변경'>
+    <a href='delete?no=${board.no}&boardtype=${boardtype}'>삭제</a>
   </td>
 </tr>
 </tfoot>
