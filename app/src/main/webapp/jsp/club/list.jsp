@@ -17,8 +17,9 @@
     body{
 		  background-image: url("../../images/airplane-2619434.jpg");
 		  background-size: 100%;
-		  background-position: 50% 30%;
+		  background-position: 50% 23%;
 		  background-repeat: no-repeat;
+		  z-index:-1;
 		}
     </style>
 </head>
@@ -43,97 +44,62 @@
 </header>
 
 
-<body id="background">
-<br><br><br>
-<h1>Club List1</h1>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-        crossorigin="anonymous"></script>
+<body>
+<div style="position: absolute; left:16.6%; top:22.56%; font-size:50px; color: #fff; font-weight: bold;">이제 조인하세요</div>
 
-<div class="form-check">
-    <input class="form-check-input" type="radio" name="select" id="selectjoin" OnClick="window.location.href='list';" checked>
-    <label class="form-check-label" for="selectjoin">
-        참여
-    </label>
+<div style="background-color: #20273b;
+   position:absolute;
+   width: 66.82%;
+   height: 22.22%;
+   left: 16.61%;
+   top: 35.65%;
+   border-radius: 20px;">
+		<div class="form-check" style="position: absolute; left: 3.12%; top: 16.67%;">
+		    <input class="form-check-input" type="radio" name="select" id="selectjoin" OnClick="window.location.href='list';" checked>
+		    <label class="form-check-label" for="selectjoin" style="color: #fff;">
+		        참여
+		    </label>
+		</div>
+		<div class="form-check" style="position: absolute; left: 11.85%; top: 16.67%;">
+		    <input class="form-check-input" type="radio" name="select" id="selectadd" OnClick="window.location.href='add';">
+		    <label class="form-check-label" for="selectadd" style="color: #fff;">
+		        생성
+		    </label>
+		</div>
+		
+		<form method='get' style= "position: absolute; border: 1px; width: 90%; border-collapse: collapse; top: 40%; left: 3.35%; color:#fff;">
+		    <fieldset>
+		        <table>
+		            <thead style="font-size: 0.75em;">
+			            <tr>
+			              <th>도착지</th><th>가는날</th><th>오는날</th><th>테마</th>
+			            </tr>
+			           </thead>
+		            
+		            <tbody>
+			            <tr>
+			              <td><input type='search' name='arrive' value='${param.arrive}' style="width: 254px; height: 54px; border-radius: 10px;"></td>
+		                <td><input type='date' name='startDate' value='${param.startDate}' style="width: 254px; height: 54px; border-radius: 10px;"></td>
+			              <td><input type='date' name='endDate' value='${param.endDate}' style="width: 254px; height: 54px; border-radius: 10px;"></td>
+			              <td><select name="theme" id="theme" style="width: 254px; height: 54px; border-radius: 10px;">
+			                    <option value=''></option>
+			                    <option value='불멍때리기'>불멍때리기</option>
+			                    <option value='고기파티'>고기파티</option>
+			                    <option value='낚시'>낚시</option>
+			                    <option value='일상탈출'>일상탈출</option>
+			                    <option value='글램핑'>글램핑</option>
+			                    <option value='캠핑'>캠핑</option>
+			                    <option value='별보기'>별보기</option>
+			              </td>
+				            <td>
+	                   <button style="width: 163px; height: 54px; border-radius: 10px; right: 40px; background-color: #4d90eb; color: #fff; font-weight: bold;">Search</button>
+				            </td>
+			            </tr>
+                </tbody>
+		        </table>
+		    </fieldset>
+		</form>
 </div>
-<div class="form-check">
-    <input class="form-check-input" type="radio" name="select" id="selectadd" OnClick="window.location.href='add';">
-    <label class="form-check-label" for="selectadd">
-        생성
-    </label>
-</div>
-
-<p><a href='reportList'>클럽 신고게시판</a></p>
-
-<form method='get'>
-    <fieldset>
-        <legend>클럽 상세 검색</legend>
-        <table border='1'>
-            <tbody>
-            <tr>
-                <th>도착지</th>
-                <td><input type='search' name='arrive' value='${param.arrive}'></td>
-            </tr>
-            <tr>
-                <th>가는날</th>
-                <td><input type='date' name='startDate' value='${param.startDate}'></td>
-            </tr>
-            <tr>
-                <th>오는날</th>
-                <td><input type='date' name='endDate' value='${param.endDate}'></td>
-            </tr>
-            <tr>
-                <th>테마</th>
-                <td><select name="theme" id="theme">
-                    <option value=''></option>
-                    <option value='불멍때리기'>불멍때리기</option>
-                    <option value='고기파티'>고기파티</option>
-                    <option value='낚시'>낚시</option>
-                    <option value='일상탈출'>일상탈출</option>
-                    <option value='글램핑'>글램핑</option>
-                    <option value='캠핑'>캠핑</option>
-                    <option value='별보기'>별보기</option></td>
-            </tr>
-            <tr>
-                <td colspan='2'>
-                    <button>검색</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </fieldset>
-</form>
-
-<table border='1'>
-    <thead>
-    <tr>
-        <th>번호</th>
-        <th>도착지</th>
-        <th>가는날</th>
-        <th>오는날</th>
-        <th>테마</th>
-        <th>인원수</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${clubs}" var="c">
-        <tr>
-            <td><a href='detail?no=${c.no}'>${c.no}</a></td>
-            <td>${c.arrive}</td>
-            <td>${c.startDate}</td>
-            <td>${c.endDate}</td>
-            <td>${c.theme}</td>
-            <td>${c.total}</td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
-<%--<form action='search' method='get'>--%>
-<%--    <input type='text' name='keyword'>--%>
-<%--    <button>검색</button>--%>
-<%--</form>--%>
 
 </body>
 </html>

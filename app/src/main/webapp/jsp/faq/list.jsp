@@ -40,21 +40,22 @@
 </c:if>
 
 <table style="position: absolute; border: 1px; width: 66.6%; border-collapse: separate; border-spacing: 0 13px; top: 16.76%; left: 16.7%">
-<thead>
-<tr>
-<th>번호</th> <th>제목</th> <th>작성자</th> <th>등록일</th>
-</tr>
-</thead>
-<tbody>
-<c:forEach items="${list}" var="f">
-<tr> 
-  <td>${f.no}</td> 
-  <td><a href='detail?no=${f.no}'>${f.title}</a></td>
-  <td>관리자</td>
-  <td>${f.date}</td>
-</tr>
-</c:forEach>
-</tbody>
+		<thead>
+			<tr>
+			<th>번호</th> <th>제목</th> <th>작성자</th> <th>등록일</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+		<c:forEach items="${list}" var="f">
+			<tr> 
+			  <td>${f.no}</td> 
+			  <td><a href='detail?no=${f.no}'>${f.title}</a></td>
+			  <td>관리자</td>
+			  <td>${f.date}</td>
+			</tr>
+		</c:forEach>
+		</tbody>
 </table>
 
 <form action='list' method='get'>

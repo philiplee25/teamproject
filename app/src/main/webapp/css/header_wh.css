@@ -116,7 +116,7 @@ button.btn.btn-primary.btn-sm {
    bottom: 8.2%;
    border-radius: 20px;
    }
-
+   
   #map {
    z-index: 100;
    position: absolute;
@@ -126,13 +126,14 @@ button.btn.btn-primary.btn-sm {
    left: 11.8%;
 }
 
-  tr, td{
+    tr{
     border: 1px solid #f4f4f4;
     text-align: center;
     background-color: #f4f4f4;
     height: 50px;
     border-radius: 10px;
-  }
+    }
+
   
   th{
   border: 1px solid #fff;
