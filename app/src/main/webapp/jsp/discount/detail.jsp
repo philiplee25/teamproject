@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <title>할인정보 상세</title>
 <style>
 body{
@@ -122,10 +123,10 @@ button.btn.btn-primary.btn-sm {
         <div class="dropdown">
             <button class="dropbtn"><img  src="../../images/community-bl.png"></button>
           <div class="dropdown-content">
-            <a href="#">꿀팁게시판</a>
-            <a href="#">자유게시판</a>
-             <a href="#">세컨핸즈샵</a>
-             <a href="#">신고게시판</a>
+            <a href="../board/list?boardtype=1">꿀팁게시판</a>
+            <a href="../board/list?boardtype=2">자유게시판</a>
+             <a href="../board/list?boardtype=3">세컨핸즈샵</a>
+             <a href="../club/reportList">신고게시판</a>
           </div>
          </div>
          <button type="button" class="discount-box" onclick="location.href='../discount/list'"><img  src="../../images/discount-bl.png"></button>

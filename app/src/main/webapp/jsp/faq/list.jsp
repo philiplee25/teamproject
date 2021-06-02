@@ -138,10 +138,10 @@ border: 1px solid #f4f4f4;
         <div class="dropdown">
             <button class="dropbtn"><img  src="../../images/community-bl.png"></button>
           <div class="dropdown-content">
-            <a href="#">꿀팁게시판</a>
-            <a href="#">자유게시판</a>
-             <a href="#">세컨핸즈샵</a>
-             <a href="#">신고게시판</a>
+            <a href="../board/list?boardtype=1">꿀팁게시판</a>
+            <a href="../board/list?boardtype=2">자유게시판</a>
+             <a href="../board/list?boardtype=3">세컨핸즈샵</a>
+             <a href="../club/reportList">신고게시판</a>
           </div>
          </div>
          <button type="button" class="discount-box" onclick="location.href='../discount/list'"><img  src="../../images/discount-bl.png"></button>
