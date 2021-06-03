@@ -44,7 +44,7 @@
 <h1>FAQ 상세보기</h1>
 
 <form action='update' method='post'>
-<table border='1'>
+<table class="list" border='1'>
   <tbody>
     <tr><th>번호</th> <td><input type='text' name='no' value='${faq.no}' readonly></td></tr>
     <tr><th>제목</th> <td><input name='title' type='text' value='${faq.title}'></td></tr>

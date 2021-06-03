@@ -53,13 +53,14 @@
 <tr><th>번호</th> <td><input type='text' name='no' value='${board.no}' readonly></td></tr>
 <tr><th>제목</th> <td><input name='title' type='text' value='${board.title}'></td></tr>
 
-<tr><th>사진</th>
+<tr><th>사진</th><td>
 <c:if test="${not empty board.photos}">
   <c:forEach items="${board.photos}" var="p" >
-  <c:set var="photo250x250Url">../../upload/${p.photo}_250x250.jpg</c:set>
-   <td><img src='${photo250x250Url}'><br></td>
+  <c:set var="photo80x80Url">../../upload/${p.photo}_80x80.jpg</c:set>
+   <span><img src='${photo80x80Url}'></span>
 <%--    <input name='photo' type='file'></td> --%>  
    </c:forEach> 
+   </td>
 </c:if>
 </tr>
 

@@ -47,7 +47,7 @@
 <c:if test="${not empty loginUser and loginUser.power == 1}">
 <a class="btn btn-primary" href="add" role="button" style="position: absolute; right:16.6%; top:10.8%;">Add</a>
 </c:if>
-<table style="position: absolute; border: 1px; width: 66.6%; border-collapse: separate; border-spacing: 0 13px; top: 16.76%; left: 16.7%">
+<table class="list" style="position: absolute; border: 1px; width: 66.6%; border-collapse: separate; border-spacing: 0 13px; top: 16.76%; left: 16.7%">
 <thead>
 <tr>
 <th>번호</th> <th> </th><th>제목</th> <th>작성자</th> <th>등록일</th> <th>조회수</th>

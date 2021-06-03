@@ -46,7 +46,7 @@
 <body>
 <div style="position:absolute; left:16.6%; top:10.8%; font-size:2em">신고게시판</div>
 
-<table style="position: absolute; border: 1px; width: 66.6%; border-collapse: separate; border-spacing: 0 13px; top: 16.76%; left: 16.7%">
+<table class="list" style="position: absolute; border: 1px; width: 66.6%; border-collapse: separate; border-spacing: 0 13px; top: 16.76%; left: 16.7%">
     <thead>
     <tr>
         <th>글번호</th>

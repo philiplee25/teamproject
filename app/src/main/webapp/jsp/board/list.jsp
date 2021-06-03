@@ -44,7 +44,7 @@
 <body>
 <div style="position:absolute; left:16.6%; top:10.8%; font-size:2em">게시글 목록</div>
 <a class="btn btn-primary" href="add?boardtype=${boardtype}" role="button" style="position: absolute; right:16.6%; top:10.8%;">Add</a>
-<table style="position: absolute; border: 1px; width: 66.6%; border-collapse: separate; border-spacing: 0 13px; top: 16.76%; left: 16.7%">
+<table class="list" style="position: absolute; border: 1px; width: 66.6%; border-collapse: separate; border-spacing: 0 13px; top: 16.76%; left: 16.7%">
 <thead>
 <tr>
 <th>번호</th> <th>제목</th> <th>작성자</th> <th>등록일</th> <th>조회수</th>

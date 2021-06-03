@@ -48,7 +48,7 @@
 <a class="btn btn-primary" href="add" role="button" style="position: absolute; right:16.6%; top:10.8%;">Add</a>
 </c:if>
 
-<table style="position: absolute; border: 1px; width: 66.6%; border-collapse: separate; border-spacing: 0 13px; top: 16.76%; left: 16.7%">
+<table class="list" style="position: absolute; border: 1px; width: 66.6%; border-collapse: separate; border-spacing: 0 13px; top: 16.76%; left: 16.7%">
 		<thead>
 			<tr>
 			<th>번호</th> <th>제목</th> <th>작성자</th> <th>등록일</th>
@@ -69,7 +69,6 @@
 
 <form action='list' method='get' style= "position: absolute; bottom: 7%; left: 36%; color:#fff;">
   <input type='text' name='keyword' value='${param.keyword}' style="width: 500px;">
-  <input type='hidden' name='boardtype' value='${boardtype}'>
   <button type="button" class="btn btn-primary btn-sm2">search</button>
 </form>
 

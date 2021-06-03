@@ -51,7 +51,7 @@
     <input type='hidden' name='keyword' value='${loginUser.no}'>
     <button>내 글 보기</button>
 </form>
-<table style="position: absolute; border: 1px; width: 66.6%; border-collapse: separate; border-spacing: 0 13px; top: 16.76%; left: 16.7%">
+<table class="list" style="position: absolute; border: 1px; width: 66.6%; border-collapse: separate; border-spacing: 0 13px; top: 16.76%; left: 16.7%">
     <thead>
     <tr>
         <th>번호</th> <th>제목</th> <th>작성자</th> <th>작성일</th>

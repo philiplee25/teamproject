@@ -30,7 +30,7 @@
 </head>
 
 <header>
-        <button type="button" class="logo-box" onclick="location.href='../club/list'"><img  src="../../images/joinjoylogo-bl.png"></button>
+        <button type="button" class="logo-box" onclick="location.href='../club/main'"><img  src="../../images/joinjoylogo-bl.png"></button>
         <button type="button" class="hotplace-box" onclick="location.href='../hotplace/list'"><img  src="../../images/hotplace-bl.png"></button>
         <div class="dropdown">
             <button class="dropbtn"><img  src="../../images/community-bl.png"></button>

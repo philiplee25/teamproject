@@ -7,19 +7,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.osk.team.domain.Board;
 import com.osk.team.domain.BoardPhoto;
 import com.osk.team.domain.Member;
 import com.osk.team.service.BoardService;
-
 import net.coobird.thumbnailator.ThumbnailParameter;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -87,13 +83,13 @@ public class BoardController {
 
         // 썸네일 이미지 생성
         Thumbnails.of(uploadDir + "/" + filename)
-        .size(250, 250)
+            .size(80, 80)
         .outputFormat("jpg")
         .crop(Positions.CENTER)
         .toFiles(new Rename() {
           @Override
           public String apply(String name, ThumbnailParameter param) {
-            return name + "_250x250";
+                return name + "_80x80";
           }
         });
       }

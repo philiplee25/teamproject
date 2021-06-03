@@ -153,6 +153,7 @@ button.btn.btn-primary.btn-sm2 {
     background-color: #f4f4f4;
     height: 50px;
     border-radius: 10px;
+    width: 100%;
     }
 
   
@@ -161,4 +162,10 @@ button.btn.btn-primary.btn-sm2 {
       text-align: center;
       background-color: #fff;
       font-size: 0.75em;
+  }
+  
+    table.list td{
+      border: 1px solid #f4f4f4;
+      text-align: center;
+      background-color: #f4f4f4;
   }
