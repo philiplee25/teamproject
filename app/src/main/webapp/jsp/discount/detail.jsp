@@ -12,7 +12,7 @@
 </head>
 
 <header>
-        <button type="button" class="logo-box" onclick="location.href='../club/list'"><img  src="../../images/joinjoylogo-bl.png"></button>
+        <button type="button" class="logo-box" onclick="location.href='../club/main'"><img  src="../../images/joinjoylogo-bl.png"></button>
         <button type="button" class="hotplace-box" onclick="location.href='../hotplace/list'"><img  src="../../images/hotplace-bl.png"></button>
         <div class="dropdown">
             <button class="dropbtn"><img  src="../../images/community-bl.png"></button>
@@ -27,7 +27,16 @@
          <button type="button" class="qna-box" onclick="location.href='../qna/list'"><img  src="../../images/qna-bl.png"></button>
         <button type="button" class="faq-box" onclick="location.href='../faq/list'"><img  src="../../images/faq-bl.png"></button>
          
-      <button type="button" class="btn btn-primary btn-sm">logout</button>
+      <c:choose>
+          <c:when test="${empty loginUser}">       
+              <button type="button" class="btn-outline-primary" onclick="location.href='../member/addd'">Sign up</button>
+              <button type="button" class="btn btn-primary btn-sm" onclick="location.href='../login'">Login</button> 
+          </c:when>
+          <c:otherwise>
+              <button type="button" class="btn-outline-primary" onclick="location.href='../member/detail'">My page</button>
+              <button type="button" class="btn btn-primary btn-sm" onclick="location.href='../logout'">Logout</button> 
+          </c:otherwise>
+      </c:choose>
 </header>
 
 <body>

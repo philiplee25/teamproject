@@ -45,7 +45,16 @@
          <button type="button" class="qna-box" onclick="location.href='../qna/list'"><img  src="../../images/qna-bl.png"></button>
         <button type="button" class="faq-box" onclick="location.href='../faq/list'"><img  src="../../images/faq-bl.png"></button>
          
-      <button type="button" class="btn btn-primary btn-sm">logout</button>
+      <c:choose>
+          <c:when test="${empty loginUser}">       
+              <button type="button" class="btn-outline-primary" onclick="location.href='../member/addd'">Sign up</button>
+              <button type="button" class="btn btn-primary btn-sm" onclick="location.href='../login'">Login</button> 
+          </c:when>
+          <c:otherwise>
+              <button type="button" class="btn-outline-primary" onclick="location.href='../member/detail'">My page</button>
+              <button type="button" class="btn btn-primary btn-sm" onclick="location.href='../logout'">Logout</button> 
+          </c:otherwise>
+      </c:choose>
 </header>
 
 <body>
@@ -60,8 +69,8 @@
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
-        center: new kakao.maps.LatLng(37.577962, 126.976915), // 지도의 중심좌표
-        level: 7 // 지도의 확대 레벨
+        center: new kakao.maps.LatLng(36.538725, 128.518271), // 지도의 중심좌표
+        level: 13 // 지도의 확대 레벨
     };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다

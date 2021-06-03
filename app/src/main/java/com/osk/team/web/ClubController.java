@@ -1,5 +1,15 @@
 package com.osk.team.web;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.osk.team.domain.Club;
 import com.osk.team.domain.Member;
 import com.osk.team.domain.Photo;
@@ -9,17 +19,6 @@ import net.coobird.thumbnailator.ThumbnailParameter;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import net.coobird.thumbnailator.name.Rename;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/club/")
@@ -167,6 +166,25 @@ public class ClubController {
 
         clubService.addWithMember(params);
         return "redirect:list";
+    }
+
+    @RequestMapping("main")
+    public String main(HttpServletRequest request, HttpServletResponse response) throws Exception {
+      List<Club> clubs = null;
+
+      String arrive = request.getParameter("arrive");
+      String startDate = request.getParameter("startDate");
+      String endDate = request.getParameter("endDate");
+      String theme = request.getParameter("theme");
+
+      if ((arrive != null && arrive.length() > 0) || (startDate != null && startDate.length() > 0)
+          || (endDate != null && endDate.length() > 0) || (theme != null && theme.length() > 0)) {
+        clubs = clubService.search(arrive, startDate, endDate, theme);
+      } else {
+        clubs = clubService.list();
+      }
+      request.setAttribute("clubs", clubs);
+      return "/jsp/club/main.jsp";
     }
 
     @RequestMapping("list")

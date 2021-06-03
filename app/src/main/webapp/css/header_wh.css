@@ -57,7 +57,7 @@ button.btn.btn-primary.btn-sm {
     right: 5.2%;
 }
 
-.btn-primary {
+button.btn.btn-primary.btn-sm2 {
     width: 80px;
     height: 40px;
     padding: 8px 15px 11px;
@@ -66,6 +66,14 @@ button.btn.btn-primary.btn-sm {
     border-color:#4d90eb;
 }
 
+.btn-primary {
+    width: 80px;
+    height: 40px;
+    padding: 8px 15px 11px;
+    border-radius: 10px;
+    background-color:#4d90eb;
+    border-color:#4d90eb;
+}
 
 .logo-box {
     position: absolute;
@@ -81,6 +89,19 @@ button.btn.btn-primary.btn-sm {
     left: 46%;
     background-color: #20273b;
     border: none;
+}
+
+.btn-outline-primary {
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    background-color:#fff;
+    border-color:#4d90eb;
+    position: absolute;
+    box-shadow: none;
+    top: 25%;
+    right: 11%;
+    font-size: 0.8em;
 }
 
 .discount-box {
@@ -126,7 +147,7 @@ button.btn.btn-primary.btn-sm {
    left: 11.8%;
 }
 
-    tr{
+    table.list tr{
     border: 1px solid #f4f4f4;
     text-align: center;
     background-color: #f4f4f4;
@@ -135,7 +156,7 @@ button.btn.btn-primary.btn-sm {
     }
 
   
-  th{
+  table.list th{
   border: 1px solid #fff;
       text-align: center;
       background-color: #fff;
